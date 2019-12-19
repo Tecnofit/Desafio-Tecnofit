@@ -43,8 +43,8 @@ Confirma abaixo as premissas do produto:
   
 # Como vamos avaliar
   * Vamos subir a aplicação e acessar via localhost;
-  * Vamos cadastrar/editar/deletar/atualizar os alunos e exercícios;
-  * Vamos cadastrar/editar/atualizar/ativar os treinos; e
+  * Vamos cadastrar/editar/deletar os alunos e exercícios;
+  * Vamos cadastrar/editar/ativar os treinos; e
   * Vamos finalizar ou pular os exercícios do treno.
   
 # Diferenciais
