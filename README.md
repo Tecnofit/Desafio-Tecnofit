@@ -41,3 +41,18 @@ Confirma abaixo as premissas do produto:
   * Só deve existir um treino ativo por aluno.
   
   
+# Como vamos avaliar
+  * Vamos subir a aplicação e acessar via localhost;
+  * Vamos cadastrar/editar/deletar/atualizar os espetáculo;
+  * Vamos reservar e cancelar as reservas das poltronas;
+  * Vamos verificar se o valor arrecadado esta preciso e correto.
+  
+# Diferenciais
+- Não utilizar framework
+  
+# Dúvidas
+
+Se surgir alguma dúvida, consulte as [perguntas feitas anteriormente](https://github.com/Tecnofit/Desafio-Tecnofit/issues).
+
+Caso não encontre a sua resposta, sinta-se à vontade para [abrir uma issue](https://github.com/Tecnofit/Desafio-Tecnofit/issues/new) =]  
+  
