@@ -43,9 +43,9 @@ Confirma abaixo as premissas do produto:
   
 # Como vamos avaliar
   * Vamos subir a aplicação e acessar via localhost;
-  * Vamos cadastrar/editar/deletar/atualizar os espetáculo;
-  * Vamos reservar e cancelar as reservas das poltronas;
-  * Vamos verificar se o valor arrecadado esta preciso e correto.
+  * Vamos cadastrar/editar/deletar/atualizar os alunos e exercícios;
+  * Vamos cadastrar/editar/atualizar/ativar os treinos; e
+  * Vamos finalizar ou pular os exercícios do treno.
   
 # Diferenciais
 - Não utilizar framework
