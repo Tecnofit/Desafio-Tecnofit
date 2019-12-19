@@ -55,4 +55,8 @@ Confirma abaixo as premissas do produto:
 Se surgir alguma dúvida, consulte as [perguntas feitas anteriormente](https://github.com/Tecnofit/Desafio-Tecnofit/issues).
 
 Caso não encontre a sua resposta, sinta-se à vontade para [abrir uma issue](https://github.com/Tecnofit/Desafio-Tecnofit/issues/new) =]  
+
+
+## License
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
   
