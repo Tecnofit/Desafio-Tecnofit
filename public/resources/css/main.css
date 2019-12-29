@@ -1,0 +1,265 @@
+@font-face {
+    font-family: mainFont;
+    src: url(../fonts/HindMadurai/HindMadurai-Regular.ttf);
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'mainFont', sans-serif;
+}
+
+.flex-container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.flex-container-col {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.flex-right {
+    justify-content: flex-end;
+}
+
+header.main-header {
+    height: 80px;
+    background-color: #43b5b7;
+    color: #ffffff;
+    align-content: center;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-wrap {
+    color: #4c4141;
+    padding: 20px;
+}
+
+.card {
+    border: solid 1px #a9a9a9;
+    border-radius: 5px;
+    height: 200px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.title-card {
+    height: 60%;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    background-color: #43b5b7;
+    color: white;
+}
+
+.small-card {
+    width: 50%;
+    align-self: flex-end;
+    height: 40%;
+    justify-content: center;
+    align-content: center;
+    border: solid 1px #a9a9a9;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.card-list {
+    border: solid 1px #a9a9a9;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+    padding: 5px;
+}
+
+.card-list h4 {
+    width: 100%;
+    text-align: center;
+}
+
+.card-list .actions {
+    border-top: solid 1px #a9a9a9;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.card-list .actions img {
+    width: 40px;
+    height: 40px;
+}
+
+.full-row {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.half-row {
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.textfield100 {
+    width: 100%;
+    border: solid 1px #a9a9a9;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.textfield50 {
+    width: 50%;
+    border: solid 1px #a9a9a9;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.btn {
+    width: 100%;
+    height: 50px;
+    border: solid 1px #a9a9a9;
+    border-radius: 5px;
+    font-size: 1.1em;
+    color: #4c4141;
+}
+
+.btn-half {
+    width: 40%;
+    height: 50px;
+    border: solid 1px #a9a9a9;
+    border-radius: 5px;
+    font-size: 1.1em;
+    color: #4c4141;
+}
+
+.btn-save {
+    color: white;
+    background-color: #43b5b7;
+}
+
+.exercises-selection {
+    border: solid 1px #a9a9a9;
+    height: 300px;
+    padding: 4px;
+    align-content: flex-start;
+    overflow: auto;
+}
+
+.exercises-selection .exercise {
+    height: 80px;
+    justify-content: flex-start;
+}
+
+.exercises-selection .exercise:nth-child(odd) {
+    background-color: #efefef;
+}
+
+img.icon-workout {
+    display: none;
+}
+
+.icon {
+    width: 60px;
+    height: 60px;
+}
+
+.icon.home {
+    cursor: pointer;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+@media screen and (min-width: 500px) {
+    .card {
+        border: solid 1px #a9a9a9;
+        border-radius: 5px;
+        height: 250px;
+        margin-bottom: 20px;
+        justify-content: center;
+        margin: 5px;
+    }   
+}
+
+@media screen and (min-width: 650px) {
+    .main-wrap {
+        color: #4c4141;
+        padding: 20px;
+    }
+    
+    .card {
+        border: solid 1px #a9a9a9;
+        border-radius: 5px;
+        height: 250px;
+        margin-bottom: 20px;
+        width: 48%;
+        margin: 5px;
+    }
+
+    .form-container {
+        justify-content: center;
+    }
+
+    .form-container form {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .main-wrap {
+        color: #4c4141;
+        padding: 20px;
+    }
+    
+    .card {
+        border: solid 1px #a9a9a9;
+        border-radius: 5px;
+        height: 300px;
+        margin-bottom: 20px;
+        width: 48%;
+        margin: 5px;
+    }
+    
+    .form-container {
+        justify-content: center;
+    }
+
+    .form-container form {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .main-wrap {
+        color: #4c4141;
+        padding: 20px;
+        justify-content: center;
+    }
+    
+    .card {
+        border: solid 1px #a9a9a9;
+        border-radius: 5px;
+        height: 300px;
+        margin-bottom: 20px;
+        justify-content: center;
+        width: 60%;
+        max-width: 800px;
+        margin: 5px;
+    }
+
+    .form-container {
+        justify-content: center;
+    }
+
+    .form-container form {
+        width: 60%;
+        max-width: 700px;
+    }
+}
