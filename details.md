@@ -17,7 +17,7 @@
     - Em _C:\Windows\System32\drivers\etc\hosts_ fiz o seguinte mapeamento para o projeto
     ```127.0.0.1   alan.tecno```
 - Em ```/back/conf/database.php``` está a configuração do banco de dados, preencha com os dados do seu banco
-    - E falando em banco em ```/init``` tem um arquivo chamado **db.sql** que tem instruções para criar o **usuário** e suas **permissões**, o **banco de dados** e alguns inserts iniciais e as **tabelas**
+    - E falando em banco em ```public/init``` tem um arquivo chamado **db.sql** que tem instruções para criar o **usuário** e suas **permissões**, o **banco de dados** e alguns inserts iniciais e as **tabelas**
 - Navegue até a pasta do projeto recém clonado e rode o comando:
 ```$ composer install```
 esse comando irá fazer os mapeamentos dos arquivos pelo autoloader
