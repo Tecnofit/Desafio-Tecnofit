@@ -10,6 +10,6 @@ class Exercise extends Model
     
     public function workouts()
     {
-        return $this->belongsToMany(Workout::class, 'workout_exercises', 'id_exercise', 'id_workout');
+        return $this->belongsToMany(Workout::class, 'workout_exercises', 'id_exercise', 'id_workout')->withPivot('series');
     }
 }

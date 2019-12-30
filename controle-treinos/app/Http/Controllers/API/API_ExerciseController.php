@@ -39,6 +39,24 @@ class API_ExerciseController extends Controller
 
     public function destroy($id)
     {
+        $exercise = Exercise::find($id);
+        $workouts = $exercise->workouts;
+
+        foreach($workouts as $workout)
+        {
+            if($workout->active == true)
+            {
+                return response()->json(
+                    ["error" => "Exercício em treino ativo"]
+                );
+            }
+        }
+
+        foreach($workouts as $workout)
+        {
+            $workout->exercises()->detach();
+        }
+
         $exercise = Exercise::destroy($id);
 
         return response()->json($exercise);

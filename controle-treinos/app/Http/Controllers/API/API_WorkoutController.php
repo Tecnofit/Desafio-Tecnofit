@@ -28,11 +28,24 @@ class API_WorkoutController extends Controller
     {
         $workout = Workout::create($request->all());
 
+        // $exercises = Exercise::find($request->exercises);
+        $exercises = $request->exercises;
+
+        foreach($exercises as $exercise)
+        {
+            $workout->exercises()->attach($exercise['id_exercise'], ['series' => $exercise['series']]);
+        }
+
         if($request->active)
         {
             $student = Student::find($request->student_id);
-            $deactivate_workout = Workout::find($student->active_workout)->update(['active' => false]);
-
+            $deactivate_workout = Workout::find($student->active_workout);
+            
+            if($deactivate_workout)
+            {
+                $deactivate_workout->update(['active' => false]);
+            }
+            
             $student->update(['active_workout' => $workout->id]);
         }
         
@@ -43,6 +56,13 @@ class API_WorkoutController extends Controller
     {
         $workout = Workout::find($id);
         $workout->update($request->all());
+        
+        $exercises = $request->exercises;
+
+        foreach($exercises as $exercise)
+        {
+            $workout->exercises()->attach($exercise['id_exercise'], ['series' => $exercise['series']]);
+        }
 
         if($request->active)
         {
@@ -55,20 +75,31 @@ class API_WorkoutController extends Controller
             }
         }
 
+        if($request->done)
+        {
+            $student = Student::find($workout->student_id);
+
+            if($student->active_workout == $workout->id)
+            {
+                $student->update(['active_workout' => null]);
+                $workout->update(['active' => false]);
+            }
+        }
+
         return response()->json($workout);
     }
 
-    public function exercises(Request $request, int $id)
+    public function exercises(int $id)
     {
         $workout = Workout::find($id);
-        $exercises = Exercise::find($request->exercises);
-        $workout->exercises()->attach($exercises);
 
-        return response()->json($workout);
+        return response()->json($workout->exercises);
     }
 
     public function destroy($id)
     {
+        $workout = Workout::find($id);
+        $workout->exercises()->detach();
         $workout = Workout::destroy($id);
 
         return response()->json($workout);

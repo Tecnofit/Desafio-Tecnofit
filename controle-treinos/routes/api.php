@@ -25,12 +25,13 @@ Route::post('/students/create', 'API\API_StudentController@store');
 Route::put('/students/{id}', 'API\API_StudentController@update');
 Route::delete('/students/{id}', 'API\API_StudentController@destroy');
 
-Route::get('/workouts', 'API\API_WorkoutController@index');
+
+Route::get('/workouts', 'API\API_WorkoutController@index'); //remover rota
 Route::get('/workouts/{id}', 'API\API_WorkoutController@show');
 Route::post('/workouts/create', 'API\API_WorkoutController@store');
-Route::post('/workouts/create/{id}/exercises', 'API\API_WorkoutController@exercises');
 Route::put('/workouts/{id}', 'API\API_WorkoutController@update');
 Route::delete('/workouts/{id}', 'API\API_WorkoutController@destroy');
+Route::get('/workouts/{id}/exercises', 'API\API_WorkoutController@exercises'); //remover rota
 
 
 Route::get('/exercises', 'API\API_ExerciseController@index');

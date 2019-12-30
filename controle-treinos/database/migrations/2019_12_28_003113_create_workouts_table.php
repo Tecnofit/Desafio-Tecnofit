@@ -18,12 +18,11 @@ class CreateWorkoutsTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('student_id');
-            $table->foreign('student_id')
-                ->references('id')
-                ->on('students');
             $table->boolean('active')->default(false);
             $table->boolean('done')->default(false);
             $table->timestamps();
+
+            $table->foreign('student_id')->references('id')->on('students');
         });
     }
 

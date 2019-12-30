@@ -15,17 +15,15 @@ class CreateWorkoutExercisesTable extends Migration
     {
         Schema::create('workout_exercises', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_workout');
-            $table->foreign('id_workout')
-                ->references('id')
-                ->on('workouts');
-            $table->integer('id_exercise');
-            $table->foreign('id_exercise')
-                ->references('id')
-                ->on('exercises');
-            $table->integer('series');
+            $table->integer('id_workout')->onDelete('cascade');
+            $table->integer('id_exercise')->onDelete('cascade');
             $table->integer('done')->default(0);
+            $table->integer('series');
             $table->timestamps();
+
+            $table->foreign('id_workout')->references('id')->on('workouts');
+            $table->foreign('id_exercise')->references('id')->on('exercises');
+            
         });
     }
 

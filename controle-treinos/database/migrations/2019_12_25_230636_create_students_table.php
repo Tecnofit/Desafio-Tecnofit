@@ -21,10 +21,9 @@ class CreateStudentsTable extends Migration
             $table->string('address')->nullable();
             $table->string('notes')->nullable();
             $table->integer('active_workout')->nullable();
-            $table->foreign('active_workout')
-                ->references('id')
-                ->on('workouts');
             $table->timestamps();
+
+            $table->foreign('active_workout')->references('id')->on('workouts');
         });
     }
 
