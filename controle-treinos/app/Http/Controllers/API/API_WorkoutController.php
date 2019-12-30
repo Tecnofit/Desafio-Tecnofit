@@ -21,7 +21,15 @@ class API_WorkoutController extends Controller
     {
         $workout = Workout::find($id);
 
-        return response()->json($workout);
+        if ($workout)
+        {
+            return response()->json($workout);
+        } else {
+            return response()->json(
+                ["error" => "Workout not found"]
+            );
+        }
+
     }
     
     public function store(Request $request)
@@ -36,12 +44,12 @@ class API_WorkoutController extends Controller
             $workout->exercises()->attach($exercise['id_exercise'], ['series' => $exercise['series']]);
         }
 
-        if($request->active)
+        if ($request->active)
         {
             $student = Student::find($request->student_id);
             $deactivate_workout = Workout::find($student->active_workout);
             
-            if($deactivate_workout)
+            if ($deactivate_workout)
             {
                 $deactivate_workout->update(['active' => false]);
             }
@@ -64,22 +72,22 @@ class API_WorkoutController extends Controller
             $workout->exercises()->attach($exercise['id_exercise'], ['series' => $exercise['series']]);
         }
 
-        if($request->active)
+        if ($request->active)
         {
             $student = Student::find($workout->student_id);
 
-            if($student->active_workout != $workout->id)
+            if ($student->active_workout != $workout->id)
             {
                 $deactivate_workout = Workout::find($student->active_workout)->update(['active' => false]);
                 $student->update(['active_workout' => $workout->id]);
             }
         }
 
-        if($request->done)
+        if ($request->done)
         {
             $student = Student::find($workout->student_id);
 
-            if($student->active_workout == $workout->id)
+            if ($student->active_workout == $workout->id)
             {
                 $student->update(['active_workout' => null]);
                 $workout->update(['active' => false]);

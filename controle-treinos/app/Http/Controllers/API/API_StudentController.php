@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Student;
+use App\Workout;
+
 
 class API_StudentController extends Controller
   {
@@ -39,16 +41,30 @@ class API_StudentController extends Controller
 
     public function destroy(int $id)
     {
-        $student = Student::destroy($id);
+        $student = Student::find($id);
 
-        return response()->json($student);
-    }
+        if ($student)
+        {
+            $student->update(['active_workout' => null]);
 
-    public function active_workout(int $id)
-    {
-        $workout = Student::find($id)->active_workout;
+            $workouts = $student->workouts;
+    
+            foreach($workouts as $workout)
+            {
+                $workout->exercises()->detach();
+                Workout::destroy($workout->id);
+            }
+            
+            $student = Student::destroy($id);
+    
+            return response()->json($student);
+        } else {
+            return response()->json(
+                ["error" => "Student not found"]
+            );
+        }
 
-        return response()->json($workout);
+        
     }
 
     public function workouts(int $studentId) 
