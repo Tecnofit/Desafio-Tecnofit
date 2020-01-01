@@ -6,7 +6,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/alunos', 'AlunoController@index')
+Route::get('/students', 'Application\StudentController@index')
     ->name('show_alunos');
 Route::get('/alunos/create', 'AlunoController@create')
     ->name('form_create_aluno');

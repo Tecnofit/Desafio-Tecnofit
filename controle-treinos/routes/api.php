@@ -36,7 +36,7 @@ Route::get('/workouts/{id}/exercises', 'API\API_WorkoutController@exercises'); /
 
 Route::get('/exercises', 'API\API_ExerciseController@index');
 Route::get('/exercises/{id}', 'API\API_ExerciseController@show');
-Route::get('/exercises/{id}/workouts', 'API\API_ExerciseController@showEx');
+Route::get('/exercises/{id}/workouts', 'API\API_ExerciseController@showEx'); //remover rota
 Route::post('/exercises/create', 'API\API_ExerciseController@store');
 Route::put('/exercises/{id}', 'API\API_ExerciseController@update');
 Route::delete('/exercises/{id}', 'API\API_ExerciseController@destroy');

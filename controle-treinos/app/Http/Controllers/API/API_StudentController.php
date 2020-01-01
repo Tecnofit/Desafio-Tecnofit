@@ -21,7 +21,14 @@ class API_StudentController extends Controller
     {
         $student = Student::find($id);
 
-        return response()->json($student);
+        if ($student)
+        {
+            return response()->json($student);
+        } else {
+            return response()->json(
+                ["error" => "Student not found"]
+            );
+        }
     }
     
     public function store(Request $request)
@@ -33,10 +40,18 @@ class API_StudentController extends Controller
 
     public function update(Request $request, int $id)
     {
+        $student = Student::find($id);
 
-        $student = Student::find($id)->update($request->all());
+        if ($student)
+        {
+            $student->update($request->all());
 
-        return response()->json($student);
+            return response()->json($student);
+        } else {
+            return response()->json(
+                ["error" => "Student not found"]
+            );
+        }
     }
 
     public function destroy(int $id)
@@ -63,15 +78,21 @@ class API_StudentController extends Controller
                 ["error" => "Student not found"]
             );
         }
-
-        
     }
 
-    public function workouts(int $studentId) 
+    public function workouts(int $id) 
     {
-        $student = Student::find($studentId);
-        $workout = $student->workouts;
-        
-        return response()->json($workout);
+        $student = Student::find($id);
+
+        if ($student) 
+        {
+            $workout = $student->workouts;
+            
+            return response()->json($workout);
+        } else {
+            return response()->json(
+                ["error" => "Student not found"]
+            );
+        }
     }
 }
