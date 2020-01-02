@@ -31,12 +31,12 @@ Route::get('/workouts/{id}', 'API\API_WorkoutController@show');
 Route::post('/workouts/create', 'API\API_WorkoutController@store');
 Route::put('/workouts/{id}', 'API\API_WorkoutController@update');
 Route::delete('/workouts/{id}', 'API\API_WorkoutController@destroy');
-Route::get('/workouts/{id}/exercises', 'API\API_WorkoutController@exercises'); //remover rota
+Route::get('/workouts/{id}/exercices', 'API\API_WorkoutController@exercices'); //remover rota
 
 
-Route::get('/exercises', 'API\API_ExerciseController@index');
-Route::get('/exercises/{id}', 'API\API_ExerciseController@show');
-Route::get('/exercises/{id}/workouts', 'API\API_ExerciseController@showEx'); //remover rota
-Route::post('/exercises/create', 'API\API_ExerciseController@store');
-Route::put('/exercises/{id}', 'API\API_ExerciseController@update');
-Route::delete('/exercises/{id}', 'API\API_ExerciseController@destroy');
+Route::get('/exercices', 'API\API_ExerciceController@index');
+Route::get('/exercices/{id}', 'API\API_ExerciceController@show');
+Route::get('/exercices/{id}/workouts', 'API\API_ExerciceController@showEx'); //remover rota
+Route::post('/exercices/create', 'API\API_ExerciceController@store');
+Route::put('/exercices/{id}', 'API\API_ExerciceController@update');
+Route::delete('/exercices/{id}', 'API\API_ExerciceController@destroy');

@@ -66,7 +66,7 @@ class API_StudentController extends Controller
     
             foreach($workouts as $workout)
             {
-                $workout->exercises()->detach();
+                $workout->exercices()->detach();
                 Workout::destroy($workout->id);
             }
             

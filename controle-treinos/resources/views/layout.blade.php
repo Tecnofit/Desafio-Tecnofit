@@ -11,6 +11,7 @@
 <body>
   <div class="container">
     <div class="jumbotron">
+      <h2><a href="/">Início</a></h2>
       <h1>@yield('cabecalho')</h1>
     </div>
     @yield('conteudo')

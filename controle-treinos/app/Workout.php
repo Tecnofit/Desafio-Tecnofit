@@ -8,9 +8,9 @@ class Workout extends Model
 {
     protected $fillable = ['name', 'description', 'student_id', 'active', 'done'];
 
-    public function exercises() 
+    public function exercices() 
     {
-        return $this->belongsToMany(Exercise::class, 'workout_exercises', 'id_workout', 'id_exercise')->withPivot('series', 'done');
+        return $this->belongsToMany(Exercice::class, 'workout_exercices', 'id_workout', 'id_exercice')->withPivot('series', 'done');
     }
 
     public function student()

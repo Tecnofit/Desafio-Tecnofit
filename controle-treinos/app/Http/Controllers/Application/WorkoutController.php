@@ -1,15 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Workout;
 use App\Student;
 use App\Exercice;
+use App\Http\Controllers\API\API_WorkoutController;
 
-class API_WorkoutController extends Controller
+class WorkoutController extends Controller
 {
+    public function __construct(API_WorkoutController $workoutService) 
+    {
+        $this->workoutService = $workoutService;
+    }
+
     public function index()
     {
         $workouts = Workout::all();
@@ -29,14 +35,24 @@ class API_WorkoutController extends Controller
                 ["error" => "Workout not found"]
             );
         }
-
     }
     
+    public function create()
+    {
+        return view('workouts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $this->studentService->store($request);
+
+        return redirect("/students");
+    }
+
     public function store(Request $request)
     {
         $workout = Workout::create($request->all());
 
-        // $exercices = Exercice::find($request->exercices);
         $exercices = $request->exercices;
 
         foreach($exercices as $exercice)

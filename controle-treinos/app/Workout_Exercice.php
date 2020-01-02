@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Workout_Exercise extends Model
+class Workout_Exercice extends Model
 {
-    protected $fillable = ['id_workout', 'id_exercise', 'series', 'done'];
+    protected $fillable = ['id_workout', 'id_exercice', 'series', 'done'];
 
     public function workouts() 
     {
