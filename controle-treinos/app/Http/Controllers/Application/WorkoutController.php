@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
+use Collective\Html\FormFacade;
 use App\Http\Controllers\Controller;
 use App\Workout;
 use App\Student;
@@ -25,55 +26,49 @@ class WorkoutController extends Controller
 
     public function show(int $id)
     {
-        $workout = Workout::find($id);
+        $getExerciceId = function($exercice) {
+            return $exercice->id;
+        };
 
-        if ($workout)
-        {
-            return response()->json($workout);
-        } else {
-            return response()->json(
-                ["error" => "Workout not found"]
-            );
-        }
+        $workout = $this->workoutService->show($id)->getData();
+        $student = Student::find($workout->student_id);
+        $exercices_options = Exercice::all();
+        $exercices_active = $this->workoutService->exercices($id)->getData();
+        $exercices_active_ids = array_map($getExerciceId, $exercices_active);
+
+        // var_dump($exercices_active);
+        // echo $exercices_active;
+
+        return view('workouts.show', compact('workout', 'student', 'exercices_options', 'exercices_active', 'exercices_active_ids'));
     }
     
-    public function create()
+    public function create(int $student_id)
     {
-        return view('workouts.create');
+        $student = Student::find($student_id);
+
+        $exercices_options = Exercice::all();
+        return view('workouts.create', compact('student', 'exercices_options'));
     }
 
     public function store(Request $request)
     {
-        $this->studentService->store($request);
+        $exercices = array();
+
+        foreach($request->exercices_select as $key=>$value)
+        {
+            array_push($exercices, array(
+                "id_exercice" => $value,
+                "series" => $request->series[$key]
+            ));
+        }
+
+        $request->merge(['exercices' => $exercices]);
+
+        $this->workoutService->store($request);
 
         return redirect("/students");
-    }
-
-    public function store(Request $request)
-    {
-        $workout = Workout::create($request->all());
-
-        $exercices = $request->exercices;
-
-        foreach($exercices as $exercice)
-        {
-            $workout->exercices()->attach($exercice['id_exercice'], ['series' => $exercice['series']]);
-        }
-
-        if ($request->active)
-        {
-            $student = Student::find($request->student_id);
-            $deactivate_workout = Workout::find($student->active_workout);
-            
-            if ($deactivate_workout)
-            {
-                $deactivate_workout->update(['active' => false]);
-            }
-            
-            $student->update(['active_workout' => $workout->id]);
-        }
-        
-        return response()->json($workout);
+        // var_dump($request->exercices);
+        // phpinfo();        
     }
 
     public function update(Request $request, int $id)

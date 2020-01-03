@@ -22,7 +22,6 @@
         <label for="name">Nome</label>
         <input type="text" class="form-control" name="name" id="name">
       </div>
-
       <div class="col col-4">
         <label for="email">e-mail</label>
         <input type="text" class="form-control" name="email" id="email">
@@ -34,7 +33,6 @@
         <label for="address">Endereço</label>
         <input type="text" class="form-control" name="address" id="address">
       </div>
-
       <div class="col col-2 mt-2">
         <label for="age">Idade</label>
         <input type="number" class="form-control" name="age" id="age">
@@ -46,7 +44,6 @@
         <label for="notes">Observações</label>
         <input type="text" class="form-control" name="notes" id="notes">
       </div>
-
       <div class="col col-2 mt-2">
         <label for="active_workout">Treino</label>
         <input type="number" class="form-control" name="active_workout" id="active_workout">

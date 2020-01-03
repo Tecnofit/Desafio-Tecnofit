@@ -54,4 +54,12 @@ class StudentController extends Controller
         return redirect()->route('show_students');
     }
 
+    public function workouts(int $id)
+    {
+        $student = $this->studentService->show($id)->getData();
+        $workouts = $student->workouts;
+
+        echo $workouts;
+    }
+
 }

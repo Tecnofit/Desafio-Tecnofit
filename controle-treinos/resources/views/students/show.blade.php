@@ -55,10 +55,10 @@
     </div>
    
 
-    <button class="btn btn-primary mt-2">Salvar</button>
-    <a href="{{ route('show_students') }}" id="cancel" name="cancel" class="btn btn-default">Cancelar</a>
+    <button class="btn btn-success mt-2">Salvar</button>
+    <a href="{{ route('show_students') }}" id="cancel" name="cancel" class="btn btn-secondary mt-2">Cancelar</a>
   </form>
 
-  <a href="{{ route('show_students') }}" id="cancel" name="cancel" class="btn btn-default">Adicionar Treino</a>
+  <a href="/workouts/{{ $student->id }}/create" id="cancel" name="cancel" class="btn btn-primary mt-2">Adicionar Treino</a>
   
 @endsection
