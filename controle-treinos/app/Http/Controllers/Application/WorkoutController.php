@@ -66,46 +66,26 @@ class WorkoutController extends Controller
 
         $this->workoutService->store($request);
 
-        return redirect("/students");
-        // var_dump($request->exercices);
-        // phpinfo();        
+        return redirect("/students"); 
     }
 
     public function update(Request $request, int $id)
     {
-        $workout = Workout::find($id);
-        $workout->update($request->all());
+        $exercices = array();
+
+        foreach($request->exercices_select as $key=>$value)
+        {
+            array_push($exercices, array(
+                "id_exercice" => $value,
+                "series" => $request->series[$key]
+            ));
+        }
+
+        $request->merge(['exercices' => $exercices]);
+
+        $this->workoutService->update($request, $id);
         
-        $exercices = $request->exercices;
-
-        foreach($exercices as $exercice)
-        {
-            $workout->exercices()->attach($exercice['id_exercice'], ['series' => $exercice['series']]);
-        }
-
-        if ($request->active)
-        {
-            $student = Student::find($workout->student_id);
-
-            if ($student->active_workout != $workout->id)
-            {
-                $deactivate_workout = Workout::find($student->active_workout)->update(['active' => false]);
-                $student->update(['active_workout' => $workout->id]);
-            }
-        }
-
-        if ($request->done)
-        {
-            $student = Student::find($workout->student_id);
-
-            if ($student->active_workout == $workout->id)
-            {
-                $student->update(['active_workout' => null]);
-                $workout->update(['active' => false]);
-            }
-        }
-
-        return response()->json($workout);
+        return redirect("/students");
     }
 
     public function exercices(int $id)

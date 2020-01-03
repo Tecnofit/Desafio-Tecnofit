@@ -1,13 +1,5 @@
 <?php
 
-
-// <div class="row">
-// <select>
-//   @foreach($student->workouts as $workout)
-//     <option value="{{ $workout->name }}">{{ $workout->name }}</option>
-//   @endforeach
-// </select>
-// </div> 
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;

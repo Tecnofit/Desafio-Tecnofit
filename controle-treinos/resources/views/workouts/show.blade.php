@@ -29,7 +29,7 @@
       </div>
       <div class="col col-6">
         <label for="name">Nome</label>
-        <input type="text" class="form-control" name="name" id="name">
+        <input type="text" class="form-control" name="name" id="name" value="{{ $workout->name }}">
       </div>
     </div>
 
