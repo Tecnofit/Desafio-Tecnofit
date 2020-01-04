@@ -45,7 +45,7 @@ Confirma abaixo as premissas do produto:
   * Vamos subir a aplicação e acessar via localhost;
   * Vamos cadastrar/editar/deletar os alunos e exercícios;
   * Vamos cadastrar/editar/ativar os treinos; e
-  * Vamos finalizar ou pular os exercícios do treno.
+  * Vamos finalizar ou pular os exercícios do treino.
   
 # Diferenciais
 - Não utilizar framework
