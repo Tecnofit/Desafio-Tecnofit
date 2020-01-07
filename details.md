@@ -1,11 +1,14 @@
 # Candidato
 
-**Nome**: Ronaldo Matos Rodrigues
+**Nome**: Rafael Hitoshi de Oliveira
 
-**Email**: ronaldo.rodrigues@tecnofit.com.br
+**Email**: rafaelhitoshi31@gmail.com
 
 # Instalação
-[...]
+Importar o arquivo Projeto/Banco/populaBanco.sql
 
 # Observações
-[...]
+Acesso para o usuário admin,
+login=admin
+senha=admin
+
