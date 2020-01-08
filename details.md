@@ -37,3 +37,6 @@ Dessa vez utilizei uma arquitetura **Rest** onde isolei o Front do Back. A ideia
 - ```resources/js/lib``` contém os arquivos js que irão fazer as requisições para o back e retornar um json para ser manipulado no front
 
 Eu iniciei o desenvolvimento utilizando o conceito de mobile first, mas como eu fico ansioso em terminar esses testes acabei não dando foco na responsividade, logo, fica melhor em tela pequena.
+
+# p.s
+- Como UX não seria avaliado eu não criei nenhum validação do que vai ser digitado nos formulários, logo: formato de campo para a data de nascimento: yyyy-mm-dd
