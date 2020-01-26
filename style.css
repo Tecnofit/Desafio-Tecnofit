@@ -1,0 +1,135 @@
+
+table tr th, table tr td{
+	font-size: 1.5rem;
+}
+.row{ 
+	margin:20px 20px 20px 20px;
+	width: 100%;
+}
+.glyphicon{
+	font-size: 20px;
+}
+.glyphicon-plus{
+	/*float: right;*/
+}
+a.glyphicon{
+	text-decoration: none;
+}
+a.glyphicon-trash{
+	margin-left: 10px;
+}
+.none{
+	display: none;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1f1f1;
+}
+
+#formulario {
+  background-color: #ffffff;
+  margin: 100px auto;
+  font-family: Raleway;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;  
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.save-btn {
+  background-color: #4CAF50;
+}
+
+.back-btn {
+  background-color: #457DAF;
+}
+
+.home-btn {
+  background-color: #7091dc;
+}
+
+.new-btn {
+  background-color: #315388;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
+
+.card {
+  border-radius: 10px;
+  height: 50px;
+  color: white;
+  cursor: pointer;
+}
+
+.card-blue1 {
+  background-color: #7091dc;
+}
+
+.card-blue2 {
+  background-color: #426CAF;
+}
+
+.card-blue3 {
+  background-color: #315388
+}
