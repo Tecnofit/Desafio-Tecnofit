@@ -1,0 +1,124 @@
+* {font-family: Arial, Helvetica, sans-serif;}
+
+button {
+    background-color: rgb(78, 66, 189);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: auto;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+label{
+    font-weight: bold;
+}
+
+input[type=number]{
+    width: 150px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type=text], input[type=password], input[type=email],select {
+    width: 300px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+ table{
+    width: 50%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    text-align: left;
+}
+tr {
+    border-bottom: 1px solid #cbcbcb;
+}
+th, td{
+    border: none;
+    height: 30px;
+    padding: 2px;
+}
+tr:hover {
+    background: #F5F5F5;
+}
+  
+.box {
+    width: 300px;
+    height: 300px;
+    background: #fff;
+    text-align: center;
+}     
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: #6C7A89;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center
+}
+
+.azul{ 
+    color: blue; 
+    font-weight: bold;}
+.esquerda{
+    text-align: left;
+}
+
+.grande {
+    width: 90% !important; 
+    height: 90% !important;    
+}
+.iconMedio{
+    width: 60px;
+    height: 60px;
+}
+.iconGrande{
+    width: 120px;
+    height: 120px;
+}
+.iconMini{
+    width:25px;
+    height:25px;
+}
+.super{
+    width: auto !important;
+    height: auto !important;    
+}
+.bgRed{
+    background: #b84848;
+}
+.starthidden {
+    display: none;
+  }
+.verde{ 
+    background: green !important; 
+    font-weight: bold !important;
+    font-size: x-large !important;
+} 
+#aviso{ 
+    color: Red; 
+    font-weight: bold;}
+
+#divAlunoNovo{
+    text-align: center;
+    background: rgb(188, 192, 197);
+    align-items: center;
+    display: block;
+    justify-content: center;
+}
+
+
