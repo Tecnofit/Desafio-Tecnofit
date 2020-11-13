@@ -1,6 +1,6 @@
 <?php
 
-class Aluno {
+class Alunos {
 
     private string $nome;
     private int $cod;
@@ -18,9 +18,9 @@ class Aluno {
 
     /**
      * @param string|null $nome
-     * @return Aluno
+     * @return Alunos
      */
-    public function setNome(?string $nome): Aluno
+    public function setNome(?string $nome): Alunos
     {
         $this->nome = $nome;
         return $this;
@@ -36,9 +36,9 @@ class Aluno {
 
     /**
      * @param int $cod
-     * @return Aluno
+     * @return Alunos
      */
-    public function setCod(int $cod): Aluno
+    public function setCod(int $cod): Alunos
     {
         $this->cod = $cod;
         return $this;
@@ -54,9 +54,9 @@ class Aluno {
 
     /**
      * @param int $codTreino
-     * @return Aluno
+     * @return Alunos
      */
-    public function setCodTreino(int $codTreino): Aluno
+    public function setCodTreino(int $codTreino): Alunos
     {
         $this->codTreino = $codTreino;
         return $this;
@@ -72,9 +72,9 @@ class Aluno {
 
     /**
      * @param bool $ativo
-     * @return Aluno
+     * @return Alunos
      */
-    public function setAtivo(bool $ativo): Aluno
+    public function setAtivo(bool $ativo): Alunos
     {
         $this->ativo = $ativo;
         return $this;

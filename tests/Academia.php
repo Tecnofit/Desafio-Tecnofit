@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 require '../controller/AlunoController.php';
 require '../controller/TreinoController.php';
-require '../controller/TreinoController.php';
+require '../controller/ExercicioController.php';
 
 class Academia extends TestCase
 {
@@ -18,7 +18,7 @@ class Academia extends TestCase
     {
         $this->alunoCtl = AlunoController::getInstance();
         $this->treinoCtl = TreinoController::getInstance();
-        $this->exercicioCtl = TreinoController::getInstance();
+        $this->exercicioCtl = ExercicioController::getInstance();
     }
 
     //-------------- REGRAS ALUNOS -------------------
@@ -57,11 +57,11 @@ class Academia extends TestCase
     public function testCriarUmExercicio(): void
     {
         //Criar um exercicio para este aluno
-        $exercicio = $this->exercicioCtl->cadastrarTreino("Peito", 1, array());
-        $this->assertEquals($exercicio->getNome(), "Peito");
+        $exercicio = $this->exercicioCtl->cadastrarExercicio("Pullover", 1, 3, 'criado');
+        $this->assertEquals($exercicio->getNome(), "Pullover");
         //Pesquisar novamente, agora retornando o exercicio disponibilizado
-        $exercicio = $this->exercicioCtl->pesquisarTreino(1);
-        $this->assertEquals($exercicio->getNome(), "Peito");
+        $exercicio = $this->exercicioCtl->pesquisarExercicio(1);
+        $this->assertEquals($exercicio->getNome(), "Pullover");
 
         echo var_dump($exercicio);
     }

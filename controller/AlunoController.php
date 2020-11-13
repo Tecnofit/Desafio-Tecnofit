@@ -15,7 +15,7 @@ class AlunoController {
         $this->aluno = $this->pesquisarAluno($cod);
         if(!isset($this->aluno)){
             //cadastra o aluno
-            $this->aluno = new Aluno();
+            $this->aluno = new Alunos();
             $this->aluno->setNome($nome);
             $this->aluno->setCod($cod);
             $this->aluno->setCodTreino($codTreino);
