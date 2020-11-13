@@ -125,27 +125,31 @@ class Academia extends TestCase
     // **** Excluir exercícios somente se não tiver dentro de treinos ativos, exercícios em uso. ****
     public function testRemoverSomenteSeNaoTiverAtivo(): void
     {
-/*        $aluno = $this->alunoCtl->pesquisarAluno(1);
-        $treino = $this->treinoCtl->pesquisarTreino($aluno->getCodTreino());
+        //Remover PullOver 100 do Treino de Peito 1
+        $treino = $this->treinoCtl->pesquisarTreino(1);
         $listaExerc = $treino->getListaExercicios();
-        //print_r($treino->getListaExercicios()[0][0]->getNome());
 
-        //ASSERT REMOVE CODIGO 101 EXERCICIO
-        foreach ($listaExerc as $key1=>$bloco){
-            foreach ($bloco as $key2=>$exercicios) {
-                if($exercicios->getCod() == 101){
+        //Somente tem um aluno pesquisa qual treino ele ta usando
+        $aluno = $this->alunoCtl->pesquisarAluno(1);
 
-
-
-                    //Retorno : Exercicio 100 retornar 3 repeticoes
-                    $this->assertEquals($exercicios->getRepeticoes(), 3);
-
-                    //Pular um exercicio
-                    $treino->getListaExercicios()[$key1][$key2]->setEstado("aguardando");
+        if($aluno->getCodTreino() == $treino->getCod() && $aluno->isAtivo()){
+            //Não podemos remover
+        }else {
+            //Podemos remover
+            foreach ($listaExerc as $key1 => $bloco) {
+                foreach ($bloco as $key2 => $exercicios) {
+                    if ($exercicios->getCod() == 101) {
+                        //Remover 101 - Supino
+                        $this->assertEquals($treino->getListaExercicios()[1][0]->getNome(), "Supino");
+                        $treino = $this->exercicioCtl->removeUmExercicio($treino, 101);
+                    }
                 }
             }
-        }*/
-        $this->assertEquals(true, true);
+        }
+        //print_r($treino);
+
+        //Ok nada removido, o Aluno esta usando o unico treino existente
+        $this->assertEquals($aluno->getCodTreino(), 1);
     }
 
     //Erro ao excluir exercicio que tem treino ativo

@@ -63,11 +63,8 @@ class Treinos {
      */
     public function setListaExercicios(array $listaExercicios): Treinos
     {
-        $lista = $this->listaExercicios;
-        array_push($lista, $listaExercicios);
-        $this->listaExercicios = $lista;
+        $this->listaExercicios = $listaExercicios;
         return $this;
     }
-
 
 }

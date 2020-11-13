@@ -47,7 +47,7 @@ class TreinoController {
             //NAO ESTOU VERIFICANDO SE O VALOR É CORRETO, NULO OU VAZIO
             $this->treino->setNome($nome);
             $this->treino->setCod($codTreino);
-            $this->treino->setCodExercicios($listaExercicios);
+            $this->treino->setListaExercicios($listaExercicios);
             return $this->treino;
         }else{
             return NULL;
@@ -59,7 +59,10 @@ class TreinoController {
     {
         if (isset($this->treino) || $this->treino->getCod() == $codTreino) {
             //Só vai adicionando ao final, não remove, nem checa 't o d o' futuro
-            $this->treino->setListaExercicios(array($exercicio));
+
+            $lista = $this->treino->getListaExercicios();
+            array_push($lista, array($exercicio));
+            $this->treino->setListaExercicios($lista);
             return $this->treino;
         } else {
             return NULL;
