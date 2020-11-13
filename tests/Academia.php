@@ -86,6 +86,8 @@ class Academia extends TestCase
     // **** Aluno pode marcar como finalizado ou pular um exercicio ****
     public function testSessoesParaUmExercicio(): void
     {
+        $exercicio = $this->exercicioCtl->cadastrarExercicio("Pullover", 100, 1, 3, 'criado');
+        $this->assertEquals($exercicio->getNome(), "Pullover");
         $aluno = $this->alunoCtl->pesquisarAluno(1);
         $treino = $this->treinoCtl->pesquisarTreino($aluno->getCodTreino());
         $listaExerc = $treino->getListaExercicios();
