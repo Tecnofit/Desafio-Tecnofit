@@ -1,21 +1,36 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+require '../controller/AlunoController.php';
 
 class Academia extends TestCase
 {
+    protected $alunoCtl;
+
     /**
      * @before
      */
     public function setUpAllTests()
     {
-
+        $this->alunoCtl = AlunoController::getInstance();
     }
 
     //-------------- REGRAS ALUNOS -------------------
+    public function testCadastrarUmAluno(): void
+    {
         //Cadastrar um aluno novo para podermos iniciar os testes
-        //Pesquisar este aluno criado e verificar que ainda não tem treino ativo
+        $aluno = $this->alunoCtl->cadastrarAluno("Joao Silva", 1);
+        $this->assertEquals($aluno->getNome(), "Joao Silva");
+    }
 
+    public function testPesquisarAluno(): void
+    {
+        //Pesquisar este aluno criado e verificar que ainda não tem treino ativo
+        $aluno = $this->alunoCtl->pesquisarAluno(1);
+        $this->assertEquals($aluno->getNome(), "Joao Silva");
+
+        //echo var_dump($aluno);
+    }
 
     //-------------- REGRAS TREINOS -------------------
     //Criar alguns treinos
