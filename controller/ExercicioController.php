@@ -43,16 +43,13 @@ class ExercicioController {
         }
     }
 
-    public function atualizarExercicio($nome, $cod, $codExercicio=0, $ativo=false)
+    public function atualizarExercicio($nome, $cod, $repeticoes, $estado='criado')
     {
         if(isset($this->exercicio) || $this->exercicio->getCod() == $cod){
             //NAO ESTOU VERIFICANDO SE O VALOR É CORRETO, NULO OU VAZIO
             $this->exercicio->setNome($nome);
-            $this->exercicio->setCodExercicio($codExercicio);
-            if($codExercicio > 0 && $ativo == false)
-                $this->exercicio->setAtivo(true);
-            else
-                $this->exercicio->setAtivo($ativo);
+            $this->exercicio->setRepeticoes($repeticoes);
+            $this->exercicio->setEstado($estado);
             return $this->exercicio;
         }else{
             return NULL;

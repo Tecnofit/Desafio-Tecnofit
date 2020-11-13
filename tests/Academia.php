@@ -31,9 +31,11 @@ class Academia extends TestCase
 
     public function testPesquisarAluno(): void
     {
-        //Pesquisar este aluno criado e verificar que ainda não tem treino ativo
+        //Pesquisar este aluno criado
         $aluno = $this->alunoCtl->pesquisarAluno(1);
         $this->assertEquals($aluno->getNome(), "Joao Silva");
+        //verificar que ainda não tem treino ativo==criado
+        $this->assertEquals($aluno->isAtivo(), false);
 
         //echo var_dump($aluno);
     }
@@ -63,14 +65,27 @@ class Academia extends TestCase
         $exercicio = $this->exercicioCtl->pesquisarExercicio(1);
         $this->assertEquals($exercicio->getNome(), "Pullover");
 
-        echo var_dump($exercicio);
+        //Editar o nome de um exercicio
+        $exercicio = $this->exercicioCtl->atualizarExercicio("Pullover-Barra", 1, 5, 'criado');
+        $this->assertEquals($exercicio->getNome(), "Pullover-Barra");
+
+        //echo var_dump($exercicio);
     }
 
-    //Pesquisar um exercicio recém criado
-    //Editar o nome de um exercicio
-
     //Aluno 1 - fará o treino de (Peito, 1, [pullover, barra, supino])
+    public function testAtribuirTreinoAoAluno(): void
+    {
+        //Pega o aluno 1
+        $aluno = $this->alunoCtl->pesquisarAluno(1);
+        //Setar o treino 1 para o aluno 1
+        $aluno = $this->alunoCtl->atualizarAluno($aluno->getNome(), $aluno->getCod(), 1, true);
+        //Verificar se ele esta com o treino ativado
+        $this->assertEquals($aluno->getCodTreino(), 1);
+        $this->assertTrue($aluno->isAtivo());
 
+
+        //echo var_dump($exercicio);
+    }
 
     //-------------- REGRAS EXERCÍCIOS - REGRAS IMPORTANTES -------------------
     // **** Informar quantas sessoes serão feitas para um exercicio. ****
