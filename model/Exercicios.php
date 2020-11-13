@@ -4,8 +4,9 @@ class Exercicios {
 
     private string $nome; //pullover, supino
     private int $cod;
+    private int $codTreino;
     private int $repeticoes; //3 séries de 3 repeticoes
-    private bool $estado; //criado, encerrado ou aguardando
+    private string $estado; //criado, encerrado ou aguardando
 
     //GETTERS AND SETTERS
     /**
@@ -43,6 +44,23 @@ class Exercicios {
         $this->cod = $cod;
         return $this;
     }
+    /**
+     * @return int
+     */
+    public function getCodTreino(): int
+    {
+        return $this->codTreino;
+    }
+
+    /**
+     * @param int $codTreino
+     * @return Exercicios
+     */
+    public function setCodTreino(int $codTreino): Exercicios
+    {
+        $this->codTreino = $codTreino;
+        return $this;
+    }
 
     /**
      * @return int
@@ -63,18 +81,18 @@ class Exercicios {
     }
 
     /**
-     * @return bool
+     * @return string
      */
-    public function isEstado(): bool
+    public function getEstado(): string
     {
         return $this->estado;
     }
 
     /**
-     * @param bool $estado
+     * @param string $estado
      * @return Exercicios
      */
-    public function setEstado(bool $estado): Exercicios
+    public function setEstado(string $estado): Exercicios
     {
         $this->estado = $estado;
         return $this;

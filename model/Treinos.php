@@ -4,7 +4,13 @@ class Treinos {
 
     private string $nome; // pra peito, para costas
     private int $cod;
-    private $codExercicios = array(); //varios exercicios para peito, costa
+    private $listaExercicios;//varios exercicios para peito, costa
+
+
+    public function __construct()
+    {
+        $this->listaExercicios = array();
+    }
 
     //GETTERS AND SETTERS
     /**
@@ -44,21 +50,22 @@ class Treinos {
     }
 
     /**
-     * @return array
+     * @return Exercicios[]
      */
-    public function getCodExercicios(): array
+    public function getListaExercicios(): array
     {
-        return $this->codExercicios;
+        return $this->listaExercicios;
     }
 
     /**
-     * @param array $codExercicios
+     * @param Exercicios[] $listaExercicios
      * @return Treinos
      */
-    public function setCodExercicios(array $codExercicios): Treinos
+    public function setListaExercicios(array $listaExercicios): Treinos
     {
-        //nao remove apenas um exercicio, altera todos
-        $this->codExercicios = $codExercicios;
+        $lista = $this->listaExercicios;
+        array_push($lista, $listaExercicios);
+        $this->listaExercicios = $lista;
         return $this;
     }
 
