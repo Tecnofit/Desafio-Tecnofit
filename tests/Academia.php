@@ -2,10 +2,12 @@
 
 use PHPUnit\Framework\TestCase;
 require '../controller/AlunoController.php';
+require '../controller/TreinoController.php';
 
 class Academia extends TestCase
 {
     protected $alunoCtl;
+    protected $treinoCtl;
 
     /**
      * @before
@@ -13,6 +15,7 @@ class Academia extends TestCase
     public function setUpAllTests()
     {
         $this->alunoCtl = AlunoController::getInstance();
+        $this->treinoCtl = TreinoController::getInstance();
     }
 
     //-------------- REGRAS ALUNOS -------------------
@@ -34,8 +37,17 @@ class Academia extends TestCase
 
     //-------------- REGRAS TREINOS -------------------
     //Criar alguns treinos
+    public function testCriarUmTreino(): void
+    {
         //Criar um treino para este aluno
+        $treino = $this->treinoCtl->cadastrarTreino("Peito", 1, array());
+        $this->assertEquals($treino->getNome(), "Peito");
         //Pesquisar novamente, agora retornando o treino disponibilizado
+        $treino = $this->treinoCtl->pesquisarTreino(1);
+        $this->assertEquals($treino->getNome(), "Peito");
+
+        //echo var_dump($treino);
+    }
 
     //-------------- REGRAS EXERCÍCIOS -------------------
     //Criar alguns exercicios e atrelar a um treino
