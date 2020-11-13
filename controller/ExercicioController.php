@@ -37,7 +37,7 @@ class ExercicioController {
 
     public function pesquisarPorTreino($codTreino)
     {
-        if(isset($this->exercicio) && $this->exercicio->getCod() == $cod){
+        if(isset($this->exercicio) && $this->exercicio->getCod() == $codTreino){
             return $this->exercicio;
         }else{
             return NULL;
@@ -83,6 +83,17 @@ class ExercicioController {
         $treinoCtl->incluirExerciciosTreino($codTreino, $exercicio);
 
     }
+
+    public function alterarStatusExercicio($cod, $status)
+    {
+        //verificar se já não existe o exercicio
+        $this->exercicio = $this->pesquisarExercicio($cod);
+        if(isset($this->exercicio)){
+            $this->exercicio->setEstado($status);
+        }
+        return $this->exercicio;
+    }
+
 
     //Singleton Pattern
     public static function getInstance()

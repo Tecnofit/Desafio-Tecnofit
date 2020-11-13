@@ -83,37 +83,71 @@ class Academia extends TestCase
 
     //-------------- REGRAS EXERCÍCIOS - REGRAS IMPORTANTES -------------------
     // **** Informar quantas sessoes serão feitas para um exercicio. ****
-    //Retorno : Exercicio 100 retornar 3 repeticoes
+    // **** Aluno pode marcar como finalizado ou pular um exercicio ****
     public function testSessoesParaUmExercicio(): void
     {
-        //Pega o aluno 1
         $aluno = $this->alunoCtl->pesquisarAluno(1);
-        $treino = $this->treinoCtl->pesquisarTreino(1);
+        $treino = $this->treinoCtl->pesquisarTreino($aluno->getCodTreino());
+        $listaExerc = $treino->getListaExercicios();
+        //print_r($treino->getListaExercicios()[0][0]->getNome());
 
-        foreach ($treino->getListaExercicios() as $treinos){
-            foreach ($treinos as $exercicios) {
+        //CHANGE
+        foreach ($listaExerc as $key1=>$bloco){
+            foreach ($bloco as $key2=>$exercicios) {
                 if($exercicios->getCod() == 100){
+                    //Retorno : Exercicio 100 retornar 3 repeticoes
                     $this->assertEquals($exercicios->getRepeticoes(), 3);
-                    print_r($exercicios);
+
+                    //Pular um exercicio
+                    $treino->getListaExercicios()[$key1][$key2]->setEstado("aguardando");
                 }
             }
         }
 
-        $exercicio = $this->exercicioCtl->pesquisarExercicio(1);
-
-
+        //ASSERT
+        foreach ($listaExerc as $bloco){
+            foreach ($bloco as $exercicios) {
+                if($exercicios->getCod() == 100){
+                    $this->assertEquals($exercicios->getEstado(), 'aguardando');
+                }
+            }
+        }
     }
 
-
     // **** Somente retornar um treino por aluno  ****
-    //Erro Buscar um treino inexistente
-    //Successo Buscar um treino existente
-
-    // **** Marcar como finalizado ou pular um exercicio ****
-    //Marcar como finalizado
-    //Pular um exercicio
+    public function testAlunoTemUnicoTreino(): void
+    {
+        //Aluno 1 somente tem o treino 1
+        $aluno = $this->alunoCtl->pesquisarAluno(1);
+        $this->assertEquals($aluno->getCodTreino(), 1);
+    }
 
     // **** Excluir exercícios somente se não tiver dentro de treinos ativos, exercícios em uso. ****
+    public function testRemoverSomenteSeNaoTiverAtivo(): void
+    {
+/*        $aluno = $this->alunoCtl->pesquisarAluno(1);
+        $treino = $this->treinoCtl->pesquisarTreino($aluno->getCodTreino());
+        $listaExerc = $treino->getListaExercicios();
+        //print_r($treino->getListaExercicios()[0][0]->getNome());
+
+        //ASSERT REMOVE CODIGO 101 EXERCICIO
+        foreach ($listaExerc as $key1=>$bloco){
+            foreach ($bloco as $key2=>$exercicios) {
+                if($exercicios->getCod() == 101){
+
+
+
+                    //Retorno : Exercicio 100 retornar 3 repeticoes
+                    $this->assertEquals($exercicios->getRepeticoes(), 3);
+
+                    //Pular um exercicio
+                    $treino->getListaExercicios()[$key1][$key2]->setEstado("aguardando");
+                }
+            }
+        }*/
+        $this->assertEquals(true, true);
+    }
+
     //Erro ao excluir exercicio que tem treino ativo
     //Sucesso ao excluir exercicio que NAO tem treino ativo
 
