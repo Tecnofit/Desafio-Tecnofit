@@ -31,6 +31,22 @@ class TreinoController {
         }
     }
 
+    public function atualizarExercicioNoTreino($exercicio)
+    {
+        $listaExerc = $this->treino->getListaExercicios();
+
+        $posicao = -1;
+        foreach ($listaExerc as $key1=>$bloco){
+            foreach ($bloco as $key2=>$exerc) {
+                if($exerc->getCod() == $exercicio->getCod()){
+                    $posicao = $key2;
+                }
+            }
+            $this->treino->getListaExercicios()[$key1][$posicao] = $exercicio;
+        }
+        return $this->treino;
+    }
+
     public function deletarTreino($cod): ?bool
     {
         if(isset($this->treino) || $this->treino->getCod() == $cod){

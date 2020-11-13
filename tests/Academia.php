@@ -62,9 +62,9 @@ class Academia extends TestCase
         $exercicio = $this->exercicioCtl->cadastrarExercicio("Supino", 101, 1, 4, 'criado');
         $this->assertEquals($exercicio->getNome(), "Supino");
 
-        //Editar o nome de um exercicio
-//TODO       $exercicio = $this->exercicioCtl->atualizarExercicio("Pullover-Barra", 100, 1, 5, 'criado');
-//TODO        $this->assertEquals($exercicio->getNome(), "Pullover-Barra");
+        //Buscar e editar
+        $exercicio = $this->exercicioCtl->atualizarExercicio("Pullover-Barra", 100, 1, 5, 'criado');
+        $this->assertEquals($exercicio->getNome(), "Pullover-Barra");
 
     }
 
@@ -146,31 +146,16 @@ class Academia extends TestCase
                 }
             }
         }
-        //print_r($treino);
+        print_r($treino);
 
         //Ok nada removido, o Aluno esta usando o unico treino existente
         $this->assertEquals($aluno->getCodTreino(), 1);
     }
 
-    //Erro ao excluir exercicio que tem treino ativo
-    //Sucesso ao excluir exercicio que NAO tem treino ativo
-
-
     //-------------- REGRAS FINAIS -------------------
-    //Alterar o nome desse aluno
     //Remover o aluno
-    //Remover um exercicio se existir
-    //Remover um treino se existir
+    //Remover um exercicio
+    //Remover um treino
 
 
 }
-
-/**
- * @beforeClass
- */
-//public static function setUpOnce() {}
-
-/**
- * @afterClass
- */
-//public static function tearDownOnce() { }
