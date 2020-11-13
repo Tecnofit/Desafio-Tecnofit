@@ -9,7 +9,7 @@ class TreinoController {
 
     public $treino;
 
-    public function cadastrarTreino($nome, $cod, $codExercicios = array())
+    public function cadastrarTreino($nome, $cod)
     {
         //verificar se já não existe o treino
         $this->treino = $this->pesquisarTreino($cod);
@@ -18,7 +18,6 @@ class TreinoController {
             $this->treino = new Treinos();
             $this->treino->setNome($nome);
             $this->treino->setCod($cod);
-            $this->treino->setCodExercicios($codExercicios);
         }
         return $this->treino;
     }
@@ -42,18 +41,27 @@ class TreinoController {
         }
     }
 
-    public function atualizarTreino($nome, $cod, $codTreino=0, $ativo=false)
+    public function atualizarTreino($nome, $codTreino, $listaExercicios = array())
     {
-        if(isset($this->treino) || $this->treino->getCod() == $cod){
+        if(isset($this->treino) || $this->treino->getCod() == $codTreino){
             //NAO ESTOU VERIFICANDO SE O VALOR É CORRETO, NULO OU VAZIO
             $this->treino->setNome($nome);
-            $this->treino->setCodTreino($codTreino);
-            if($codTreino > 0 && $ativo == false)
-                $this->treino->setAtivo(true);
-            else
-                $this->treino->setAtivo($ativo);
+            $this->treino->setCod($codTreino);
+            $this->treino->setCodExercicios($listaExercicios);
             return $this->treino;
         }else{
+            return NULL;
+        }
+    }
+
+
+    public function incluirExerciciosTreino($codTreino, $exercicio)
+    {
+        if (isset($this->treino) || $this->treino->getCod() == $codTreino) {
+            //Só vai adicionando ao final, não remove, nem checa 't o d o' futuro
+            $this->treino->setListaExercicios(array($exercicio));
+            return $this->treino;
+        } else {
             return NULL;
         }
     }
