@@ -4,7 +4,6 @@ require "../model/Treinos.php";
 
 class TreinoController {
 
-    //Singleton Pattern, only one instance of class controller
     private static $instance;
 
     public $treino;
@@ -31,6 +30,22 @@ class TreinoController {
         }
     }
 
+    public function atualizarExercicioNoTreino($exercicio)
+    {
+        $listaExerc = $this->treino->getListaExercicios();
+
+        $posicao = -1;
+        foreach ($listaExerc as $key1=>$bloco){
+            foreach ($bloco as $key2=>$exerc) {
+                if($exerc->getCod() == $exercicio->getCod()){
+                    $posicao = $key2;
+                }
+            }
+            $this->treino->getListaExercicios()[$key1][$posicao] = $exercicio;
+        }
+        return $this->treino;
+    }
+
     public function deletarTreino($cod): ?bool
     {
         if(isset($this->treino) || $this->treino->getCod() == $cod){
@@ -47,7 +62,7 @@ class TreinoController {
             //NAO ESTOU VERIFICANDO SE O VALOR É CORRETO, NULO OU VAZIO
             $this->treino->setNome($nome);
             $this->treino->setCod($codTreino);
-            $this->treino->setCodExercicios($listaExercicios);
+            $this->treino->setListaExercicios($listaExercicios);
             return $this->treino;
         }else{
             return NULL;
@@ -59,7 +74,10 @@ class TreinoController {
     {
         if (isset($this->treino) || $this->treino->getCod() == $codTreino) {
             //Só vai adicionando ao final, não remove, nem checa 't o d o' futuro
-            $this->treino->setListaExercicios(array($exercicio));
+
+            $lista = $this->treino->getListaExercicios();
+            array_push($lista, array($exercicio));
+            $this->treino->setListaExercicios($lista);
             return $this->treino;
         } else {
             return NULL;

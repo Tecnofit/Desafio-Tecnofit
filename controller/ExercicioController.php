@@ -4,7 +4,6 @@ require "../model/Exercicios.php";
 
 class ExercicioController {
 
-    //Singleton Pattern, only one instance of class controller
     private static $instance;
 
     public $exercicio;
@@ -35,15 +34,6 @@ class ExercicioController {
         }
     }
 
-    public function pesquisarPorTreino($codTreino)
-    {
-        if(isset($this->exercicio) && $this->exercicio->getCod() == $codTreino){
-            return $this->exercicio;
-        }else{
-            return NULL;
-        }
-    }
-
     public function deletarExercicio($cod): ?bool
     {
         if(isset($this->exercicio) || $this->exercicio->getCod() == $cod){
@@ -56,42 +46,58 @@ class ExercicioController {
 
     public function atualizarExercicio($nome, $cod, $codTreino, $repeticoes, $estado='criado')
     {
-        if(isset($this->exercicio) || $this->exercicio->getCod() == $cod){
+        $exercicio = new Exercicios();
+        $exercicio->setNome($nome);
+        $exercicio->setCod($cod);
+        $exercicio->setCodTreino($codTreino);
+        $exercicio->setRepeticoes($repeticoes);
+        $exercicio->setEstado($estado);
 
-            $this->exercicio->setNome($nome);
-            $this->exercicio->setRepeticoes($repeticoes);
-            $this->exercicio->setEstado($estado);
-            $this->exercicio->setCodTreino($codTreino);
-            return $this->exercicio;
-        }else{
-            return NULL;
-        }
+        $treinoCtl = TreinoController::getInstance();
+        $treinoCtl->atualizarExercicioNoTreino($exercicio);
+
+        return $exercicio;
     }
 
-    public function incluirNoTreino($codTreino, $exercicio)
+    public function incluirNoTreino($exercicio)
     {
-        //require '../controller/TreinoController.php';
-        $treinoCtl = TreinoController::getInstance();
-        $treino = $treinoCtl->pesquisarTreino($codTreino);
         /*
          * Por questão de escopo, este código não verificar se já existe, remove ou deleta da lista
          * apenas insere o final
-         * TODO removerExercicioNoTreino()
-         * TODO isExercicioExiste()
-         *
          */
-        $treinoCtl->incluirExerciciosTreino($codTreino, $exercicio);
+        $treinoCtl = TreinoController::getInstance();
+        $treinoCtl->atualizarExercicioNoTreino($exercicio);
 
     }
 
     public function alterarStatusExercicio($cod, $status)
     {
-        //verificar se já não existe o exercicio
         $this->exercicio = $this->pesquisarExercicio($cod);
         if(isset($this->exercicio)){
             $this->exercicio->setEstado($status);
         }
         return $this->exercicio;
+    }
+
+    public function removeUmExercicio($treino, $codExercicio)
+    {
+        $treinoCtl = TreinoController::getInstance();
+        $listaAtual = $treino->getListaExercicios();
+
+        //Remove aqui o exercicio e atualiza
+        $posicao = -1;
+        foreach ($listaAtual as $key1=>$bloco){
+            foreach ($bloco as $key2=>$exercicios) {
+                if($exercicios->getCod() == $codExercicio){
+                    $posicao = $key2;
+                }
+            }
+            if($posicao>=0)
+                unset($listaAtual[$key1][$posicao]);
+        }
+        $treino = $treinoCtl->atualizarTreino($treino->getNome(), $treino->getCod(), $listaAtual);
+
+        return $treino;
     }
 
 
