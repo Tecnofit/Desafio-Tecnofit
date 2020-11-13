@@ -4,7 +4,6 @@ require "../model/Treinos.php";
 
 class TreinoController {
 
-    //Singleton Pattern, only one instance of class controller
     private static $instance;
 
     public $treino;

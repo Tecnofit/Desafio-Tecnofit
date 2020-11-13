@@ -4,7 +4,6 @@ require "../model/Alunos.php";
 
 class AlunoController {
 
-    //Singleton Pattern, only one instance of class controller
     private static $instance;
 
     public $aluno;

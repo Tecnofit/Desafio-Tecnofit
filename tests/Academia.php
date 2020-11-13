@@ -146,16 +146,9 @@ class Academia extends TestCase
                 }
             }
         }
-        print_r($treino);
 
         //Ok nada removido, o Aluno esta usando o unico treino existente
         $this->assertEquals($aluno->getCodTreino(), 1);
     }
-
-    //-------------- REGRAS FINAIS -------------------
-    //Remover o aluno
-    //Remover um exercicio
-    //Remover um treino
-
 
 }

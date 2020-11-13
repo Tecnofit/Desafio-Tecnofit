@@ -4,7 +4,6 @@ require "../model/Exercicios.php";
 
 class ExercicioController {
 
-    //Singleton Pattern, only one instance of class controller
     private static $instance;
 
     public $exercicio;
