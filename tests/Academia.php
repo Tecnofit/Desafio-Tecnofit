@@ -3,11 +3,13 @@
 use PHPUnit\Framework\TestCase;
 require '../controller/AlunoController.php';
 require '../controller/TreinoController.php';
+require '../controller/TreinoController.php';
 
 class Academia extends TestCase
 {
     protected $alunoCtl;
     protected $treinoCtl;
+    protected $exercicioCtl;
 
     /**
      * @before
@@ -16,6 +18,7 @@ class Academia extends TestCase
     {
         $this->alunoCtl = AlunoController::getInstance();
         $this->treinoCtl = TreinoController::getInstance();
+        $this->exercicioCtl = TreinoController::getInstance();
     }
 
     //-------------- REGRAS ALUNOS -------------------
@@ -51,13 +54,23 @@ class Academia extends TestCase
 
     //-------------- REGRAS EXERCÍCIOS -------------------
     //Criar alguns exercicios e atrelar a um treino
-        //Criar um treino para este aluno
-        //Pesquisar novamente, agora retornando o treino disponibilizado
+    public function testCriarUmExercicio(): void
+    {
+        //Criar um exercicio para este aluno
+        $exercicio = $this->exercicioCtl->cadastrarTreino("Peito", 1, array());
+        $this->assertEquals($exercicio->getNome(), "Peito");
+        //Pesquisar novamente, agora retornando o exercicio disponibilizado
+        $exercicio = $this->exercicioCtl->pesquisarTreino(1);
+        $this->assertEquals($exercicio->getNome(), "Peito");
+
+        echo var_dump($exercicio);
+    }
 
     //Pesquisar um exercicio recém criado
     //Editar o nome de um exercicio
 
     //Aluno 1 - fará o treino de (Peito, 1, [pullover, barra, supino])
+
 
     //-------------- REGRAS EXERCÍCIOS - REGRAS IMPORTANTES -------------------
     // **** Informar quantas sessoes serão feitas para um exercicio. ****
