@@ -2,95 +2,96 @@
 
 require "../model/Treinos.php";
 
-class TreinoController {
+class TreinoController
+{
 
     private static $instance;
+    private $conn;
 
-    public $treino;
-
-    public function cadastrarTreino($nome, $cod)
+    public function __construct()
     {
-        //verificar se já não existe o treino
-        $this->treino = $this->pesquisarTreino($cod);
-        if(!isset($this->treino)){
-            //cadastra o treino
-            $this->treino = new Treinos();
-            $this->treino->setNome($nome);
-            $this->treino->setCod($cod);
-        }
-        return $this->treino;
-    }
-
-    public function pesquisarTreino($cod)
-    {
-        if(isset($this->treino) && $this->treino->getCod() == $cod){
-            return $this->treino;
-        }else{
-            return NULL;
-        }
-    }
-
-    public function atualizarExercicioNoTreino($exercicio)
-    {
-        $listaExerc = $this->treino->getListaExercicios();
-
-        $posicao = -1;
-        foreach ($listaExerc as $key1=>$bloco){
-            foreach ($bloco as $key2=>$exerc) {
-                if($exerc->getCod() == $exercicio->getCod()){
-                    $posicao = $key2;
-                }
-            }
-            $this->treino->getListaExercicios()[$key1][$posicao] = $exercicio;
-        }
-        return $this->treino;
-    }
-
-    public function deletarTreino($cod): ?bool
-    {
-        if(isset($this->treino) || $this->treino->getCod() == $cod){
-            $this->treino = NULL;
-            return true;//DELETADO
-        }else{
-            return false;//NAO ENCONTRADO
-        }
-    }
-
-    public function atualizarTreino($nome, $codTreino, $listaExercicios = array())
-    {
-        if(isset($this->treino) || $this->treino->getCod() == $codTreino){
-            //NAO ESTOU VERIFICANDO SE O VALOR É CORRETO, NULO OU VAZIO
-            $this->treino->setNome($nome);
-            $this->treino->setCod($codTreino);
-            $this->treino->setListaExercicios($listaExercicios);
-            return $this->treino;
-        }else{
-            return NULL;
-        }
-    }
-
-
-    public function incluirExerciciosTreino($codTreino, $exercicio)
-    {
-        if (isset($this->treino) || $this->treino->getCod() == $codTreino) {
-            //Só vai adicionando ao final, não remove, nem checa 't o d o' futuro
-
-            $lista = $this->treino->getListaExercicios();
-            array_push($lista, array($exercicio));
-            $this->treino->setListaExercicios($lista);
-            return $this->treino;
-        } else {
-            return NULL;
-        }
+        $this->conn = Connection::getInstance()->getConnection();
     }
 
     //Singleton Pattern
     public static function getInstance()
     {
-        if(self::$instance === null){
+        if (self::$instance === null) {
             self::$instance = new self;
         }
         return self::$instance;
+    }
+
+    public function cadastrar($cod, $nome)
+    {
+        $found = $this->pesquisar($nome);
+        if ($found == NULL) {
+            $result = $this->conn->query(
+                "INSERT INTO treino VALUES ($cod, '$nome')")
+            or die($this->conn->error);
+            if ($result) {
+                echo $this->conn->affected_rows;
+                return $this->conn->insert_id;
+            }
+        }
+        return $found;
+    }
+
+    public function pesquisar($nome)
+    {
+        $result = $this->conn->query("SELECT * FROM treino WHERE nome LIKE '$nome'");
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        return NULL;
+    }
+
+    public function remover($nome)
+    {
+        $result = $this->conn->query(
+            "DELETE FROM treino WHERE nome = '$nome'");
+        return $result;
+    }
+
+    public function atualizar($nome, $cod, $codTreino)
+    {
+        $result = $this->conn->query(
+            "UPDATE treino SET nome = '$nome' WHERE nome = '$nome'");
+        if ($result) {
+            return $result;
+        }
+        return NULL;
+    }
+
+    ///---------------- TREINAMENTO-----------------------------
+    public function atualizarTreinamento($codAluno, $codExercicio, $estado = 'disponivel')
+    {
+        $result = $this->conn->query("SELECT * FROM treinamento WHERE cod = $codExercicio AND codAluno = $codAluno");
+        if ($result) {
+            $row = $result->fetch_assoc();
+            $codTreinamento = $row['cod'];
+            $result = $this->conn->query(
+                "UPDATE treinamento SET estado = '$estado' WHERE cod = $codTreinamento");
+            if ($result) {
+                return $result;
+            }
+        } else {
+            $result = $this->conn->query(
+                "INSERT INTO treinamento VALUES(DEFAULT, $codAluno, $codExercicio, $estado");
+            if ($result) {
+                return $result;
+            }
+        }
+        return NULL;
+    }
+
+    public function pesquisarTreinamento($codAluno)
+    {
+        $result = $this->conn->query("SELECT * FROM treinamento WHERE codAluno = $codAluno");
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        return NULL;
     }
 
 }

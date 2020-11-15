@@ -2,112 +2,91 @@
 
 require "../model/Exercicios.php";
 
-class ExercicioController {
+class ExercicioController
+{
 
     private static $instance;
+    private $conn;
 
-    public $exercicio;
-
-    public function cadastrarExercicio($nome, $cod, $codTreino, $repeticoes, $estado='criado')
+    public function __construct()
     {
-        //verificar se já não existe o exercicio
-        $this->exercicio = $this->pesquisarExercicio($cod);
-        if(!isset($this->exercicio)){
-            //cadastra o exercicio
-            $this->exercicio = new Exercicios();
-            $this->exercicio->setNome($nome);
-            $this->exercicio->setCod($cod);
-            $this->exercicio->setRepeticoes($repeticoes);
-            $this->exercicio->setEstado($estado);
-
-            $this->incluirNoTreino($codTreino, $this->exercicio);
-        }
-        return $this->exercicio;
+        $this->conn = Connection::getInstance()->getConnection();
     }
-
-    public function pesquisarExercicio($cod)
-    {
-        if(isset($this->exercicio) && $this->exercicio->getCod() == $cod){
-            return $this->exercicio;
-        }else{
-            return NULL;
-        }
-    }
-
-    public function deletarExercicio($cod): ?bool
-    {
-        if(isset($this->exercicio) || $this->exercicio->getCod() == $cod){
-            $this->exercicio = NULL;
-            return true;//DELETADO
-        }else{
-            return false;//NAO ENCONTRADO
-        }
-    }
-
-    public function atualizarExercicio($nome, $cod, $codTreino, $repeticoes, $estado='criado')
-    {
-        $exercicio = new Exercicios();
-        $exercicio->setNome($nome);
-        $exercicio->setCod($cod);
-        $exercicio->setCodTreino($codTreino);
-        $exercicio->setRepeticoes($repeticoes);
-        $exercicio->setEstado($estado);
-
-        $treinoCtl = TreinoController::getInstance();
-        $treinoCtl->atualizarExercicioNoTreino($exercicio);
-
-        return $exercicio;
-    }
-
-    public function incluirNoTreino($exercicio)
-    {
-        /*
-         * Por questão de escopo, este código não verificar se já existe, remove ou deleta da lista
-         * apenas insere o final
-         */
-        $treinoCtl = TreinoController::getInstance();
-        $treinoCtl->atualizarExercicioNoTreino($exercicio);
-
-    }
-
-    public function alterarStatusExercicio($cod, $status)
-    {
-        $this->exercicio = $this->pesquisarExercicio($cod);
-        if(isset($this->exercicio)){
-            $this->exercicio->setEstado($status);
-        }
-        return $this->exercicio;
-    }
-
-    public function removeUmExercicio($treino, $codExercicio)
-    {
-        $treinoCtl = TreinoController::getInstance();
-        $listaAtual = $treino->getListaExercicios();
-
-        //Remove aqui o exercicio e atualiza
-        $posicao = -1;
-        foreach ($listaAtual as $key1=>$bloco){
-            foreach ($bloco as $key2=>$exercicios) {
-                if($exercicios->getCod() == $codExercicio){
-                    $posicao = $key2;
-                }
-            }
-            if($posicao>=0)
-                unset($listaAtual[$key1][$posicao]);
-        }
-        $treino = $treinoCtl->atualizarTreino($treino->getNome(), $treino->getCod(), $listaAtual);
-
-        return $treino;
-    }
-
 
     //Singleton Pattern
     public static function getInstance()
     {
-        if(self::$instance === null){
+        if (self::$instance === null) {
             self::$instance = new self;
         }
         return self::$instance;
+    }
+
+    public function cadastrar($codExercicio = NULL, $nome, $codTreino, $repeticoes, $estado = 'criado')
+    {
+        $found = $this->pesquisar($nome);
+        if ($found == NULL) {
+            if ($codExercicio == NULL) {
+                $result = $this->conn->query(
+                    "INSERT INTO exercicio VALUES (DEFAULT, '$nome', $codTreino, $repeticoes, '$estado')")
+                or die($this->conn->error);
+            } else {
+                //evita alterar o codigo original do exercicio
+                $result = $this->conn->query(
+                    "INSERT INTO exercicio VALUES ($codExercicio, '$nome', $codTreino, $repeticoes, '$estado')")
+                or die($this->conn->error);
+            }
+            if ($result) {
+                return $this->conn->insert_id;
+            }
+        }
+        return $found;
+    }
+
+
+    public function pesquisar($nome)
+    {
+        $result = $this->conn->query("SELECT * FROM exercicio WHERE nome = '$nome'");
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        return NULL;
+    }
+
+    public function pesquisarPorCodigo($cod)
+    {
+        $result = $this->conn->query("SELECT * FROM exercicio WHERE cod = $cod");
+        if ($result->num_rows > 0) {
+            return $result->fetch_all();
+        }
+        return NULL;
+    }
+
+    public function pesquisarPorTreino($codAluno)
+    {
+        $result = $this->conn->query("SELECT * FROM treinamento WHERE codAluno = $codAluno");
+        if ($result->num_rows > 0) {
+            return $result->fetch_all();
+        }
+        return NULL;
+    }
+
+    public function remover($nome)
+    {
+        $result = $this->conn->query(
+            "DELETE FROM exercicio WHERE nome = '$nome'");
+        return $result;
+    }
+
+    public function atualizar($nome, $codTreino, $repeticoes, $estado)
+    {
+        $result = $this->conn->query(
+            "UPDATE exercicio SET nome = '$nome', codTreino = $codTreino, repeticoes = $repeticoes, estado = $estado 
+                        WHERE nome = '$nome'");
+        if ($result) {
+            return $result;
+        }
+        return NULL;
     }
 
 }

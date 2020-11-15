@@ -2,10 +2,8 @@
 
 class Alunos {
 
-    private string $nome;
     private int $cod;
-    private int $codTreino;
-    private bool $ativo; //treino ativo ou desativado
+    private string $nome;
 
     //GETTERS AND SETTERS
     /**
@@ -44,39 +42,4 @@ class Alunos {
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getCodTreino(): int
-    {
-        return $this->codTreino;
-    }
-
-    /**
-     * @param int $codTreino
-     * @return Alunos
-     */
-    public function setCodTreino(int $codTreino): Alunos
-    {
-        $this->codTreino = $codTreino;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAtivo(): bool
-    {
-        return $this->ativo;
-    }
-
-    /**
-     * @param bool $ativo
-     * @return Alunos
-     */
-    public function setAtivo(bool $ativo): Alunos
-    {
-        $this->ativo = $ativo;
-        return $this;
-    }
 }

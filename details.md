@@ -5,24 +5,39 @@
 **Email**: rodrigorcandrade@gmail.com
 
 # Tecnologias
-> PHP 7.4
 
-> PHPUnit 9.4
-
-> Composer
+| Tech        | Version           | 
+| ------------- |:-------------:| 
+|   PHP |   7.4 |
+|   PHPUnit |   9.4 |
+|   Composer    | 2.0.6    |
+|   MySQL   |   8.0.22    |
 
 # Instalação
-[...]
 
-# Observações
+Sugestão usar o **MySQL rodando no Docker**
 
-Projeto foi criado usando TDD com o conceito de Baby Steps.
+```shell script
+    
+    # Docker running Mysql database
 
-Para executar o projeto utilize a classe Academia.php rodando via PHPUnit Runner.
+    cmd > docker run --name mysql-docker -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql
+    
+    cmd > docker ps
+    
+    cmd > docker exec -it mysql-docker bash
+    
+    root@00000:/# mysql -u root -p
+    
+    mysql> show databases
+    
+    mysql> CREATE DATABASE academia;
+```
 
-Para focar na lógica de negócio, e demonstrar conhecimentos diversos resolvi não utilizar
-banco de dados =[ , tudo esta sendo salvo na memória, e gerenciado via estruturas de dados, 
-com isso temos algumas limitação, como por exemplo somente um Aluno, um treino disponível mas vários exercicios atrelado ao treino. 
-Futuramente pode ser realizado a mesma expansão dos exercícios para as demais entidades, permitindo vários Alunos e Treinos.
+Criar as tabelas do banco de dados usando **src/export-database.sql**
+
+Para executar o projeto utilize a classe **src/Tests/TestAcademia.php** rodando via PHPUnit Runner.
+
+Projeto foi criado usando TDD com o conceito de *'Baby Steps'*.
 
 

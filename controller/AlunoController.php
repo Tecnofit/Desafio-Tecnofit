@@ -2,69 +2,67 @@
 
 require "../model/Alunos.php";
 
-class AlunoController {
+class AlunoController
+{
 
     private static $instance;
+    private $conn;
 
-    public $aluno;
-
-    public function cadastrarAluno($nome, $cod, $codTreino=0, $ativo=false)
+    public function __construct()
     {
-        //verificar se já não existe o aluno
-        $this->aluno = $this->pesquisarAluno($cod);
-        if(!isset($this->aluno)){
-            //cadastra o aluno
-            $this->aluno = new Alunos();
-            $this->aluno->setNome($nome);
-            $this->aluno->setCod($cod);
-            $this->aluno->setCodTreino($codTreino);
-            $this->aluno->setAtivo($ativo);
-        }
-        return $this->aluno;
-    }
-
-    public function pesquisarAluno($cod)
-    {
-        if(isset($this->aluno) && $this->aluno->getCod() == $cod){
-            return $this->aluno;
-        }else{
-            return NULL;
-        }
-    }
-
-    public function deletarAluno($cod): ?bool
-    {
-        if(isset($this->aluno) || $this->aluno->getCod() == $cod){
-            $this->aluno = NULL;
-            return true;//DELETADO
-        }else{
-            return false;//NAO ENCONTRADO
-        }
-    }
-
-    public function atualizarAluno($nome, $cod, $codTreino=0, $ativo=false)
-    {
-        if(isset($this->aluno) || $this->aluno->getCod() == $cod){
-            //NAO ESTOU VERIFICANDO SE O VALOR É CORRETO, NULO OU VAZIO
-            $this->aluno->setNome($nome);
-            $this->aluno->setCodTreino($codTreino);
-            if($codTreino > 0 && $ativo == false)
-                $this->aluno->setAtivo(true);
-            else
-               $this->aluno->setAtivo($ativo);
-            return $this->aluno;
-        }else{
-            return NULL;
-        }
+        $this->conn = Connection::getInstance()->getConnection();
     }
 
     //Singleton Pattern
     public static function getInstance()
     {
-        if(self::$instance === null){
+        if (self::$instance === null) {
             self::$instance = new self;
         }
         return self::$instance;
     }
+
+    public function cadastrar($nome)
+    {
+        $found = $this->pesquisar($nome);
+        if ($found == NULL) {
+            $result = $this->conn->query(
+                "INSERT INTO aluno VALUES (DEFAULT, '$nome')")
+            or die($this->conn->error);
+            if ($result) {
+                return $this->conn->insert_id;
+            }
+        }
+        return $found;
+    }
+
+
+    public function pesquisar($nome)
+    {
+        $result = $this->conn->query("SELECT * FROM aluno WHERE nome = '$nome'");
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        return NULL;
+    }
+
+    public function remover($nome)
+    {
+        $result = $this->conn->query(
+            "DELETE FROM aluno WHERE nome = '$nome'");
+        return $result;
+    }
+
+    public function atualizar($nome)
+    {
+        $result = $this->conn->query(
+            "UPDATE aluno SET nome = '$nome'
+                        WHERE nome = '$nome'");
+        if ($result) {
+            return $result;
+        }
+        return NULL;
+    }
+
 
 }
