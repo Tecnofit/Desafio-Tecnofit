@@ -34,9 +34,11 @@ Sugestão usar o **MySQL rodando no Docker**
     mysql> CREATE DATABASE academia;
 ```
 
-Criar as tabelas do banco de dados usando **src/export-database.sql**
+Constates para conexão com o banco de dados estão no arquivo ***/src/constants.php***
 
-Para executar o projeto utilize a classe **src/Tests/TestAcademia.php** rodando via PHPUnit Runner.
+Criar as tabelas do banco de dados usando **/src/export-database.sql**
+
+Para executar o projeto utilize a classe **/src/Tests/TestAcademia.php** rodando via PHPUnit Runner.
 
 Projeto foi criado usando TDD com o conceito de *'Baby Steps'*.
 
