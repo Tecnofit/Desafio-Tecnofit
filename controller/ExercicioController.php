@@ -22,25 +22,17 @@ class ExercicioController
         return self::$instance;
     }
 
-    public function cadastrar($codExercicio = NULL, $nome, $codTreino, $repeticoes, $estado = 'criado')
+    public function cadastrar($nome, $codTreino, $repeticoes, $estado = 'criado')
     {
         $found = $this->pesquisar($nome);
         if ($found == NULL) {
-            if ($codExercicio == NULL) {
-                $result = $this->conn->query(
+            $result = $this->conn->query(
                     "INSERT INTO exercicio VALUES (DEFAULT, '$nome', $codTreino, $repeticoes, '$estado')")
                 or die($this->conn->error);
-            } else {
-                //evita alterar o codigo original do exercicio
-                $result = $this->conn->query(
-                    "INSERT INTO exercicio VALUES ($codExercicio, '$nome', $codTreino, $repeticoes, '$estado')")
-                or die($this->conn->error);
-            }
-            if ($result) {
-                return $this->conn->insert_id;
-            }
+            echo Connection::getInstance()->errorConnections();
+            return $result;
         }
-        return $found;
+        return false;
     }
 
 
@@ -50,7 +42,7 @@ class ExercicioController
         if ($result->num_rows > 0) {
             return $result->fetch_assoc();
         }
-        return NULL;
+        return false;
     }
 
     public function pesquisarPorCodigo($cod)
@@ -59,7 +51,7 @@ class ExercicioController
         if ($result->num_rows > 0) {
             return $result->fetch_all();
         }
-        return NULL;
+        return false;
     }
 
     public function pesquisarPorTreino($codAluno)
@@ -68,25 +60,24 @@ class ExercicioController
         if ($result->num_rows > 0) {
             return $result->fetch_all();
         }
-        return NULL;
+        return false;
     }
 
     public function remover($nome)
     {
         $result = $this->conn->query(
             "DELETE FROM exercicio WHERE nome = '$nome'");
+        echo Connection::getInstance()->errorConnections();
         return $result;
     }
 
-    public function atualizar($nome, $codTreino, $repeticoes, $estado)
+    public function atualizar($cod, $nome, $codTreino, $repeticoes, $estado)
     {
         $result = $this->conn->query(
-            "UPDATE exercicio SET nome = '$nome', codTreino = $codTreino, repeticoes = $repeticoes, estado = $estado 
-                        WHERE nome = '$nome'");
-        if ($result) {
-            return $result;
-        }
-        return NULL;
+            "UPDATE exercicio SET nome = '$nome', codTreino = $codTreino, repeticoes = $repeticoes, estado = '$estado' 
+                        WHERE cod = $cod");
+        echo Connection::getInstance()->errorConnections();
+        return $result;
     }
 
 }

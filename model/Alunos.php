@@ -15,10 +15,10 @@ class Alunos {
     }
 
     /**
-     * @param string|null $nome
-     * @return Alunos
+     * @param string $nome
+     * @return string
      */
-    public function setNome(?string $nome): Alunos
+    public function setNome(string $nome): string
     {
         $this->nome = $nome;
         return $this;

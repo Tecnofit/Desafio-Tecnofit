@@ -27,13 +27,11 @@ class AlunoController
         $found = $this->pesquisar($nome);
         if ($found == NULL) {
             $result = $this->conn->query(
-                "INSERT INTO aluno VALUES (DEFAULT, '$nome')")
-            or die($this->conn->error);
-            if ($result) {
-                return $this->conn->insert_id;
-            }
+                "INSERT INTO aluno VALUES (DEFAULT, '$nome')");
+            echo Connection::getInstance()->errorConnections();
+            return $result;
         }
-        return $found;
+        return false;
     }
 
 
@@ -50,14 +48,16 @@ class AlunoController
     {
         $result = $this->conn->query(
             "DELETE FROM aluno WHERE nome = '$nome'");
+        echo Connection::getInstance()->errorConnections();
         return $result;
     }
 
-    public function atualizar($nome)
+    public function atualizar($cod, $nome)
     {
         $result = $this->conn->query(
             "UPDATE aluno SET nome = '$nome'
-                        WHERE nome = '$nome'");
+                        WHERE cod = $cod");
+        echo Connection::getInstance()->errorConnections();
         if ($result) {
             return $result;
         }

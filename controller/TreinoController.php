@@ -22,19 +22,29 @@ class TreinoController
         return self::$instance;
     }
 
-    public function cadastrar($cod, $nome)
+    public function cadastrar($nome, $cod=NULL)
     {
         $found = $this->pesquisar($nome);
+        $result = false;
         if ($found == NULL) {
-            $result = $this->conn->query(
-                "INSERT INTO treino VALUES ($cod, '$nome')")
-            or die($this->conn->error);
-            if ($result) {
-                echo $this->conn->affected_rows;
-                return $this->conn->insert_id;
+            if($cod == NULL){
+                $result = $this->conn->query(
+                    "INSERT INTO treino VALUES (DEFAULT, '$nome')");
+            }else{
+                $result = $this->conn->query(
+                    "INSERT INTO treino VALUES ($cod, '$nome')");
+            }
+        }else{
+            if($cod == NULL){
+                //Achou um aluno mas quer atualizar outro existente
+                $result = $this->atualizar($found['cod'], $nome);
+            }else{
+                //Achou o aluno nao passou o código atualize o primeiro encontrado
+                $result = $this->atualizar($cod, $nome);
             }
         }
-        return $found;
+        echo Connection::getInstance()->errorConnections();
+        return $result;
     }
 
     public function pesquisar($nome)
@@ -43,46 +53,40 @@ class TreinoController
         if ($result->num_rows > 0) {
             return $result->fetch_assoc();
         }
-        return NULL;
+        return false;
     }
 
     public function remover($nome)
     {
         $result = $this->conn->query(
             "DELETE FROM treino WHERE nome = '$nome'");
+        echo Connection::getInstance()->errorConnections();
         return $result;
     }
 
-    public function atualizar($nome, $cod, $codTreino)
+    public function atualizar($cod, $nome)
     {
         $result = $this->conn->query(
-            "UPDATE treino SET nome = '$nome' WHERE nome = '$nome'");
-        if ($result) {
-            return $result;
-        }
-        return NULL;
+            "UPDATE treino SET nome = '$nome' WHERE cod = $cod");
+        echo Connection::getInstance()->errorConnections();
+        return $result;
     }
 
     ///---------------- TREINAMENTO-----------------------------
     public function atualizarTreinamento($codAluno, $codExercicio, $estado = 'disponivel')
     {
         $result = $this->conn->query("SELECT * FROM treinamento WHERE cod = $codExercicio AND codAluno = $codAluno");
-        if ($result) {
+        if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $codTreinamento = $row['cod'];
             $result = $this->conn->query(
                 "UPDATE treinamento SET estado = '$estado' WHERE cod = $codTreinamento");
-            if ($result) {
-                return $result;
-            }
         } else {
             $result = $this->conn->query(
-                "INSERT INTO treinamento VALUES(DEFAULT, $codAluno, $codExercicio, $estado");
-            if ($result) {
-                return $result;
-            }
+                "INSERT INTO treinamento VALUES(DEFAULT, $codAluno, $codExercicio, '$estado')");
         }
-        return NULL;
+        echo Connection::getInstance()->errorConnections();
+        return $result;
     }
 
     public function pesquisarTreinamento($codAluno)
@@ -91,7 +95,14 @@ class TreinoController
         if ($result->num_rows > 0) {
             return $result->fetch_assoc();
         }
-        return NULL;
+        return false;
     }
 
+    public function removerTreinamento($cod)
+    {
+        $result = $this->conn->query(
+            "DELETE FROM treinamento WHERE cod = $cod");
+        echo Connection::getInstance()->errorConnections();
+        return $result;
+    }
 }

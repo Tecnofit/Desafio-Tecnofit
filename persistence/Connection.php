@@ -17,7 +17,11 @@ class Connection
     public function __construct()
     {
         //$this->connection = new PDO('mysql:host=' . $this->dbhost . ';dbname=' . $this->dbname, $this->dbuser, $this->dbpass);
-        $this->connection = new mysqli($this->dbhost, $this->dbuser, $this->dbpass, $this->dbname) or die('Could not connect: ' . mysqli_error());
+        $this->connection = new mysqli($this->dbhost, $this->dbuser, $this->dbpass, $this->dbname);
+        if ($this->connection->connect_errno) {
+            echo "Failed to connect to MySQL: " . $this->connection->connect_error;
+            exit();
+        }
     }
 
     public static function getInstance()
@@ -28,10 +32,17 @@ class Connection
         return self::$instance;
     }
 
-
     public function getConnection()
     {
         return $this->connection;
+    }
+
+    public function errorConnections()
+    {
+        if($this->getConnection()->errno>0){
+            return $this->getConnection()->error;
+        }
+        return false;
     }
 
 }
