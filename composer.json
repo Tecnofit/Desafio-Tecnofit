@@ -1,0 +1,27 @@
+{
+  "name": "cassio/academia",
+  "description": "Desafio de criar uma aplicação que gerencie os treinos de uma academia",
+  "type": "project",
+  "homepage": "http://localhost",
+  "link": "http://localhost",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Cassio Bueno",
+      "email": "cassioleguizamonbueno@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "~7.4",
+    "symfony/var-dumper": "2.7.*",
+    "myclabs/php-enum": "~1.4.1",
+    "ext-json": "*",
+    "ext-curl": "*",
+    "doctrine/orm": "2.5.*",
+    "vlucas/phpdotenv": "~2.3",
+    "adodb/adodb-php": "^5.20"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.7.21"
+  }
+}
