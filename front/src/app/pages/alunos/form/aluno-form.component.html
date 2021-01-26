@@ -1,0 +1,101 @@
+<app-bread-crumb [items]="[{text: 'Alunos', link: '/alunos'}, {text: pageTitle}]"></app-bread-crumb>
+
+<app-page-header [page-title]="pageTitle" button-text="<< Voltar" button-link="/alunos" button-class="btn-light"></app-page-header>
+
+
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+
+    <div class="card">
+        <div class="card-header">
+            Informações sobre o Aluno
+        </div>
+
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" formControlName="nome">
+
+                    <app-form-field-error [form-control]="resourceForm.get('nome')"></app-form-field-error>
+                </div>
+
+                <div class="form-group col-md-8">
+                    <label for="description">E-mail</label>
+                    <input type="text" class="form-control" id="email" formControlName="email">
+                </div>
+
+                <!-- <div class="form-group col-md-3">
+                    <label for="treino_id">Treino ativo</label>
+
+                    <select name="treino_id" id="treino_id" formControlName="treino_id" class="form-control">
+                      <option *ngFor="let treino of treinos" [value]="treino.id">{{ treino.descricao }}</option>
+                    </select>
+
+                    <app-form-field-error [form-control]="resourceForm.get('treino_id')"></app-form-field-error> -->
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+
+    <app-server-error-messages [server-error-messages]="serverErrorMessages"></app-server-error-messages>
+
+    <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+    Salvar
+  </button>
+
+</form>
+<!-- <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Gerenciamento de alunos</li>
+    </ol>
+</nav>
+<div class="card list-aluno">
+    <h5 class="card-header">Lista de alunos</h5>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let aluno of alunos">
+                    <td>{{aluno.id}}</td>
+                    <td>{{aluno.nome}}</td>
+                    <td>{{aluno.email}}</td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm" (click)="editAluno(aluno)">Editar</button>
+                        <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteAluno(aluno)">Deletar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card add-aluno">
+    <h5 class="card-header">Adicionar/Atualizar aluno</h5>
+    <div class="card-body">
+        <form id="add-form" (ngSubmit)="f.form.valid && saveAluno(f)" #f="ngForm" novalidate>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" [(ngModel)]="aluno.nome" id="nome" name="nome" #nome="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && nome.invalid }" placeholder="Digite o nome">
+                <div *ngIf="f.submitted && nome.invalid" class="invalid-feedback">
+                    <div *ngIf="nome.errors.required">Nome é obrigatório</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="text" [(ngModel)]="aluno.email" id="email" name="nemail" #nome="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && nome.invalid }" placeholder="Digite o email">
+                <div *ngIf="f.submitted && nome.invalid" class="invalid-feedback">
+                    <div *ngIf="nome.errors.required">Email é obrigatório</div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-add-aluno">Salvar</button>
+            <button type="reset" class="btn btn-secondary btn-add-aluno" (click)="cleanForm(f)">Cancelar</button>
+        </form>
+    </div>
+</div> -->

@@ -1,0 +1,33 @@
+<app-bread-crumb [items]="[{text: 'Exercicios', link: '/exercicios'}, {text: pageTitle}]"></app-bread-crumb>
+
+<app-page-header [page-title]="pageTitle" button-text="<< Voltar" button-link="/exercicios" button-class="btn-light">
+</app-page-header>
+
+
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+
+    <div class="card">
+        <div class="card-header">
+            Informações sobre o Exercicio
+        </div>
+
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" formControlName="nome">
+
+                    <app-form-field-error [form-control]="resourceForm.get('nome')"></app-form-field-error>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <app-server-error-messages [server-error-messages]="serverErrorMessages"></app-server-error-messages>
+
+    <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+        Salvar
+    </button>
+
+</form>

@@ -1,0 +1,48 @@
+<app-bread-crumb [items]="[{text: 'Exercicios'}]"></app-bread-crumb>
+
+<app-page-header page-title="Exercicios" button-text="+ Novo Exercicio" button-link="new" button-class="btn-success"></app-page-header>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr class="bg-primary text-light">
+            <th>Exercicio</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let exercicio of resources">
+            <td>
+                <strong>{{exercicio.nome}}</strong><br>
+            </td>
+            <td>
+                <a [routerLink]="[exercicio.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+                <button (click)="deleteResource(exercicio)" class="btn btn-outline-danger btn-sm">Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!--
+<div class="card add-exercicio">
+    <h5 class="card-header">Adicionar/Atualizar exercicio</h5>
+    <div class="card-body">
+        <form id="add-form" (ngSubmit)="f.form.valid && saveExercicio(f)" #f="ngForm" novalidate>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" [(ngModel)]="exercicio.nome" id="nome" name="nome" #nome="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && nome.invalid }" placeholder="Digite o nome">
+                <div *ngIf="f.submitted && nome.invalid" class="invalid-feedback">
+                    <div *ngIf="nome.errors.required">Nome é obrigatório</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="text" [(ngModel)]="exercicio.email" id="email" name="nemail" #nome="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && nome.invalid }" placeholder="Digite o email">
+                <div *ngIf="f.submitted && nome.invalid" class="invalid-feedback">
+                    <div *ngIf="nome.errors.required">Email é obrigatório</div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-add-exercicio">Salvar</button>
+            <button type="reset" class="btn btn-secondary btn-add-exercicio" (click)="cleanForm(f)">Cancelar</button>
+        </form>
+    </div>
+</div> -->

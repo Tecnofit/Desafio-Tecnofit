@@ -1,0 +1,88 @@
+<app-bread-crumb [items]="[{text: 'Treinos'}]"></app-bread-crumb>
+<app-page-header page-title="Treinos" button-text="+ Novo Treino" button-link="new" button-class="btn-success">
+</app-page-header>
+<table class="table table-hover">
+
+    <thead>
+        <tr class="bg-primary text-light">
+            <th>Aluno</th>
+            <th>Treino</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let treino of resources">
+            <!-- <tr *ngFor="let treino of resources"> -->
+            <td class="clickable" (click)="loadTreinoDetalhesById(treino.id)">
+                {{treino.aluno.nome}}
+            </td>
+            <td class="clickable" (click)="loadTreinoDetalhesById(treino.id)">
+                {{treino.descricao}}
+            </td>
+            <td class="clickable" (click)="loadTreinoDetalhesById(treino.id)">
+                <span class="badge {{ treino.tagColor }}">{{treino.ativoText}}</span>
+            </td>
+            <td>
+                <a [routerLink]="[treino.id, 'edit'] " class="btn btn-outline-info btn-sm mr-2 ">Editar</a>
+                <button (click)="deleteResource(treino) " class="btn btn-outline-danger btn-sm ">Excluir</button>
+            </td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+<!-- <div class="uk-placeholder" *ngIf="treinodetalhes"> -->
+<div class="uk-placeholder" *ngIf="treinodetalhes; else elseBlock">
+
+    <table class="table table-hover">
+        <thead>
+            <tr class="bg-secondary text-light">
+                <th>
+                    Detalhes do Treino: Aluno => {{ treinodetalhes[0].aluno.nome }}</th>
+                <!-- <th>Ações</th> -->
+                <th>Status</th>
+            </tr>
+        </thead>
+        <!-- <a class="btn btn-sm btn-success text-white" (click)="viewEditTreinoDetalhe(treinodetalhes[0].treino_id)"><i
+                class="fa fa-plus"></i>Adicionar Novo Exercício ao Treino</a> -->
+        <tbody>
+            <tr *ngFor="let treinodetalhe of treinodetalhes">
+                <td>
+                    <strong>{{treinodetalhe.exercicio.nome}}</strong><br>
+                    <small>Séries:{{treinodetalhe.series}}</small><br>
+                    <small>Repetiçoes{{treinodetalhe.repeticoes}}</small>
+                </td>
+                <td>
+                    <div class="btn-group btn-group-sm">
+
+                        <label [class.active]="treinodetalhe.status == 0" class="btn btn-outline-info" disabled="disabled">
+                            Não efetuado
+                        </label>
+                        <label [class.active]="treinodetalhe.status == 1" class="btn btn-outline-success" disabled="disabled">
+                            Concluído
+                        </label>
+                        <label [class.active]="treinodetalhe.status == 2" class="btn btn-outline-warning" disabled="disabled">
+                            Pulou
+                        </label>
+                    </div>
+                </td>
+                <td>
+                    <!-- <a [routerLink]="[treinodetalhe.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a> -->
+                    <!-- <a class="btn btn-sm btn-success text-white" (click)="viewEditTreinoDetalhe(treinodetalhe.id)">Editar Detalhe</a> -->
+                    <!-- <button (click)="deleteResource(treinodetalhe, 'treino_detalhe')" class="btn btn-outline-danger btn-sm">Excluir</button> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #elseBlock>
+    <div class="uk-placeholder" *ngIf="erro">
+        <div class="alert alert-danger mt-4">
+            <ul>
+                <li>Não foram encontrados detalhes para esse treino</li>
+            </ul>
+        </div>
+    </div>
+</ng-template>
