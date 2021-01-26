@@ -1,0 +1,90 @@
+<app-bread-crumb [items]="[{text: 'Treinos', link: '/treinos'}, {text: pageTitle}]"></app-bread-crumb>
+
+<app-page-header [page-title]="pageTitle" button-text="<< Voltar" button-link="/treinos" button-class="btn-light">
+</app-page-header>
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+
+    <div class="card">
+        <div class="card-header">
+            Informações sobre o Treino
+        </div>
+
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="id">id</label>
+                    <input type="text" class="form-control" id="id" formControlName="id">
+
+                    <app-form-field-error [form-control]="resourceForm.get('id')"></app-form-field-error>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="descricao">Descricao</label>
+                    <input type="text" class="form-control" id="descricao" formControlName="descricao">
+
+                    <app-form-field-error [form-control]="resourceForm.get('descricao')"></app-form-field-error>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="aluno_id">Aluno</label>
+
+                    <select name="aluno_id" id="aluno_id" formControlName="aluno_id" class="form-control">
+                        <option *ngFor="let aluno of alunos" [value]="aluno.id">{{ aluno.nome }}</option>
+                    </select>
+
+                    <app-form-field-error [form-control]="resourceForm.get('aluno_id')"></app-form-field-error>
+                </div>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="ativo">Ativo</label>
+                <div class="btn-group">
+                    <label (click)="resourceForm.get('ativo').setValue(1)" [class.active]="resourceForm.get('ativo').value == true" class="btn btn-outline-info">
+                        Ativo
+                    </label>
+                    <label (click)="resourceForm.get('ativo').setValue(0)" [class.active]="resourceForm.get('ativo').value == false" class="btn btn-outline-info">
+                        Desativado
+                    </label>
+                </div>
+                <app-form-field-error [form-control]="resourceForm.get('ativo')"></app-form-field-error>
+            </div>
+
+        </div>
+
+        <app-server-error-messages [server-error-messages]="serverErrorMessages"></app-server-error-messages>
+    </div>
+    <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+        Salvar
+    </button>
+    <!-- order items table-->
+</form>
+<table class="table table-borderless">
+    <thead class="thead-light">
+        <th>Exercicio</th>
+        <th>Status</th>
+        <th>Ações</th>
+        <th>
+            <!-- <a class="btn btn-sm btn-success text-white" (click)="viewEditTreinoDetalhe((resourceForm.get('id').value))">Open</a> -->
+            <a class="btn btn-sm btn-success text-white" (click)="viewEditTreinoDetalhe((resourceForm.get('id').value),'new')">Novo Detalhe</a>
+        </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let treinodetalhe of treinodetalhes">
+            <td>
+                <strong>{{treinodetalhe.exercicio.nome}}</strong><br>
+                <small>Séries:{{treinodetalhe.series}}</small><br>
+                <small>Repetiçoes: {{treinodetalhe.repeticoes}}</small><br>
+                <small>Id do detalhe: {{treinodetalhe.id}}</small>
+            </td>
+            <td>
+                <strong><span class="badge {{ treinodetalhe.tagColor }}">{{treinodetalhe.statusText}}</span></strong><br>
+            </td>
+            <td>
+                <!-- <a [routerLink]="[treinodetalhe.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a> -->
+                <a class="btn btn-sm btn-success text-white" (click)="viewEditTreinoDetalhe(treinodetalhe.id,'edit');">Editar Detalhe</a>
+                <button (click)="deleteResource(treinodetalhe, 'treino_detalhe')" class="btn btn-outline-danger btn-sm">Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- <div class="form-group">
+    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+    <a class="btn btn-outline-dark ml-1" routerLink="/orders"><i class="fa fa-table"></i> View Orders</a>
+</div> -->

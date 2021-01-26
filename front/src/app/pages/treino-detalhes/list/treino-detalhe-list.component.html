@@ -1,0 +1,84 @@
+<app-bread-crumb [items]="[{text: 'Treinos'}]"></app-bread-crumb>
+<app-page-header page-title="Treinos" button-text="+ Novo Treino" button-link="new" button-class="btn-success">
+</app-page-header>
+<table class="table table-hover">
+
+    <thead>
+        <tr class="bg-primary text-light">
+            <th>Exercicio</th>
+            <th>Series</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- <tr *ngFor="let treino of resources; let i=index;" class="clickable" (click)="loadTreinoDetalhesById(treino.id)"> -->
+        <tr *ngFor="let treinodetalhe of resources">
+            <td>
+                {{treinodetalhe.exercicio.nome}}
+            </td>
+            <td>
+                {{treinodetalhe.series}}
+            </td>
+
+            <td>
+                <a [routerLink]="[treinodetalhe.id, 'edit'] " class="btn btn-outline-info btn-sm mr-2 ">Editar</a>
+                <button (click)="deleteResource(treinodetalhe) " class="btn btn-outline-danger btn-sm ">Excluir</button>
+            </td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+
+<!-- <app-bread-crumb [items]="[{text: 'Detalhes do Treinos'}]"></app-bread-crumb>
+
+<app-page-header page-title="Detalhes do Treinos" button-text="+ Novo Treino Detalhe" button-link="new" button-class="btn-success"></app-page-header>
+
+<table class="table table-hover">
+    <thead>
+        <tr class="bg-primary text-light">
+            <th>Detalhes do Treino: Aluno=> {{ treinodetalhes[0].aluno.nome }}</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let treinodetalhe of treinodetalhes">
+            <td>
+                <strong>{{treinodetalhe.id}}</strong><br>
+                <small>{{treinodetalhe.exercicio_id}}</small>
+            </td>
+            <td>
+                <a [routerLink]="[treinodetalhe.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+                <button (click)="deleteResource(treinodetalhe)" class="btn btn-outline-danger btn-sm">Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+
+<!-- 
+<app-bread-crumb [items]="[{text: 'Detalhes do Treinos'}]"></app-bread-crumb>
+
+<app-page-header page-title="Detalhes do Treinos" button-text="+ Novo Treino Detalhe" button-link="new" button-class="btn-success"></app-page-header>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr class="bg-primary text-light">
+            <th>Detalhes do Treino: Aluno=> {{ treinodetalhes[0].aluno.nome }}</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let treinodetalhe of treinodetalhes">
+            <td>
+                <strong>{{treinodetalhe.id}}</strong><br>
+                <small>{{treinodetalhe.exercicio_id}}</small>
+            </td>
+            <td>
+                <a [routerLink]="[treinodetalhe.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+                <button (click)="deleteResource(treinodetalhe)" class="btn btn-outline-danger btn-sm">Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+</table> -->

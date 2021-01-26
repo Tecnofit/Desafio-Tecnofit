@@ -1,0 +1,13 @@
+{
+    "name": "brunoarruda/tecnofit",
+    "description": "Projeto Tecnofit",
+    "authors": [
+        {
+            "name": "Bruno Arruda",
+            "email": "brunowolly@hotmail.com"
+        }
+    ],
+    "require": {
+        "components/angular.js": "^1.3"
+    }
+}

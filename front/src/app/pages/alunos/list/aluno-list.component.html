@@ -1,0 +1,25 @@
+<app-bread-crumb [items]="[{text: 'Alunos'}]"></app-bread-crumb>
+
+<app-page-header page-title="Alunos" button-text="+ Novo Aluno" button-link="new" button-class="btn-success"></app-page-header>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr class="bg-primary text-light">
+            <th>Aluno</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let aluno of resources">
+            <td>
+                <strong>{{aluno.nome}}</strong><br>
+                <small>{{aluno.email}}</small>
+            </td>
+            <td>
+                <a [routerLink]="[aluno.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+                <button (click)="deleteResource(aluno)" class="btn btn-outline-danger btn-sm">Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

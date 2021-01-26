@@ -1,0 +1,6 @@
+<div class="alert alert-danger mt-4" *ngIf="generalErrorMessages">
+    {{generalErrorMessages| json}}
+    <ul>
+        <li *ngFor="let error of generalErrorMessages">{{error}}</li>
+    </ul>
+</div>

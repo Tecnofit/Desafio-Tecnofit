@@ -1,0 +1,78 @@
+<app-bread-crumb [items]="[{text: 'TreinoDetalhes', link: '/treino-detalhes'}, {text: pageTitle}]"></app-bread-crumb>
+
+<app-page-header [page-title]="pageTitle" button-text="<< Voltar" button-link="/treino-detalhe" button-class="btn-light"></app-page-header>
+
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+
+    <div class="card">
+        <div class="card-header">
+            Informações sobre o Detalhe do Treino
+            <div class="form-group col-md-8">
+                <input type="text" class="form-control" id="aluno_nome" formControlName="aluno_nome" disabled>
+
+                <app-form-field-error [form-control]="resourceForm.get('aluno_nome')"></app-form-field-error>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="aluno">#Id do Treino</label>
+                    <input type="text" class="form-control" id="treino_id" formControlName="treino_id" disabled>
+                    <app-form-field-error [form-control]="resourceForm.get('treino_id')"></app-form-field-error>
+                </div>
+
+                <!-- <div class="form-group col-md-2">
+                    <label for="aluno">aluno</label>
+                    <input type="text" class="form-control" id="aluno_nome" formControlName="aluno_nome" disabled>
+
+                    <app-form-field-error [form-control]="resourceForm.get('aluno_nome')"></app-form-field-error>
+                </div> -->
+
+                <div class="form-group col-md-3">
+                    <label for="series">series</label>
+                    <input type="text" class="form-control" id="series" formControlName="series">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="repeticoes">repeticoes</label>
+                    <input type="text" class="form-control" id="repeticoes" formControlName="repeticoes">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="exercicio">exercicio</label>
+                    <select name="exercicio_id" id="exercicio_id" formControlName="exercicio_id" class="form-control">
+                        <option *ngFor="let exercicio of exercicios" [value]="exercicio.id">{{ exercicio.nome }}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="status">Status do Treino</label>
+                    <div class="btn-group">
+                        <label (click)="resourceForm.get('status').setValue(0)" [class.active]="resourceForm.get('status').value == 0" class="btn btn-outline-info">
+                            Não efetuado
+                        </label>
+                        <label (click)="resourceForm.get('status').setValue(1)" [class.active]="resourceForm.get('status').value == 1" class="btn btn-outline-info">
+                            Concluído
+                        </label>
+                        <label (click)="resourceForm.get('status').setValue(2)" [class.active]="resourceForm.get('status').value == 2" class="btn btn-outline-info">
+                            Pular
+                        </label>
+                    </div>
+                    <app-form-field-error [form-control]="resourceForm.get('status')"></app-form-field-error>
+                </div>
+
+                <!-- <div class="form-group col-md-1">
+                    <label for="description">treino_id</label>
+                    <input type="text" class="form-control" id="treino_id" formControlName="treino_id">
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <app-server-error-messages [server-error-messages]="serverErrorMessages"></app-server-error-messages>
+
+    <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+        Salvar
+    </button>
+
+</form>
