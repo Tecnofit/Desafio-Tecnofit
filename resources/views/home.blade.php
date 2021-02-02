@@ -35,8 +35,8 @@
             <div class="col-sm-12">
                 <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Relatório de Clientes</h5>
-                    <p class="card-text">Relatório de Clientes.</p>
+                    <h5 class="card-title">Relatório de Aluno</h5>
+                    <p class="card-text">Relatório de Alunos.</p>
                     <a href="/relCliente" class="btn btn-primary">Conectar</a>
                 </div>
                 </div>
