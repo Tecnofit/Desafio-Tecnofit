@@ -1,0 +1,9 @@
+.docker/mysql/data
+
+vendor
+composer.lock
+
+.env
+.htaccess
+
+.idea
