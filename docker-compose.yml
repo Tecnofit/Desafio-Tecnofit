@@ -39,7 +39,7 @@ services:
     image: mysql:5.7.27
     container_name: yofit_db
     ports:
-      - 3305:3306
+      - 3306:3306
     networks:
       - backend
     volumes:
@@ -48,7 +48,7 @@ services:
       - .docker/mysql/data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=yofit
-      - MYSQL_DATABASE=yofit
+      - MYSQL_DATABASE=gym
 
 networks:
   backend:

@@ -12,9 +12,9 @@ return function (RouteCollector $r): void {
     $r->addGroup('/api', function (RouteCollector $r) {
         $r->addGroup('/v1', function (RouteCollector $r) {
             $r->addGroup('/training', function (RouteCollector $r) {
-                $r->get('/{id:\d+}', [TrainingDetailHandler::class, Router::$IS_PUBLIC]);
                 $r->post('', [TrainingCreateHandler::class, Router::$IS_PUBLIC]);
                 $r->put('', [TrainingUpdateHandler::class, Router::$IS_PUBLIC]);
+                $r->get('/{id:\d+}', [TrainingDetailHandler::class, Router::$IS_PUBLIC]);
             });
         });
     });
