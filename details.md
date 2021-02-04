@@ -1,8 +1,8 @@
 # Candidato
 
-**Nome**: Ronaldo Matos Rodrigues
+**Nome**: Fredman Tamashiro
 
-**Email**: ronaldo.rodrigues@tecnofit.com.br
+**Email**: fyukio@gmail.com.br
 
 # Instalação
 [...]
