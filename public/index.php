@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Infrastructure\Template;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Dotenv\Dotenv;
 use App\Infrastructure\EventDispatcher as EventDispatcherAbstract;
