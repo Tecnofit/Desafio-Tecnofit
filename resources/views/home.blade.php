@@ -31,38 +31,17 @@
             <div class="row justify-content-center">
         <div class="col-md-12">
         <div class="row">
-
-            <div class="col-sm-12">
+            <div class="col-sm-4">
                 <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Relatório de Aluno</h5>
-                    <p class="card-text">Relatório de Alunos.</p>
-                    <a href="/relCliente" class="btn btn-primary">Conectar</a>
+                    <h5 class="card-title">Controle de Aluno</h5>
+                    <p class="card-text">Controle de Alunos.</p>
+                    <a href="/aluno" class="btn btn-primary">Conectar</a>
                 </div>
                 </div>
             </div>
-        </div>
-            
-        </div>
-            
 
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                   Controle Treinos / Exercicios
-                </button>
-            </h5>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-            
-             <div class="row justify-content-center">
-        <div class="col-md-12">
-        <div class="row">
-
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Treino</h5>
@@ -72,7 +51,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Exercicios</h5>
@@ -81,7 +60,15 @@
                 </div>
                 </div>
             </div>
+            
         </div>
+            
+        </div>
+            
+
+            </div>
+        </div>
+        
             
         </div>
     </div>

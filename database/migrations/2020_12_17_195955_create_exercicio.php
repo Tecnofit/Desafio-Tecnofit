@@ -16,7 +16,7 @@ class CreateExercicio extends Migration
         Schema::create('exercicio', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->string('descricao');
+            $table->boolean('status');
             $table->timestamps();
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';

@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ControllerTreino;
 
-class ControllerExercicios extends Model
+class ControllerExercicio extends Model
 {
-    protected $table = 'exercicios';
+    protected $table = 'exercicio';
     protected $fillable = ['id', 
                            'nome',
-                           'descricao'
+                           'status'
                           ];
 
     public function rules()

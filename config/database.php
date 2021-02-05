@@ -46,7 +46,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL', ''),
-            'host' => '192.168.16.4',
+            'host' => '172.24.0.3',
             'port' => '3306',
             'database' => 'tecnofit',
             'username' => 'tecnofit-user',

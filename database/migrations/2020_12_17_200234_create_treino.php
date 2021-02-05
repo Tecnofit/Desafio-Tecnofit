@@ -19,7 +19,9 @@ class CreateTreino extends Migration
             $table->foreign('id_aluno')->references('id')->on('aluno')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('id_exercicio')->unsigned();
             $table->foreign('id_exercicio')->references('id')->on('exercicio')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('nome');
+            $table->integer('status');
+            $table->string('sessao');
+            $table->boolean('ativo');
             $table->timestamps();
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';

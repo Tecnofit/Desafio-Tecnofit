@@ -9,18 +9,19 @@ use App\Models\ControllerExercicio;
 class ControllerTreino extends Model
 {
     protected $table = 'treino';
-    protected $fillable = ['id', 
+    protected $fillable = ['id',
                            'id_aluno',
                            'id_exercicio',
-                           'nome'
+                           'status',
+                           'sessao',
+                           'ativo'
                           ];
 
     public function rules()
     {
         return [
             'id_aluno' => 'required',
-            'id_exercicio' => 'required',
-            'nome' => 'required'
+            'id_exercicio' => 'required'
         ];
     }
 

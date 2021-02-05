@@ -73,8 +73,7 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
-            <script src="{{url('js/tag.js')}}"></script>
+            @yield('content')            
         </main>
     </div>
 </body>
