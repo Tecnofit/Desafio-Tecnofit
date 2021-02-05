@@ -2,61 +2,106 @@
 
 O desafio consiste em criar uma aplicação que gerencie os treinos de uma academia.
 
-## Instruções
-O candidato tem a liberdade de realizar o desafio com a tecnologia que achar melhor.
+## Instruções para rodar o sistema
+---
+## Subindo o Docker para rodar o app
+1. **sudo docker-compose build app**
+2. **sudo docker-compose up -d**
+3. ![Título da imagem](public/img/rodar-docker.png)
 
-Deverá informar quais tecnologias foram usadas, como instalar, rodar e efetuar os acessos no arquivo [`details.md`](details.md) (se necessário) para análise do desafio.
+---
+## Instalar as dependências do composer
+4. **sudo docker-compose exec app composer install**
+4.0. ![Título da imagem](public/img/composer.png) 
 
-A interface de uso fica a critério do desenvolvedor. UI/UX da aplicação não serão avaliados, os únicos critérios que deverão ser atendidos são os requisitos funcionais.
+## atualizando as dependêbcuas
+4.1. **sudo docker-compose exec app composer update**
 
-1. Efetue o **fork** deste repositório e crie um branch com o seu nome. (ex: ronaldo-rodrigues).
-2. Após finalizar o desafio, crie um **Pull Request** com o seu nome. (ex: ronaldo-rodrigues).
-3. Aguarde algum contribuidor realizar o code review.
+---
 
-## Recursos
-Confirma abaixo os recursos que devem ser implementados na aplicação:
+## crie uma chave para o artisan
+5. **sudo docker-compose exec app php artisan key:generate**
+5.1. ![Título da imagem](public/img/key-generate.png) 
 
-### Aluno
-  * Cadastrar aluno;
-  * Editar aluno;
-  * Remover aluno; e
-  * Perfil do aluno exibindo o treino ativo.
-  
-### Exercícios  
-  * Cadastrar exercício;
-  * Editar exercício; e
-  * Remover exercício;
-  
-### Treinos
-  * Cadastrar treino;
-  * Editar treino; e
-  * Ativar treino.
-  
-## Premissas
-Confirma abaixo as premissas do produto:
-  
-  * Ao cadastrar um novo exercício ao treino, será necessário informar quantas sessões deverá ser feita;
-  * O exercício só poderá ser deletado se o mesmo não estiver presente em um treino ativo;
-  * O aluno poderá marcar o exercício como finalizado, ou ter a opção de "pular" o exercício;
-  * Só deve existir um treino ativo por aluno.
-  
-  
-# Como vamos avaliar
-  * Vamos subir a aplicação e acessar via localhost;
-  * Vamos cadastrar/editar/deletar os alunos e exercícios;
-  * Vamos cadastrar/editar/ativar os treinos; e
-  * Vamos finalizar ou pular os exercícios do treino.
-  
-# Diferenciais
-- Não utilizar framework
-  
-# Dúvidas
+---
 
-Se surgir alguma dúvida, consulte as [perguntas feitas anteriormente](https://github.com/Tecnofit/Desafio-Tecnofit/issues).
+## Verifique o host do mysql que o Docker gerou
 
-Caso não encontre a sua resposta, sinta-se à vontade para [abrir uma issue](https://github.com/Tecnofit/Desafio-Tecnofit/issues/new) =]  
+Comando no terminal:
+
+6.0. **docker ps**
+
+![Título da imagem](public/img/docker-ps.png)
+
+
+6.1. **docker inspect _id do mysql_**
+
+![Título da imagem](public/img/docker-inspect.png)
+
+6.3. Copie o numero do IPAddress 
+* Ex:  _172.24.0.4_
+---
+
+## Edit o host do mysql
+7. **Abra o arquivo database.php linha 49 e coloque o host que o docker gerou**
+
+![Título da imagem](public/img/database.png)
+
+---
+
+7.1. **sudo docker-compose exec app php artisan migrate**
+
+![Título da imagem](public/img/migrate.png)
+
+---
+
+8. Acesse o **_http://localhost:8000/_**
+
+![Título da imagem](public/img/abertura.png)
+
+---
+9. Crie seu usuario e realize o login
+![Título da imagem](public/img/cadastrar.png)
+
+---
+
+10. Na home verá os seguintes módulos:
+![Título da imagem](public/img/tela-abertura.png)
+
+---
+
+11. Cadastre os alunos:
+![Título da imagem](public/img/cadastrar-aluno.png)
+
+---
+
+12. Cadastre os exercicios:
+![Título da imagem](public/img/cadastre-exercicio.png)
+
+---
+
+13. Cadastre os treinos:
+![Título da imagem](public/img/cadastre-treino.png)
+
+---
+
+13. Ativar/Pular/Finalizar:
+![Título da imagem](public/img/ativar-treino.png)
+
+![Título da imagem](public/img/pular-treino.png)
+
+![Título da imagem](public/img/finalizar-exercicio.png)
+
+---
+
+14. Ter o status do Aluno:
+Entre no controle do aluno e selecione visualizar o (olho)
+
+![Título da imagem](public/img/status-aluno.png)
 
 
 ## License
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+## Desenvolvido por: Paulo Antonio Vital
   
