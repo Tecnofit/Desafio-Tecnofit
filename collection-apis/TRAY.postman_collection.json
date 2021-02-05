@@ -1,0 +1,433 @@
+{
+	"info": {
+		"_postman_id": "6ad45085-af4f-4384-a139-effb23e936bf",
+		"name": "TRAY",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8000/api/clientes?nome=Arthur Gabriel&cpf_cnpj=11422533698",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/paulo/OneDrive/Imagens/download.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/Vendedor/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Vendedor",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Vendedor?nome=Arthur Gabriel Alves Vital &email=arthurgabriel@gmail.com&comissao=8.5",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Vendedor?nome=Arthur Gabriel Alves Vital &email=arthurgabriel@gmail.com&comissao=8.5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Vendedor"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "Arthur Gabriel Alves Vital "
+						},
+						{
+							"key": "email",
+							"value": "arthurgabriel@gmail.com"
+						},
+						{
+							"key": "comissao",
+							"value": "8.5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Vendedor/2?nome=Arthur Gabriel Alves Vital Atualizado&email=arthurgabriel@gmail.com&comissao=8.5",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Arthur Gabriel Alves Vital Atualizou\",\n    \"email\": \"arthurgabriel@gmail.com\",\n    \"comissao\": \"8.5\",\n    \"updated_at\": \"2020-12-18 13:55:59\",\n    \"created_at\": \"2020-12-18 13:55:59\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/Vendedor/2?nome=Arthur Gabriel Alves Vital Atualizado&email=arthurgabriel@gmail.com&comissao=8.5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Vendedor",
+						"2"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "Arthur Gabriel Alves Vital Atualizado"
+						},
+						{
+							"key": "email",
+							"value": "arthurgabriel@gmail.com"
+						},
+						{
+							"key": "comissao",
+							"value": "8.5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Vendedor/3",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Vendedor/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Vendedor",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Produto/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Produto/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Produto",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Produto/?nome=Novo Produto Excluir&descricao=Descrição do Novo Produto Excluir&preco=3555.12",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Produto/?nome=Novo Produto Excluir&descricao=Descrição do Novo Produto Excluir&preco=3555.12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Produto",
+						""
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "Novo Produto Excluir"
+						},
+						{
+							"key": "descricao",
+							"value": "Descrição do Novo Produto Excluir"
+						},
+						{
+							"key": "preco",
+							"value": "3555.12"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Produto/2?nome=Novo Produto Update&descricao=Descrição do Novo Produto Update&preco=2222.22",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Produto/2?nome=Novo Produto Update&descricao=Descrição do Novo Produto Update&preco=2222.22",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Produto",
+						"2"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "Novo Produto Update"
+						},
+						{
+							"key": "descricao",
+							"value": "Descrição do Novo Produto Update"
+						},
+						{
+							"key": "preco",
+							"value": "2222.22"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Produto/3",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Produto/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Produto",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Venda/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Venda/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Venda",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Venda/?id_vendedor=1&id_produto=2&qtd_prod=14&total_venda=39999.00&data_venda=2020-12-18 18:37:01",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Venda/?id_vendedor=1&id_produto=2&qtd_prod=14&total_venda=39999.00&data_venda=2020-12-18 18:37:01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Venda",
+						""
+					],
+					"query": [
+						{
+							"key": "id_vendedor",
+							"value": "1"
+						},
+						{
+							"key": "id_produto",
+							"value": "2"
+						},
+						{
+							"key": "qtd_prod",
+							"value": "14"
+						},
+						{
+							"key": "total_venda",
+							"value": "39999.00"
+						},
+						{
+							"key": "data_venda",
+							"value": "2020-12-18 18:37:01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Venda/1?id_vendedor=1&id_produto=2&qtd_prod=2&total_venda=6644.44&data_venda=2020-12-18 18:37:01",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Venda/1?id_vendedor=1&id_produto=2&qtd_prod=2&total_venda=6644.44&data_venda=2020-12-18 18:37:01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Venda",
+						"1"
+					],
+					"query": [
+						{
+							"key": "id_vendedor",
+							"value": "1"
+						},
+						{
+							"key": "id_produto",
+							"value": "2"
+						},
+						{
+							"key": "qtd_prod",
+							"value": "2"
+						},
+						{
+							"key": "total_venda",
+							"value": "6644.44"
+						},
+						{
+							"key": "data_venda",
+							"value": "2020-12-18 18:37:01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Venda/5",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Venda/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Venda",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Venda/2/Produto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Venda/2/Produto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Venda",
+						"2",
+						"Produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/api/Venda/1/Vendedor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/Venda/1/Vendedor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"Venda",
+						"1",
+						"Vendedor"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
