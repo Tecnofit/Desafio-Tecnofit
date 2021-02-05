@@ -7,9 +7,11 @@ namespace App\Modules\Gym\Handler\Training;
 use App\Infrastructure\Handler;
 use App\Infrastructure\Http\Request;
 use App\Infrastructure\Http\Response;
-use App\Modules\Gym\Application\View\Training\TrainingView;
-use App\Modules\Gym\Domain\Entity\Training;
-use Exception;
+use App\Modules\Gym\Application\Exception\Training\TrainingNotFoundException;
+use App\Modules\Gym\Application\View\TrainingView;
+use App\Modules\Gym\Domain\Repository\TrainingRepository;
+use Ramsey\Uuid\Exception\InvalidUuidStringException;
+use Ramsey\Uuid\Uuid;
 use Throwable;
 
 /**
@@ -24,19 +26,22 @@ class TrainingDetailHandler extends Handler
      * @param array $uriParams
      *
      * @return Response
-     * @throws Exception
+     * @throws Throwable
      */
     public function handle(Request $request, ?array $uriParams): Response
     {
         try {
-            $training = Training::where('id', $uriParams['id'] ?? 0)->firstOrFail();
-            $training = $training->toArray();
+            $uuid = Uuid::fromString($uriParams['uuid']);
+
+            $training = TrainingRepository::getByUuId($uuid);
+
+            $trainingView = new TrainingView($training['id'], $uuid, $training['name'], $training['status'] === 1);
+
+            return Response::json($trainingView);
+        } catch (InvalidUuidStringException $e) {
+            throw new TrainingNotFoundException;
         } catch (Throwable $e) {
-            throw new Exception("training_not_found", 204);
+            throw $e;
         }
-
-        $trainingView = new TrainingView($training['id'], $training['name'], $training['status'] === 1);
-
-        return Response::json($trainingView);
     }
 }

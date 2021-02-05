@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Gym\Application\View\Training;
+namespace App\Modules\Gym\Application\View;
 
 use App\Infrastructure\View;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class TrainingView
- * @package App\Modules\Gym\Application\View\Training
+ * @package App\Modules\Gym\Application\View
  */
 class TrainingView extends View
 {
@@ -25,16 +26,19 @@ class TrainingView extends View
     /**
      * TrainingView constructor.
      * @param int|null $id
+     * @param UuidInterface|null $uuid
      * @param string|null $name
      * @param bool|null $status
      */
     public function __construct(
         ?int $id,
+        ?UuidInterface $uuid,
         ?string $name,
         ?bool $status
     ) {
-        $this->id    = $id;
-        $this->name  = $name;
+        $this->id     = $id;
+        $this->uuid   = $uuid;
+        $this->name   = $name;
         $this->status = $status;
     }
 
@@ -77,6 +81,7 @@ class TrainingView extends View
     {
         return [
             'id'     => $this->id,
+            'uuid'   => $this->uuid ? $this->uuid->toString() : null,
             'name'   => $this->name,
             'status' => $this->status
         ];

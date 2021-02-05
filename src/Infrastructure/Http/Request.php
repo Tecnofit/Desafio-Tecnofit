@@ -2,6 +2,9 @@
 
 namespace App\Infrastructure\Http;
 
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+
 /**
  * Class Request
  *
@@ -136,5 +139,13 @@ class Request
     public function getProtocol(): string
     {
         return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
+    }
+
+    /**
+     * @return Uuid
+     */
+    public function getUuid(): UuidInterface
+    {
+        return Uuid::uuid4();
     }
 }

@@ -7,3 +7,5 @@
 ```bash
 sh .bin/exec.sh
 ```
+
+docker exec yofit_php composer require ramsey/uuid

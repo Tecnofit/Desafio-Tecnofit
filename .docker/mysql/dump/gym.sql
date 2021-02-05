@@ -1,7 +1,16 @@
 
-CREATE TABLE `training` (
-  `id` INT AUTO_INCREMENT,
-  `name` varchar(255) NULL,
-  `status` BOOLEAN DEFAULT TRUE,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+create table training
+(
+  id int auto_increment primary key,
+  uuid   varchar(36)          not null,
+  status tinyint(1) default 1 null,
+  name   varchar(255)         not null,
+  constraint UNIQUE_training_name
+    unique (name),
+  constraint UNIQUE_training_uuid
+    unique (uuid),
+  constraint training_uuid_uindex
+    unique (uuid)
+)
+  collate = latin1_general_ci;
+

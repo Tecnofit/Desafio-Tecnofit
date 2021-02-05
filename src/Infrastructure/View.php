@@ -6,6 +6,7 @@ namespace App\Infrastructure;
 
 use App\Infrastructure\Contracts\ViewInterface;
 use DateTime;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class ViewAbstract
@@ -18,6 +19,11 @@ abstract class View implements ViewInterface
      * @var int
      */
     protected $id;
+
+    /**
+     * @var UuidInterface
+     */
+    protected $uuid;
 
     /**
      * @var DateTime|null
@@ -44,6 +50,23 @@ abstract class View implements ViewInterface
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return UuidInterface|null
+     */
+    public function getUuid(): ?UuidInterface
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param UuidInterface|null $uuid
+     * @return void
+     */
+    public function setUuid(?UuidInterface $uuid): void
+    {
+        $this->uuid = $uuid;
     }
 
     /**

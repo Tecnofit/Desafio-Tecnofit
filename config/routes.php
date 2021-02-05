@@ -14,7 +14,7 @@ return function (RouteCollector $r): void {
             $r->addGroup('/training', function (RouteCollector $r) {
                 $r->post('', [TrainingCreateHandler::class, Router::$IS_PUBLIC]);
                 $r->put('', [TrainingUpdateHandler::class, Router::$IS_PUBLIC]);
-                $r->get('/{id:\d+}', [TrainingDetailHandler::class, Router::$IS_PUBLIC]);
+                $r->get('/{uuid}', [TrainingDetailHandler::class, Router::$IS_PUBLIC]);
             });
         });
     });
