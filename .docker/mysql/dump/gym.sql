@@ -89,3 +89,41 @@ create table user
     foreign key (profile_id) references profile (id)
 )
 collate = latin1_general_ci;
+
+/**
+ * Vínculo de treinos para o estudante
+ */
+create table student_training
+(
+  id          int unsigned auto_increment
+    primary key,
+  uuid        varchar(36)                                     not null,
+  user_id     int unsigned                                    not null,
+  training_id int unsigned                                    not null,
+  status      enum ('ENABLED', 'DISABLED') default 'DISABLED' not null,
+  constraint UNIQUE_student_training_user_trainnig_id
+    unique (user_id, training_id),
+  constraint UNIQUE_student_training_uuid
+    unique (uuid),
+  constraint FK_student_training_training_id
+    foreign key (training_id) references training (id),
+  constraint FK_student_training_user_id
+    foreign key (user_id) references user (id)
+)
+collate = latin1_general_ci;
+
+/**
+ * Vínculo de atividades do treino
+ */
+create table student_training_progress
+(
+  student_training_id int unsigned                                                not null,
+  activity_id         int unsigned                                                not null,
+  status              enum ('NOT_STARTED', 'COMPLETED', 'IN_PROGRESS', 'SKIPPED') not null,
+  primary key (student_training_id, activity_id),
+  constraint FK_student_training_progress_activity_id
+    foreign key (activity_id) references training (id),
+  constraint FK_student_training_progress_student_training_id
+    foreign key (student_training_id) references student_training (id)
+)
+collate = latin1_general_ci;

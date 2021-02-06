@@ -18,8 +18,6 @@ class StudentTrainingProgress extends Model
     protected $fillable = [
         'student_training_id',
         'activity_id',
-        'user_id',
-        'training_id',
         'status'
     ];
 }
