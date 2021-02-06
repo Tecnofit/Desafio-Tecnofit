@@ -29,17 +29,17 @@ abstract class StudentTrainingProgressRepository
     }
 
     /**
-     * @param ViewInterface $view
+     * @param int $studentTrainingId
+     * @param int $activityId
+     * @param string $status
      * @throws StudentTrainingProgressNotChangeStatusException
      */
-    public static function changeStatus(ViewInterface $view): void
+    public static function changeStatus(int $studentTrainingId, int $activityId, string $status): void
     {
         try {
-            $params = $view->serialize();
-
-            StudentTrainingProgress::where('student_training_id', $params['student_training_id'])
-                ->where('activity_id', $params['activity_id'])
-                ->update(['status' => $params['status']]);
+            StudentTrainingProgress::where('student_training_id', $studentTrainingId)
+                ->where('activity_id', $activityId)
+                ->update(['status' => $status]);
 
         } catch (Throwable $e) {
             throw new StudentTrainingProgressNotChangeStatusException;

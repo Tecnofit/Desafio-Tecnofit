@@ -2,6 +2,7 @@
 
 namespace App\Modules\Gym\Domain\Repository;
 
+use App\Modules\Gym\Application\Exception\StudentTraining\StudentTrainingNotChangeStatusException;
 use Throwable;
 use Ramsey\Uuid\UuidInterface;
 use Illuminate\Database\Capsule\Manager as DB;
@@ -126,6 +127,20 @@ abstract class StudentTrainingRepository
             StudentTraining::where('user_id', $userId)->update(['status' => StudentTrainingEnum::$STATUS_DISABLED]);
         } catch (Throwable $e) {
             throw new StudentTrainingNotAssociateException;
+        }
+    }
+
+    /**
+     * @param int $id
+     * @param string $status
+     * @throws StudentTrainingNotChangeStatusException
+     */
+    public static function changeStatus(int $id, string $status): void
+    {
+        try {
+            StudentTraining::where('id', $id)->update(['status' => $status]);
+        } catch (Throwable $e) {
+            throw new StudentTrainingNotChangeStatusException;
         }
     }
 }

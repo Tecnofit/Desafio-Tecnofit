@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Modules\Gym\Handler\StudentTrainingProgress\StudentTrainingProgressCreateHandler;
 use FastRoute\RouteCollector;
 use App\Infrastructure\Router;
 use App\Modules\Gym\Handler\Training\TrainingCreateHandler;
@@ -19,6 +18,9 @@ use App\Modules\Gym\Handler\User\UserDeleteHandler;
 use App\Modules\Gym\Handler\StudentTraining\StudentSearchActivitiesHandler;
 use App\Modules\Gym\Handler\StudentTraining\StudentSearchTrainingsHandler;
 use App\Modules\Gym\Handler\StudentTraining\StudentEnrolTrainingCreateHandler;
+use App\Modules\Gym\Handler\StudentTraining\StudentTrainingChangeStatusHandler;
+use App\Modules\Gym\Handler\StudentTrainingProgress\StudentTrainingProgressCreateHandler;
+use App\Modules\Gym\Handler\StudentTrainingProgress\StudentTrainingProgressChangeStatusHandler;
 
 return function (RouteCollector $r): void {
     $r->addGroup('/api', function (RouteCollector $r) {
@@ -57,6 +59,8 @@ return function (RouteCollector $r): void {
             $r->addGroup('/student-training', function (RouteCollector $r) {
                 $r->post('', [StudentEnrolTrainingCreateHandler::class, Router::$IS_PUBLIC]);
 
+                $r->patch('/{uuid}/change-status', [StudentTrainingChangeStatusHandler::class, Router::$IS_PUBLIC]);
+
                 $r->get('/{uuid}/trainings', [StudentSearchTrainingsHandler::class, Router::$IS_PUBLIC]);
 
                 $r->get('/{uuid}/training/{student_training_uuid}/activities', [
@@ -67,6 +71,10 @@ return function (RouteCollector $r): void {
 
             $r->addGroup('/student-training-progress', function (RouteCollector $r) {
                 $r->post('', [StudentTrainingProgressCreateHandler::class, Router::$IS_PUBLIC]);
+                $r->patch('/{student_training_uuid}/student-training/{activity_uuid}/activity/change-status', [
+                    StudentTrainingProgressChangeStatusHandler::class,
+                    Router::$IS_PUBLIC
+                ]);
             });
         });
     });
