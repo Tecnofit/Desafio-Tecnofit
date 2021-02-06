@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Gym\Handler\Student;
+namespace App\Modules\Gym\Handler\StudentTraining;
 
 use App\Infrastructure\Handler;
 use App\Infrastructure\Http\Request;
@@ -14,10 +14,10 @@ use Ramsey\Uuid\Uuid;
 use Throwable;
 
 /**
- * Class StudentSearchActivitiesHandler
+ * Class StudentSearchTrainingsHandler
  * @package App\Modules\Gym\Handler\Student
  */
-class StudentSearchActivitiesHandler extends Handler
+class StudentSearchTrainingsHandler extends Handler
 {
     /**
      * @param Request $request
@@ -30,18 +30,13 @@ class StudentSearchActivitiesHandler extends Handler
         try {
             $uuid = Uuid::fromString($uriParams['uuid']);
 
-            $studentTrainingUuid = Uuid::fromString($uriParams['student_training_uuid']);
-
             $user = UserRepository::getByUuId($uuid);
 
-            $activities = StudentTrainingRepository::getActivitiesByTraining(
-                $user['id'],
-                $studentTrainingUuid
-            );
+            $trainings = StudentTrainingRepository::getTrainingsByUserId($user['id']);
 
-            $activitiesByUser = new StudentTrainingByUserView($activities);
+            $trainingsByUser = new StudentTrainingByUserView($trainings);
 
-            return Response::json($activitiesByUser);
+            return Response::json($trainingsByUser);
 
         } catch (Throwable $e) {
             throw $e;
