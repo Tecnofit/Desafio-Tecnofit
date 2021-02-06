@@ -14,11 +14,17 @@ use Ramsey\Uuid\Uuid;
 use Throwable;
 
 /**
- * Class StudentTrainingsHandler
+ * Class StudentSearchTrainingsHandler
  * @package App\Modules\Gym\Handler\Student
  */
-class StudentTrainingsHandler extends Handler
+class StudentSearchTrainingsHandler extends Handler
 {
+    /**
+     * @param Request $request
+     * @param array|null $uriParams
+     * @return Response
+     * @throws Throwable
+     */
     public function handle(Request $request, ?array $uriParams): Response
     {
         try {

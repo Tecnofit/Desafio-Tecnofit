@@ -3,9 +3,9 @@
 namespace App\Modules\Gym\Domain\Repository;
 
 use Throwable;
-use App\Modules\Gym\Domain\Entity\StudentTraining;
-use App\Modules\Gym\Application\Exception\User\UserNotFoundException;
+use Ramsey\Uuid\UuidInterface;
 use Illuminate\Database\Capsule\Manager as DB;
+use App\Modules\Gym\Domain\Entity\StudentTraining;
 
 /**
  * Class StudentTrainingRepository
@@ -17,9 +17,8 @@ abstract class StudentTrainingRepository
     /**
      * @param int $userId
      * @return mixed
-     * @throws UserNotFoundException
      */
-    public static function getTrainingsByUserId(int $userId)
+    public static function getTrainingsByUserId(int $userId): array
     {
         try {
             return StudentTraining::select(
@@ -36,7 +35,45 @@ abstract class StudentTrainingRepository
                 ->toArray();
 
         } catch (Throwable $e) {
-            throw new UserNotFoundException;
+            // TODO:
+        }
+    }
+
+    /**
+     * @param int $userId
+     * @param UuidInterface $uuid
+     * @return array
+     */
+    public static function getActivitiesByTraining(int $userId, UuidInterface $uuid): array
+    {
+        try {
+            return StudentTraining::select(
+                DB::raw("
+                  activity.uuid                    AS activity_uuid,
+                  activity.name                    AS activity_name,
+                  student_training_progress.status AS student_training_progress_status,
+                  activity_training.sections       AS activity_training_sections
+                "))
+                ->join(
+                    DB::raw('activity_training FORCE INDEX (IDX_activity_training_training_id)'),
+                    'activity_training.training_id', '=', 'student_training.training_id'
+                )
+                ->join('training', 'training.id', '=', 'student_training.training_id')
+                ->join('activity', 'activity.id', '=', 'activity_training.activity_id')
+                ->leftJoin('student_training_progress', function($join) {
+                    $join->on('student_training_progress.student_training_id', '=', 'student_training.id');
+                    $join->on('student_training_progress.activity_id', '=', 'activity.id');
+                })
+                ->where('student_training.user_id', $userId)
+                ->where('student_training.uuid', $uuid->toString())
+                ->where('student_training.status', 'ENABLED')
+                ->where('training.status', 1)
+                ->orderBy('activity.name', 'ASC')
+                ->get()
+                ->toArray();
+
+        } catch (Throwable $e) {
+            // TODO:
         }
     }
 }

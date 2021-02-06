@@ -15,7 +15,8 @@ use App\Modules\Gym\Handler\Activity\ActivityAssociateTrainingHandler;
 use App\Modules\Gym\Handler\User\UserCreateHandler;
 use App\Modules\Gym\Handler\User\UserUpdateHandler;
 use App\Modules\Gym\Handler\User\UserDeleteHandler;
-use App\Modules\Gym\Handler\Student\StudentTrainingsHandler;
+use App\Modules\Gym\Handler\Student\StudentSearchActivitiesHandler;
+use App\Modules\Gym\Handler\Student\StudentSearchTrainingsHandler;
 
 return function (RouteCollector $r): void {
     $r->addGroup('/api', function (RouteCollector $r) {
@@ -37,8 +38,8 @@ return function (RouteCollector $r): void {
 
                 $r->delete('/{uuid}', [ActivityDeleteHandler::class, Router::$IS_PUBLIC]);
 
-                $r->post('/{uuid_activity}/training/{uuid_training}/sections/{sections}',
-                    [ActivityAssociateTrainingHandler::class,
+                $r->post('/{uuid_activity}/training/{uuid_training}/sections/{sections}', [
+                    ActivityAssociateTrainingHandler::class,
                     Router::$IS_PUBLIC
                 ]);
             });
@@ -51,9 +52,13 @@ return function (RouteCollector $r): void {
                 $r->delete('/{uuid}', [UserDeleteHandler::class, Router::$IS_PUBLIC]);
             });
 
-
             $r->addGroup('/student', function (RouteCollector $r) {
-                $r->get('/{uuid}/trainings', [StudentTrainingsHandler::class, Router::$IS_PUBLIC]);
+                $r->get('/{uuid}/trainings', [StudentSearchTrainingsHandler::class, Router::$IS_PUBLIC]);
+
+                $r->get('/{uuid}/training/{student_training_uuid}/activities', [
+                    StudentSearchActivitiesHandler::class,
+                    Router::$IS_PUBLIC
+                ]);
             });
         });
     });
