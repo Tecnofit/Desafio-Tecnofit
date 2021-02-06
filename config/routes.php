@@ -14,6 +14,7 @@ use App\Modules\Gym\Handler\Activity\ActivityDeleteHandler;
 use App\Modules\Gym\Handler\Activity\ActivityAssociateTrainingHandler;
 use App\Modules\Gym\Handler\User\UserCreateHandler;
 use App\Modules\Gym\Handler\User\UserUpdateHandler;
+use App\Modules\Gym\Handler\User\UserDeleteHandler;
 
 return function (RouteCollector $r): void {
     $r->addGroup('/api', function (RouteCollector $r) {
@@ -43,7 +44,10 @@ return function (RouteCollector $r): void {
 
             $r->addGroup('/user', function (RouteCollector $r) {
                 $r->post('', [UserCreateHandler::class, Router::$IS_PUBLIC]);
+
                 $r->put('', [UserUpdateHandler::class, Router::$IS_PUBLIC]);
+
+                $r->delete('/{uuid}', [UserDeleteHandler::class, Router::$IS_PUBLIC]);
             });
         });
     });
