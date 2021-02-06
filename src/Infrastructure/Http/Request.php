@@ -114,6 +114,7 @@ class Request
     {
         if (empty($params)) {
             $this->body = json_decode(file_get_contents("php://input", false, stream_context_get_default(), 0, (int)$_SERVER["CONTENT_LENGTH"]), true);
+            return;
         }
 
         $this->body = $params;

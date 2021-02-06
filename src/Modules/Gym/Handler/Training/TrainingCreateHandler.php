@@ -8,6 +8,7 @@ use App\Infrastructure\Handler;
 use App\Infrastructure\Http\Request;
 use App\Infrastructure\Http\Response;
 use App\Modules\Gym\Application\Exception\Training\ActivityCreateBadRequest;
+use App\Modules\Gym\Application\Exception\Training\TrainingCreateBadRequest;
 use App\Modules\Gym\Application\Exception\Training\TrainingNotSavedException;
 use App\Modules\Gym\Application\View\TrainingView;
 use App\Modules\Gym\Domain\Repository\TrainingRepository;
@@ -40,10 +41,11 @@ class TrainingCreateHandler extends Handler
             $trainingView->setId(intval($trainingId));
 
             return Response::json($trainingView);
+
         } catch (TrainingNotSavedException $e) {
             throw $e;
         } catch (Throwable $e) {
-            throw new ActivityCreateBadRequest;
+            throw new TrainingCreateBadRequest;
         }
     }
 }

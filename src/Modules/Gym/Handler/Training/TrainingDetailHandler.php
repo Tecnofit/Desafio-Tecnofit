@@ -38,6 +38,7 @@ class TrainingDetailHandler extends Handler
             $trainingView = new TrainingView($training['id'], $uuid, $training['name'], $training['status'] === 1);
 
             return Response::json($trainingView);
+
         } catch (InvalidUuidStringException $e) {
             throw new TrainingNotFoundException;
         } catch (Throwable $e) {

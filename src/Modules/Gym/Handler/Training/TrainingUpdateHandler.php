@@ -49,6 +49,7 @@ class TrainingUpdateHandler extends Handler
             TrainingRepository::save($trainingView);
 
             return Response::json($trainingView);
+
         } catch (TrainingParameterWrongException $e) {
             throw $e;
         } catch (TrainingNotSavedException $e) {

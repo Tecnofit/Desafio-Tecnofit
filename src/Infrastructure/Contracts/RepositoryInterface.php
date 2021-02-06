@@ -16,4 +16,6 @@ interface RepositoryInterface
     public static function getByUuId(UuidInterface $uuid);
 
     public static function save(ViewInterface $view);
+
+    public static function remove(int $id): void;
 }

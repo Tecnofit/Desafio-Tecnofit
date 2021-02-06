@@ -18,16 +18,25 @@ return function (RouteCollector $r): void {
         $r->addGroup('/v1', function (RouteCollector $r) {
             $r->addGroup('/training', function (RouteCollector $r) {
                 $r->post('', [TrainingCreateHandler::class, Router::$IS_PUBLIC]);
+
                 $r->get('/{uuid}', [TrainingDetailHandler::class, Router::$IS_PUBLIC]);
+
                 $r->put('', [TrainingUpdateHandler::class, Router::$IS_PUBLIC]);
             });
 
             $r->addGroup('/activity', function (RouteCollector $r) {
                 $r->post('', [ActivityCreateHandler::class, Router::$IS_PUBLIC]);
+
                 $r->get('/{uuid}', [ActivityDetailHandler::class, Router::$IS_PUBLIC]);
+
                 $r->put('', [ActivityUpdateHandler::class, Router::$IS_PUBLIC]);
+
                 $r->delete('/{uuid}', [ActivityDeleteHandler::class, Router::$IS_PUBLIC]);
-                $r->post('/{uuid}/training/{uuid_training}', [ActivityAssociateTrainingHandler::class, Router::$IS_PUBLIC]);
+
+                $r->post('/{uuid_activity}/training/{uuid_training}/sections/{sections}',
+                    [ActivityAssociateTrainingHandler::class,
+                    Router::$IS_PUBLIC
+                ]);
             });
         });
     });

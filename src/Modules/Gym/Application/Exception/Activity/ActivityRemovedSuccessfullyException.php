@@ -5,13 +5,13 @@ namespace App\Modules\Gym\Application\Exception\Activity;
 use Exception;
 
 /**
- * Class ActivityWithTraningActivatedException
+ * Class ActivityRemovedSuccessfullyException
  * @package App\Modules\Gym\Application\Exception
  */
-class ActivityWithTraningActivatedException extends Exception
+class ActivityRemovedSuccessfullyException extends Exception
 {
     public function __construct()
     {
-        parent::__construct("activity_with_", 422);
+        parent::__construct("activity_excluded_successfully", 200);
     }
 }

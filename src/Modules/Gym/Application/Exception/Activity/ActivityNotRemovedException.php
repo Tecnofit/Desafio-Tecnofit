@@ -5,13 +5,13 @@ namespace App\Modules\Gym\Application\Exception\Activity;
 use Exception;
 
 /**
- * Class ActivityNotFoundException
+ * Class ActivityNotRemovedException
  * @package App\Modules\Gym\Application\Exception
  */
-class ActivityNotSavedException extends Exception
+class ActivityNotRemovedException extends Exception
 {
     public function __construct()
     {
-        parent::__construct("activity_not_saved", 422);
+        parent::__construct("activity_not_removed", 422);
     }
 }

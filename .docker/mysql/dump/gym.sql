@@ -29,3 +29,15 @@ create table activity
     unique (uuid)
 )
 collate = latin1_general_ci;
+
+/**
+ * Associar exercício ao treino
+ */
+create table activity_training
+(
+  activity_uuid varchar(36)   not null,
+  training_uuid varchar(36)   not null,
+  sections      int default 0 null,
+  primary key (activity_uuid, training_uuid)
+)
+collate = latin1_general_ci;

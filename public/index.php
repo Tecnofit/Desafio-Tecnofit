@@ -29,7 +29,13 @@ try {
 
     http_response_code($response->getStatusCode());
 
-    echo json_encode($response->getView()->serialize());
+    $params = $response->getView()->serialize();
+
+    if (array_key_exists('id', $params)) {
+        unset($params['id']);
+    }
+
+    echo json_encode($params);
 
     if ($_ENV['APP_ENV'] !== 'development') {
         if (function_exists('fastcgi_finish_request')) {

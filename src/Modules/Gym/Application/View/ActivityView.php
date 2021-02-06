@@ -53,6 +53,7 @@ class ActivityView extends View
     public function serialize(): array
     {
         return [
+            'id' => $this->id,
             'uuid' => $this->uuid ? $this->uuid->toString() : null,
             'name' => $this->name
         ];

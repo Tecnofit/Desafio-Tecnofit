@@ -7,6 +7,7 @@ namespace App\Modules\Gym\Handler\Activity;
 use App\Infrastructure\Handler;
 use App\Infrastructure\Http\Request;
 use App\Infrastructure\Http\Response;
+use App\Modules\Gym\Application\Exception\Activity\ActivityNotFoundException;
 use App\Modules\Gym\Application\Exception\Activity\ActivityNotSavedException;
 use App\Modules\Gym\Application\Exception\Activity\ActivityParameterWrongException;
 use App\Modules\Gym\Application\Exception\Activity\ActivityUpdateBadRequest;
@@ -50,6 +51,8 @@ class ActivityUpdateHandler extends Handler
         } catch (ActivityParameterWrongException $e) {
             throw $e;
         } catch (ActivityNotSavedException $e) {
+            throw $e;
+        } catch (ActivityNotFoundException $e) {
             throw $e;
         } catch (Throwable $e) {
             throw new ActivityUpdateBadRequest;

@@ -5,19 +5,19 @@ namespace App\Modules\Gym\Domain\Entity;
 use App\Infrastructure\Model;
 
 /**
- * Class Activity
+ * Class ActivityTraining
  *
  * @package App\Modules\Gym\Domain\Entity
  */
-class Activity extends Model
+class ActivityTraining extends Model
 {
-    protected $table = 'activity';
+    protected $table = 'activity_training';
 
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
-        'uuid',
-        'name'
+        'activity_id',
+        'training_id',
+        'sections'
     ];
 }

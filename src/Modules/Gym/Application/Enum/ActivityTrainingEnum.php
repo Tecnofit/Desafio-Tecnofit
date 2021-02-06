@@ -3,11 +3,13 @@
 namespace App\Modules\Gym\Application\Enum;
 
 /**
- * Class TrainingEnum
+ * Class ActivityTrainingEnum
  *
  * @package App\Modules\Gym\Application\Enum
  */
-final class TrainingEnum
+final class ActivityTrainingEnum
 {
-    public static $ORIGIN_PAGSEGURO = 'pagseguro';
+    public static $STATUS_ENABLED = true;
+
+    public static $STATUS_DISABLED = false;
 }

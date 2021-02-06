@@ -5,7 +5,9 @@ namespace App\Modules\Gym\Domain\Repository;
 use App\Infrastructure\Contracts\ViewInterface;
 use App\Modules\Gym\Application\Contract\ActivityRepositoryInterface;
 use App\Modules\Gym\Application\Exception\Activity\ActivityNotFoundException;
+use App\Modules\Gym\Application\Exception\Activity\ActivityNotRemovedException;
 use App\Modules\Gym\Application\Exception\Activity\ActivityNotSavedException;
+use App\Modules\Gym\Application\Exception\Activity\ActivityWithActiveTrainingException;
 use App\Modules\Gym\Domain\Entity\Activity;
 use Ramsey\Uuid\UuidInterface;
 use Throwable;
@@ -50,6 +52,31 @@ abstract class ActivityRepository implements ActivityRepositoryInterface
 
         } catch (Throwable $e) {
             throw new ActivityNotSavedException;
+        }
+    }
+
+    /**
+     * @param int $id
+     * @throws ActivityNotRemovedException
+     * @throws ActivityWithActiveTrainingException
+     */
+    public static function remove(int $id): void
+    {
+        try {
+            $countActivated = ActivityTrainingRepository::countTrainingsLinkedByActivity($id);
+
+            if ($countActivated > 0) {
+                throw new ActivityWithActiveTrainingException;
+            }
+
+            ActivityTrainingRepository::removeByActivityId($id);
+
+            Activity::where('id', $id)->delete();
+
+        } catch (ActivityWithActiveTrainingException $e) {
+            throw $e;
+        } catch (Throwable $e) {
+            throw new ActivityNotRemovedException;
         }
     }
 }

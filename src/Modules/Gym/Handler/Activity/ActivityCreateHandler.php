@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Modules\Gym\Handler\Activity;
 
+use Exception;
+use Throwable;
 use App\Infrastructure\Handler;
 use App\Infrastructure\Http\Request;
 use App\Infrastructure\Http\Response;
@@ -12,8 +14,6 @@ use App\Modules\Gym\Application\Exception\Activity\ActivityNotSavedException;
 use App\Modules\Gym\Application\Exception\Activity\ActivityParameterWrongException;
 use App\Modules\Gym\Application\View\ActivityView;
 use App\Modules\Gym\Domain\Repository\ActivityRepository;
-use Exception;
-use Throwable;
 
 /**
  * Class ActivityCreateHandler
@@ -38,7 +38,9 @@ class ActivityCreateHandler extends Handler
 
             $activityView = new ActivityView(0, $request->getUuid(), $params['name']);
 
-            ActivityRepository::save($activityView);
+            $activityId = ActivityRepository::save($activityView);
+
+            $activityView->setId(intval($activityId));
 
             return Response::json($activityView);
 
