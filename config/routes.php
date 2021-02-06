@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Modules\Gym\Handler\StudentTrainingProgress\StudentTrainingProgressCreateHandler;
 use FastRoute\RouteCollector;
 use App\Infrastructure\Router;
 use App\Modules\Gym\Handler\Training\TrainingCreateHandler;
@@ -62,6 +63,10 @@ return function (RouteCollector $r): void {
                     StudentSearchActivitiesHandler::class,
                     Router::$IS_PUBLIC
                 ]);
+            });
+
+            $r->addGroup('/student-training-progress', function (RouteCollector $r) {
+                $r->post('', [StudentTrainingProgressCreateHandler::class, Router::$IS_PUBLIC]);
             });
         });
     });

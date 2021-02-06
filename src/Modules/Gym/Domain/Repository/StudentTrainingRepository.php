@@ -2,12 +2,13 @@
 
 namespace App\Modules\Gym\Domain\Repository;
 
-use App\Modules\Gym\Application\Enum\StudentTrainingEnum;
-use App\Modules\Gym\Application\Enum\TrainingEnum;
 use Throwable;
 use Ramsey\Uuid\UuidInterface;
 use Illuminate\Database\Capsule\Manager as DB;
 use App\Infrastructure\Contracts\ViewInterface;
+use App\Modules\Gym\Application\Enum\StudentTrainingEnum;
+use App\Modules\Gym\Application\Enum\TrainingEnum;
+use App\Modules\Gym\Application\Exception\StudentTraining\StudentTrainingNotFoundException;
 use App\Modules\Gym\Application\Exception\StudentTraining\StudentTrainingNotAssociateException;
 use App\Modules\Gym\Domain\Entity\StudentTraining;
 
@@ -18,6 +19,20 @@ use App\Modules\Gym\Domain\Entity\StudentTraining;
  */
 abstract class StudentTrainingRepository
 {
+    /**
+     * @param UuidInterface $uuid
+     * @return mixed
+     * @throws StudentTrainingNotFoundException
+     */
+    public static function getByUuId(UuidInterface $uuid)
+    {
+        try {
+            return StudentTraining::where('uuid', $uuid->toString())->firstOrFail()->toArray();
+        } catch (Throwable $e) {
+            throw new StudentTrainingNotFoundException;
+        }
+    }
+
     /**
      * @param int $userId
      * @return mixed
