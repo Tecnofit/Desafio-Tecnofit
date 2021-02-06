@@ -5,10 +5,10 @@ namespace App\Modules\Gym\Application\Exception\Training;
 use Exception;
 
 /**
- * Class TrainingUpdateBadRequest
+ * Class TrainingUpdateBadRequestException
  * @package App\Modules\Gym\Application\Exception
  */
-class TrainingUpdateBadRequest extends Exception
+class TrainingUpdateBadRequestException extends Exception
 {
     public function __construct()
     {

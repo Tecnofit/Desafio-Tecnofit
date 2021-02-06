@@ -9,7 +9,7 @@ use Throwable;
 use App\Infrastructure\Handler;
 use App\Infrastructure\Http\Request;
 use App\Infrastructure\Http\Response;
-use App\Modules\Gym\Application\Exception\Activity\ActivityCreateBadRequest;
+use App\Modules\Gym\Application\Exception\Activity\ActivityCreateBadRequestException;
 use App\Modules\Gym\Application\Exception\Activity\ActivityNotSavedException;
 use App\Modules\Gym\Application\Exception\Activity\ActivityParameterWrongException;
 use App\Modules\Gym\Application\View\ActivityView;
@@ -49,7 +49,7 @@ class ActivityCreateHandler extends Handler
         } catch (ActivityNotSavedException $e) {
             throw $e;
         } catch (Throwable $e) {
-            throw new ActivityCreateBadRequest;
+            throw new ActivityCreateBadRequestException;
         }
     }
 

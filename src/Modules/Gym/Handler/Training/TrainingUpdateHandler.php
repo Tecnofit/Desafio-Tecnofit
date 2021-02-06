@@ -9,7 +9,7 @@ use App\Infrastructure\Http\Request;
 use App\Infrastructure\Http\Response;
 use App\Modules\Gym\Application\Exception\Training\TrainingNotSavedException;
 use App\Modules\Gym\Application\Exception\Training\TrainingParameterWrongException;
-use App\Modules\Gym\Application\Exception\Training\TrainingUpdateBadRequest;
+use App\Modules\Gym\Application\Exception\Training\TrainingUpdateBadRequestException;
 use App\Modules\Gym\Application\View\TrainingView;
 use App\Modules\Gym\Domain\Repository\TrainingRepository;
 use Exception;
@@ -55,7 +55,7 @@ class TrainingUpdateHandler extends Handler
         } catch (TrainingNotSavedException $e) {
             throw $e;
         } catch (Throwable $e) {
-            throw new TrainingUpdateBadRequest;
+            throw new TrainingUpdateBadRequestException;
         }
     }
 
