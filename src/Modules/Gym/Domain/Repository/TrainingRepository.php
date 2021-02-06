@@ -46,8 +46,8 @@ abstract class TrainingRepository implements TrainingRepositoryInterface
                 return Training::insertGetId($params);
             }
 
-
             return Training::where('uuid', $params['uuid'])->update($params);
+
         } catch (Throwable $e) {
             throw new TrainingNotSavedException;
         }

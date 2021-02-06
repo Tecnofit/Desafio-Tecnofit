@@ -12,6 +12,7 @@ use App\Modules\Gym\Handler\Activity\ActivityDetailHandler;
 use App\Modules\Gym\Handler\Activity\ActivityUpdateHandler;
 use App\Modules\Gym\Handler\Activity\ActivityDeleteHandler;
 use App\Modules\Gym\Handler\Activity\ActivityAssociateTrainingHandler;
+use App\Modules\Gym\Handler\User\UserCreateHandler;
 
 return function (RouteCollector $r): void {
     $r->addGroup('/api', function (RouteCollector $r) {
@@ -37,6 +38,10 @@ return function (RouteCollector $r): void {
                     [ActivityAssociateTrainingHandler::class,
                     Router::$IS_PUBLIC
                 ]);
+            });
+
+            $r->addGroup('/user', function (RouteCollector $r) {
+                $r->post('', [UserCreateHandler::class, Router::$IS_PUBLIC]);
             });
         });
     });

@@ -12,4 +12,6 @@ interface ViewInterface
     public function getId(): int;
 
     public function serialize(): array;
+
+    public static function fromArray(array $params);
 }

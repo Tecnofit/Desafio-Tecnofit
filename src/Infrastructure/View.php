@@ -6,6 +6,7 @@ namespace App\Infrastructure;
 
 use App\Infrastructure\Contracts\ViewInterface;
 use DateTime;
+use Exception;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -36,6 +37,11 @@ abstract class View implements ViewInterface
     protected $modified_at;
 
     /**
+     * @var DateTime|null
+     */
+    protected $removed_at;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -45,7 +51,7 @@ abstract class View implements ViewInterface
 
     /**
      * @param int $id
-     * @return int
+     * @return void
      */
     public function setId(int $id): void
     {
@@ -99,5 +105,31 @@ abstract class View implements ViewInterface
     public function setModifiedAt(?DateTime $modifiedAt): void
     {
         $this->modified_at = $modifiedAt;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getRemovedAt(): ?DateTime
+    {
+        return $this->removed_at;
+    }
+
+    /**
+     * @param DateTime|null $removedAt
+     */
+    public function setRemovedAt(?DateTime $removedAt): void
+    {
+        $this->removed_at = $removedAt;
+    }
+
+    /**
+     * @param array $params
+     * @return View
+     * @throws Exception
+     */
+    public static function fromArray(array $params)
+    {
+        throw new Exception("method_not_implemented");
     }
 }
