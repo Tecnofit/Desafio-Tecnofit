@@ -18,7 +18,7 @@ define('APP_ROOT', dirname(__DIR__));
 
 ini_set('display_errors', $_ENV['APP_DEBUG']);
 
-$request = new App\Infrastructure\Http\Request;
+$request = App\Infrastructure\Http\Request::singleton();
 
 try {
     App\Infrastructure\Middleware\CorsMiddleware::validate($request);

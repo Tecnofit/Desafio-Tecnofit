@@ -18,6 +18,19 @@ class Request
     private static $instance = null;
 
     /**
+     * @var $body
+     */
+    private $body;
+
+    /**
+     * Request constructor.
+     */
+    private function __construct()
+    {
+        $this->setBody();
+    }
+
+    /**
      * @return Request|null
      */
     public static function singleton()
@@ -90,7 +103,20 @@ class Request
      */
     public function getBody(): ?array
     {
-        return json_decode(file_get_contents("php://input", false, stream_context_get_default(), 0, (int)$_SERVER["CONTENT_LENGTH"]), true);
+        return $this->body;
+    }
+
+    /**
+     * @param array|null $params
+     * @return void
+     */
+    public function setBody(?array $params = null): void
+    {
+        if (empty($params)) {
+            $this->body = json_decode(file_get_contents("php://input", false, stream_context_get_default(), 0, (int)$_SERVER["CONTENT_LENGTH"]), true);
+        }
+
+        $this->body = $params;
     }
 
     /**

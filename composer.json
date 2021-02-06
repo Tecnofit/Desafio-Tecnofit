@@ -22,7 +22,9 @@
     "illuminate/database": "^7.11",
     "swiftmailer/swiftmailer": "^6.2",
     "symfony/filesystem": "^5.1",
-    "ramsey/uuid": "^4.1"
+    "ramsey/uuid": "^4.1",
+    "phpunit/phpunit": "^8.5",
+    "phpunit/php-code-coverage": "^7.0"
   },
   "require-dev": {
   },
@@ -44,6 +46,9 @@
   "scripts": {
     "post-install-cmd": [
       "composer dump-autoload -o"
-    ]
+    ],
+    "test": "vendor/bin/phpunit --colors=always --bootstrap tests/Bootstrap.php",
+    "test.unit.modules.gym": "vendor/bin/phpunit --colors=always --testsuite test.unit.modules.gym",
+    "test.integration.modules.gym": "vendor/bin/phpunit --colors=always --testsuite test.integration.modules.gym --bootstrap tests/Bootstrap.php"
   }
 }
