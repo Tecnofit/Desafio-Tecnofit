@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure;
 
-use App\Infrastructure\Contracts\ViewInterface;
-use DateTime;
 use Exception;
+use DateTime;
 use Ramsey\Uuid\UuidInterface;
+use App\Infrastructure\Contracts\ViewInterface;
 
 /**
  * Class ViewAbstract
@@ -29,17 +29,17 @@ abstract class View implements ViewInterface
     /**
      * @var DateTime|null
      */
-    protected $created_at;
+    protected $createdAt;
 
     /**
      * @var DateTime|null
      */
-    protected $modified_at;
+    protected $updatedAt;
 
     /**
      * @var DateTime|null
      */
-    protected $removed_at;
+    protected $deletedAt;
 
     /**
      * @return int
@@ -78,9 +78,9 @@ abstract class View implements ViewInterface
     /**
      * @return DateTime|null
      */
-    public function getCreatedAt(): ?DateTime
+    public function getCreatedDateAt(): ?DateTime
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
@@ -88,44 +88,44 @@ abstract class View implements ViewInterface
      */
     public function setCreatedAt(?DateTime $createdAt): void
     {
-        $this->created_at = $createdAt;
+        $this->createdAt = $createdAt;
     }
 
     /**
      * @return DateTime|null
      */
-    public function getModifiedAt(): ?DateTime
+    public function getUpdatedAt(): ?DateTime
     {
-        return $this->modified_at;
+        return $this->updatedAt;
     }
 
     /**
-     * @param DateTime|null $modifiedAt
+     * @param DateTime|null $updatedAt
      */
-    public function setModifiedAt(?DateTime $modifiedAt): void
+    public function setUpdatedAt(?DateTime $updatedAt): void
     {
-        $this->modified_at = $modifiedAt;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
      * @return DateTime|null
      */
-    public function getRemovedAt(): ?DateTime
+    public function getDeletedAt(): ?DateTime
     {
-        return $this->removed_at;
+        return $this->deletedAt;
     }
 
     /**
-     * @param DateTime|null $removedAt
+     * @param DateTime|null $deletedAt
      */
-    public function setRemovedAt(?DateTime $removedAt): void
+    public function setDeletedAt(?DateTime $deletedAt): void
     {
-        $this->removed_at = $removedAt;
+        $this->deletedAt = $deletedAt;
     }
 
     /**
      * @param array $params
-     * @return View
+     * @return void
      * @throws Exception
      */
     public static function fromArray(array $params)

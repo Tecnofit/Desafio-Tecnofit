@@ -13,7 +13,7 @@ class User extends Model
 {
     protected $table = 'user';
 
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'id',
@@ -30,7 +30,7 @@ class User extends Model
         'photo',
         'birth_date',
         'created_at',
-        'removed_at',
-        'modified_at'
+        'updated_at',
+        'deleted_at'
     ];
 }

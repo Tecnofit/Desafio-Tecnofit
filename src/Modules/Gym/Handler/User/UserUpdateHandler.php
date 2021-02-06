@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Modules\Gym\Handler\User;
 
 use DateTime;
+use Ramsey\Uuid\Uuid;
 use Throwable;
 use App\Infrastructure\Handler;
 use App\Infrastructure\Http\Request;
 use App\Infrastructure\Http\Response;
-use App\Modules\Gym\Application\Enum\UserEnum;
-use App\Modules\Gym\Application\View\UserView;
 use App\Modules\Gym\Domain\Repository\UserRepository;
+use App\Modules\Gym\Application\View\UserView;
 
 /**
- * Class UserCreateHandler
+ * Class UserUpdateHandler
  * @package App\Modules\Gym\Handler\User
  */
-class UserCreateHandler extends Handler
+class UserUpdateHandler extends Handler
 {
     /**
      * @param Request $request
@@ -30,13 +30,19 @@ class UserCreateHandler extends Handler
         try {
             $params = $request->getBody();
 
-            $params['uuid'] = $request->getUuid();
+            $uuid = Uuid::fromString($params['uuid']);
 
-            $params['created_at'] = new DateTime;
+            $user = UserRepository::getByUuId($uuid);
 
-            $params['password'] = md5($params['password']);
+            $params['id'] = $user['id'];
 
-            $params['status'] = UserEnum::$STATUS_ENABLED;
+            $params['uuid'] = $uuid;
+
+            $params['created_at'] = new DateTime($user['created_at']);
+
+            $params['updated_at'] = new DateTime;
+
+            $params['deleted_at'] = $user['deleted_at'] ? new DateTime($user['deleted_at']) : null;
 
             $userView = UserView::fromArray($params);
 

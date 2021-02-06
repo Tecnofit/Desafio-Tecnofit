@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Modules\Gym\Application\View;
 
-use App\Infrastructure\View;
 use DateTime;
 use Ramsey\Uuid\UuidInterface;
+use App\Infrastructure\View;
 
 /**
  * Class UserView
@@ -70,21 +70,6 @@ class UserView extends View
     private $birthDate;
 
     /**
-     * @var string|null
-     */
-    private $createdAt;
-
-    /**
-     * @var string|null
-     */
-    private $removedAt;
-
-    /**
-     * @var string|null
-     */
-    private $modifiedAt;
-
-    /**
      * UserView constructor.
      * @param int|null $id
      * @param UuidInterface|null $uuid
@@ -99,9 +84,9 @@ class UserView extends View
      * @param float|null $height
      * @param string|null $photo
      * @param string|null $birthDate
-     * @param DateTime|null $createdAt
-     * @param DateTime|null $removedAt
-     * @param DateTime|null $modifiedAt
+     * @param DateTime|null $createdDateAt
+     * @param DateTime|null $updatedDateAt
+     * @param DateTime|null $deletedDateAt
      */
     public function __construct(
         ?int $id,
@@ -117,9 +102,9 @@ class UserView extends View
         ?float $height,
         ?string $photo,
         ?string $birthDate,
-        ?DateTime $createdAt,
-        ?DateTime $removedAt,
-        ?DateTime $modifiedAt
+        ?DateTime $createdDateAt,
+        ?DateTime $updatedDateAt,
+        ?DateTime $deletedDateAt
     )
     {
         $this->id = $id;
@@ -127,6 +112,7 @@ class UserView extends View
         $this->profileId = $profileId;
         $this->password = $password;
         $this->status = $status;
+        $this->email = $email;
         $this->firstName = $firstName;
         $this->middleName = $middleName;
         $this->lastName = $lastName;
@@ -134,10 +120,9 @@ class UserView extends View
         $this->height = $height;
         $this->photo = $photo;
         $this->birthDate = $birthDate;
-        $this->createdAt = $createdAt;
-        $this->removedAt = $removedAt;
-        $this->modifiedAt = $modifiedAt;
-        $this->email = $email;
+        $this->createdAt = $createdDateAt;
+        $this->updatedAt = $updatedDateAt;
+        $this->deletedAt = $deletedDateAt;
     }
 
     /**
@@ -337,8 +322,8 @@ class UserView extends View
             $params['photo'],
             $params['birth_date'],
             $params['created_at'],
-            $params['removed_at'],
-            $params['modified_at']
+            $params['updated_at'],
+            $params['deleted_at']
         );
     }
 
@@ -362,8 +347,8 @@ class UserView extends View
             'photo' => $this->photo,
             'birth_date' => $this->birthDate,
             'created_at' => $this->createdAt->format('Y-m-d H:i:s'),
-            'removed_at' => $this->removed_at ? $this->removed_at->format('Y-m-d H:i:s') : null,
-            'modified_at' => $this->modifiedAt ? $this->modifiedAt->format('Y-m-d H:i:s') : null
+            'updated_at' => $this->updatedAt ? $this->updatedAt->format('Y-m-d H:i:s') : null,
+            'deleted_at' => $this->deletedAt ? $this->deletedAt->format('Y-m-d H:i:s') : null
         ];
     }
 }
