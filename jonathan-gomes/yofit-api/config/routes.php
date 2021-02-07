@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Modules\Gym\Handler\StudentTraining\StudentAvailableTrainingsHandler;
 use FastRoute\RouteCollector;
 use App\Infrastructure\Router;
 use App\Modules\Gym\Handler\Training\TrainingCreateHandler;
@@ -62,6 +63,7 @@ return function (RouteCollector $r): void {
                 $r->patch('/{uuid}/change-status', [StudentTrainingChangeStatusHandler::class, Router::$IS_PUBLIC]);
 
                 $r->get('/{uuid}/trainings', [StudentSearchTrainingsHandler::class, Router::$IS_PUBLIC]);
+                $r->get('/{uuid}/available-trainings', [StudentAvailableTrainingsHandler::class, Router::$IS_PUBLIC]);
 
                 $r->get('/{uuid}/training/{student_training_uuid}/activities', [
                     StudentSearchActivitiesHandler::class,

@@ -1,15 +1,29 @@
 import React from 'react'
 import Masonry from 'react-masonry-css'
+import MasonryCardItem from './MasonryCardItem';
 import GymMasonryCard from './styles'
-import Button from '../../../../components/Button'
 
-const MasonryCard = () => {
-    const breakpointColumnsObj = {
-        default: 4,
-        1100: 3,
-        700: 2,
-        500: 1
-    };
+export interface ITrainingItem {
+  training_name: string;
+  training_uuid: string;
+}
+
+interface Props {
+  trainings: ITrainingItem[];
+}
+
+const MasonryCard: React.FC<Props> = (props: Props) => {
+
+  const breakpointColumnsObj = {
+      default: 4,
+      1100: 3,
+      700: 2,
+      500: 1
+  };
+
+  const listAvailableTrainings = props.trainings.map((training: ITrainingItem) =>
+    <MasonryCardItem {...training} />
+  );
 
   return (
     <GymMasonryCard>
@@ -17,24 +31,7 @@ const MasonryCard = () => {
           breakpointCols={breakpointColumnsObj}
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column">
-            <div>
-              Peito, Ombro, Tríceps
-              <div style={{marginTop: '1rem'}}>
-                <Button primary>Selecionar</Button>
-              </div>
-            </div>
-            <div>
-              Costas, Trapézio, Bíceps
-              <div style={{marginTop: '1rem'}}>
-                <Button primary>Selecionar</Button>
-              </div>
-            </div>
-            <div> 
-              <span>Perna</span>
-              <div style={{marginTop: '1rem'}}>
-                <Button primary>Selecionar</Button>
-              </div>
-            </div>
+            {listAvailableTrainings}
         </Masonry>
     </GymMasonryCard>
   )

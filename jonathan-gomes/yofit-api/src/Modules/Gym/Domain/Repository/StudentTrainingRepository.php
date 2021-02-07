@@ -36,6 +36,30 @@ abstract class StudentTrainingRepository
 
     /**
      * @param int $userId
+     * @return array
+     */
+    public static function getAvailableTrainings(int $userId)
+    {
+        return DB::select(DB::raw("
+          SELECT
+              DISTINCT
+              t.uuid AS training_uuid,
+              t.name AS training_name
+          FROM activity_training at
+             JOIN training t
+                ON t.id = at.training_id
+             JOIN activity a
+                ON a.id = at.activity_id
+             LEFT JOIN student_training st
+                ON t.id = st.training_id
+          WHERE
+              st.id IS NULL AND
+              (st.user_id = ? OR st.user_id IS NULL);
+        "), [$userId]);
+    }
+
+    /**
+     * @param int $userId
      * @return mixed
      */
     public static function getTrainingsByUserId(int $userId): array

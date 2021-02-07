@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import GymContainer from './styles'
 import WelcomeYofit from './WelcomeYofit'
 import MasonryCard from './MasonryCard'
 import Typhography from '../../../components/Typhography'
+import { getListTrainingsAvaliableByUserId } from '../../../api'
+
+export interface ITrainingItem {
+  training_name: string;
+  training_uuid: string;
+}
 
 const AvaliableTraining = () => {
+  const [avaliableTrainings, setAvaliableTranings] = useState<ITrainingItem[]>([]);
+
+  useEffect(() => {
+    (async function anyNameFunction() {
+      const trainings: any = await getListTrainingsAvaliableByUserId();
+      setAvaliableTranings(trainings);
+    })();
+  }, []);
+
   return (
     <GymContainer>
         <WelcomeYofit />
@@ -13,7 +28,7 @@ const AvaliableTraining = () => {
           <Typhography>Treinos Disponíveis</Typhography>
         </div>
         
-        <MasonryCard />
+        <MasonryCard trainings={avaliableTrainings} />
     </GymContainer>
   )
 }
