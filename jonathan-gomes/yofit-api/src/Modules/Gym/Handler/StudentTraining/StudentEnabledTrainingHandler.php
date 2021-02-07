@@ -35,6 +35,7 @@ class StudentEnabledTrainingHandler extends Handler
             $trainings = StudentTrainingRepository::getEnabledTraining($user['id']);
 
             $viewParams = [
+                'student_training_uuid' => null,
                 'training_uuid' => null,
                 'training_name' => null,
                 'activities' => null
@@ -42,15 +43,14 @@ class StudentEnabledTrainingHandler extends Handler
 
             if (count($trainings) > 0) {
                 $training = current($trainings);
+                $viewParams['student_training_uuid'] = $training->student_training_uuid;
                 $viewParams['training_uuid'] = $training->training_uuid;
                 $viewParams['training_name'] = $training->training_name;
                 $viewParams['activities'] = array_map(function($training) {
                     return [
                         'activity_uuid' => $training->activity_uuid,
                         'activity_name' => $training->activity_name,
-                        'status' => $training->student_training_progress_status === null
-                            ? 'NOT_STARTED'
-                            : $training->student_training_progress_status
+                        'status' => $training->student_training_progress_status
                     ];
                 }, $trainings);
             }

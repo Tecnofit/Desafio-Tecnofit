@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getEnabledTrainingByUserId, patchChangeStatusStudentTrainingProgress } from '../../../api';
+import { getEnabledTrainingByUserId, patchChangeStatusStudentTrainingProgress, postStudentTrainingProgress } from '../../../api';
 import Typhography from '../../../components/Typhography'
 import GymContainer from './styles'
 
@@ -10,6 +10,7 @@ export interface IActivity {
 }
 
 export interface IEnabledTraining {
+  student_training_uuid: string;
   training_uuid: string;
   training_name: string;
   activities: IActivity[]
@@ -35,12 +36,19 @@ const Training = () => {
     event.persist();
     const { value } = event.target;
 
+    const statusCurrent = activity?.status;
+
     // @ts-ignore
     let newActivity: IActivity = {...activity, ...{status: value}};
     setActivity(newActivity);
+ 
+    if (!statusCurrent) {
+      // @ts-ignore
+      await postStudentTrainingProgress(enabledTraining?.student_training_uuid, activity?.activity_uuid);
+    }
 
     // @ts-ignore
-    await patchChangeStatusStudentTrainingProgress(enabledTraining?.training_uuid, activity?.activity_uuid);
+    await patchChangeStatusStudentTrainingProgress(enabledTraining?.student_training_uuid, activity?.activity_uuid);
   }
 
   const onPriorActivity = () => {
@@ -57,8 +65,6 @@ const Training = () => {
   }
 
   const onNextActivity = () => {
-    console.log("NEXT INDEX");
-
     const nextIndex = activityIndex + 1;
     const totalActivities = enabledTraining?.activities.length;
 

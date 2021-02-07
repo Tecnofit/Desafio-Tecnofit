@@ -19,7 +19,17 @@ export async function getEnabledTrainingByUserId() {
     return !response.data ? [] : response.data;
 }
 
-export async function patchChangeStatusStudentTrainingProgress(trainingUuid: string, activityUuid: string) {
-    const response = await api.patch(`student-training-progress/${trainingUuid}/student-training/${activityUuid}/activity/change-status`);
+export async function postStudentTrainingProgress(studentTrainingUuid: string, activityUuid: string) {
+    const response = await api.post('student-training-progress', {
+       'student_training_uuid': studentTrainingUuid,
+       'activity_uuid': activityUuid,
+       'status': 'NOT_STARTED'
+    });
+
+    return !response.data ? [] : response.data;
+}
+
+export async function patchChangeStatusStudentTrainingProgress(studentTrainingUuid: string, activityUuid: string) {
+    const response = await api.patch(`student-training-progress/${studentTrainingUuid}/student-training/${activityUuid}/activity/change-status`);
     return !response.data ? [] : response.data;
 }

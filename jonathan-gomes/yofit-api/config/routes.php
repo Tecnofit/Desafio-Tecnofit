@@ -77,6 +77,7 @@ return function (RouteCollector $r): void {
 
             $r->addGroup('/student-training-progress', function (RouteCollector $r) {
                 $r->post('', [StudentTrainingProgressCreateHandler::class, Router::$IS_PUBLIC]);
+
                 $r->patch('/{student_training_uuid}/student-training/{activity_uuid}/activity/change-status', [
                     StudentTrainingProgressChangeStatusHandler::class,
                     Router::$IS_PUBLIC

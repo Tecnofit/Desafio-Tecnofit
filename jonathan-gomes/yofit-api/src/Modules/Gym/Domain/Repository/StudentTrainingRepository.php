@@ -66,6 +66,7 @@ abstract class StudentTrainingRepository
     {
         return DB::select(DB::raw("
           SELECT
+              st.uuid AS student_training_uuid,
               t.uuid AS training_uuid,
               t.name AS training_name,
               a.uuid AS activity_uuid,
