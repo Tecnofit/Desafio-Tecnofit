@@ -24,9 +24,10 @@ const Training = () => {
   useEffect(() => {
     (async function searcherTraining() {
       const training: any = await getEnabledTrainingByUserId();
+      
       setEnabledTraining(training);
 
-      if (training.activities.length > 0) {
+      if (training.activities?.length > 0) {
         setActivity(training.activities[0]);
       }
     })();

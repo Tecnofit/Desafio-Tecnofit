@@ -1,5 +1,7 @@
 CREATE DATABASE IF NOT EXISTS gym;
 
+ALTER DATABASE `gym` CHARSET = UTF8 COLLATE = utf8_general_ci;
+
 /**
  * Criação da tabela de treinos
  */
@@ -14,7 +16,7 @@ create table training
   constraint UNIQUE_training_uuid
     unique (uuid)
 )
-collate = latin1_general_ci;
+CHARSET = UTF8 COLLATE = utf8_general_ci;
 
 /**
  * Criação da tabela de exercícios
@@ -29,7 +31,7 @@ create table activity
   constraint UNIQUE_activity_uuid
     unique (uuid)
 )
-collate = latin1_general_ci;
+CHARSET = UTF8 COLLATE = utf8_general_ci;
 
 /**
  * Associar exercício ao treino
@@ -41,7 +43,7 @@ create table activity_training
   sections    int default 0 null,
   primary key (activity_id, training_id)
 )
-collate = latin1_general_ci;
+CHARSET = UTF8 COLLATE = utf8_general_ci;
 
 /**
  * Perfil do usuário
@@ -58,7 +60,7 @@ create table profile
   constraint profile_uuid_uindex
     unique (uuid)
 )
-collate = latin1_general_ci;
+CHARSET = UTF8 COLLATE = utf8_general_ci;
 
 /**
  * Usuário
@@ -89,7 +91,7 @@ create table user
   constraint FK_user_profile_id
     foreign key (profile_id) references profile (id)
 )
-collate = latin1_general_ci;
+CHARSET = UTF8 COLLATE = utf8_general_ci;
 
 /**
  * Vínculo de treinos para o estudante
@@ -111,7 +113,7 @@ create table student_training
   constraint FK_student_training_user_id
     foreign key (user_id) references user (id)
 )
-collate = latin1_general_ci;
+CHARSET = UTF8 COLLATE = utf8_general_ci;
 
 /**
  * Vínculo de atividades do treino
@@ -123,11 +125,11 @@ create table student_training_progress
   status              enum ('NOT_STARTED', 'COMPLETED', 'IN_PROGRESS', 'SKIPPED') not null,
   primary key (student_training_id, activity_id),
   constraint FK_student_training_progress_activity_id
-    foreign key (activity_id) references training (id),
+    foreign key (activity_id) references activity (id),
   constraint FK_student_training_progress_student_training_id
     foreign key (student_training_id) references student_training (id)
 )
-collate = latin1_general_ci;
+CHARSET = UTF8 COLLATE = utf8_general_ci;
 
 
 INSERT INTO profile (id, uuid, name, slug, description) VALUES (1, 'd758b7f4-3e81-49b2-a334-3d8b3698384f', 'Administrador', 'admin', 'Administrador geral');

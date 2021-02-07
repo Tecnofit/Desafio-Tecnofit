@@ -19,6 +19,16 @@ export async function getEnabledTrainingByUserId() {
     return !response.data ? [] : response.data;
 }
 
+export async function postStudentTraining(trainingUuid: string) {
+    const response = await api.post('student-training', {
+       'user_uuid': uuidGuest,
+       'training_uuid': trainingUuid,
+       'status': 'ENABLED'
+    });
+
+    return !response.data ? [] : response.data;
+}
+
 export async function postStudentTrainingProgress(studentTrainingUuid: string, activityUuid: string) {
     const response = await api.post('student-training-progress', {
        'student_training_uuid': studentTrainingUuid,
