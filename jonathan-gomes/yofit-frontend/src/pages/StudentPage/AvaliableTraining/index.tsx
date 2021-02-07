@@ -14,7 +14,7 @@ const AvaliableTraining = () => {
   const [avaliableTrainings, setAvaliableTranings] = useState<ITrainingItem[]>([]);
 
   useEffect(() => {
-    (async function anyNameFunction() {
+    (async function searcherTrainings() {
       const trainings: any = await getListTrainingsAvaliableByUserId();
       setAvaliableTranings(trainings);
     })();

@@ -21,8 +21,8 @@ const MasonryCard: React.FC<Props> = (props: Props) => {
       500: 1
   };
 
-  const listAvailableTrainings = props.trainings.map((training: ITrainingItem) =>
-    <MasonryCardItem {...training} />
+  const listAvailableTrainings = props.trainings.map((training: ITrainingItem, index: number) =>
+    <MasonryCardItem key={index} {...training} />
   );
 
   return (

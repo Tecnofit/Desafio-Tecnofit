@@ -62,6 +62,36 @@ abstract class StudentTrainingRepository
      * @param int $userId
      * @return mixed
      */
+    public static function getEnabledTraining(int $userId)
+    {
+        return DB::select(DB::raw("
+          SELECT
+              t.uuid AS training_uuid,
+              t.name AS training_name,
+              a.uuid AS activity_uuid,
+              a.name AS activity_name,
+              stp.status AS student_training_progress_status
+          FROM student_training st
+              JOIN training t
+                ON st.training_id = t.id
+              JOIN activity_training at
+                ON at.training_id = t.id
+              JOIN activity a
+                ON a.id = at.activity_id
+              LEFT JOIN student_training_progress stp
+                ON st.id = stp.student_training_id
+          WHERE
+              st.user_id = ? AND
+              st.status = ?
+          ORDER BY
+            a.name ASC;
+        "), [$userId, StudentTrainingEnum::$STATUS_ENABLED]);
+    }
+
+    /**
+     * @param int $userId
+     * @return mixed
+     */
     public static function getTrainingsByUserId(int $userId): array
     {
         try {

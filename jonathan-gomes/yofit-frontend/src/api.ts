@@ -13,3 +13,13 @@ export async function getListTrainingsAvaliableByUserId() {
     const response = await api.get(`student-training/${uuidGuest}/available-trainings`);
     return !response.data ? [] : response.data;
 }
+
+export async function getEnabledTrainingByUserId() {
+    const response = await api.get(`student-training/${uuidGuest}/enabled-training`);
+    return !response.data ? [] : response.data;
+}
+
+export async function patchChangeStatusStudentTrainingProgress(trainingUuid: string, activityUuid: string) {
+    const response = await api.patch(`student-training-progress/${trainingUuid}/student-training/${activityUuid}/activity/change-status`);
+    return !response.data ? [] : response.data;
+}
