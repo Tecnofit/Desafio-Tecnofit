@@ -18,6 +18,7 @@ export interface IEnabledTraining {
 const Training = () => {
   const [enabledTraining, setEnabledTraining] = useState<IEnabledTraining>();
   const [activity, setActivity] = useState<IActivity>();
+  const [activityIndex, setActivityIndex] = useState(0);
 
   useEffect(() => {
     (async function searcherTraining() {
@@ -42,6 +43,32 @@ const Training = () => {
     await patchChangeStatusStudentTrainingProgress(enabledTraining?.training_uuid, activity?.activity_uuid);
   }
 
+  const onPriorActivity = () => {
+    console.log("PRIOR INDEX");
+    const priorIndex = activityIndex -1;
+    const totalActivities = enabledTraining?.activities.length;
+    
+    setActivityIndex(
+      // @ts-ignore
+      priorIndex === -1 ? (totalActivities - 1) : activityIndex -1
+    );
+
+    setActivity(enabledTraining?.activities[activityIndex]);
+  }
+
+  const onNextActivity = () => {
+    console.log("NEXT INDEX");
+
+    const nextIndex = activityIndex + 1;
+    const totalActivities = enabledTraining?.activities.length;
+
+    setActivityIndex(
+      nextIndex === totalActivities ? 0 : activityIndex + 1
+    );
+
+    setActivity(enabledTraining?.activities[activityIndex]);
+  }
+
   return (
     <GymContainer>
         <Typhography> Treino </Typhography>
@@ -54,9 +81,9 @@ const Training = () => {
           <Typhography> Excercício </Typhography>
           
           <div>
-            <span>{'< voltar'}</span>
+            <span onClick={onPriorActivity} style={{cursor: 'pointer'}}>{'< voltar'}</span>
             {' '}
-            <span>{'próximo >'}</span>
+            <span onClick={onNextActivity} style={{cursor: 'pointer'}}>{'próximo >'}</span>
           </div>
         </div>
 
