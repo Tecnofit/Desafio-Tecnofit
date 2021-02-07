@@ -39,7 +39,9 @@ export async function postStudentTrainingProgress(studentTrainingUuid: string, a
     return !response.data ? [] : response.data;
 }
 
-export async function patchChangeStatusStudentTrainingProgress(studentTrainingUuid: string, activityUuid: string) {
-    const response = await api.patch(`student-training-progress/${studentTrainingUuid}/student-training/${activityUuid}/activity/change-status`);
+export async function patchChangeStatusStudentTrainingProgress(studentTrainingUuid: string, activityUuid: string, status: string) {
+    const response = await api.patch(`student-training-progress/${studentTrainingUuid}/student-training/${activityUuid}/activity/change-status`, {
+        'status': status
+    });
     return !response.data ? [] : response.data;
 }

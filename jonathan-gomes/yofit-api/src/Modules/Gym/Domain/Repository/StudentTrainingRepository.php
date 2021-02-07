@@ -80,7 +80,8 @@ abstract class StudentTrainingRepository
               JOIN activity a
                 ON a.id = at.activity_id
               LEFT JOIN student_training_progress stp
-                ON st.id = stp.student_training_id
+                ON stp.student_training_id = st.id AND
+                   stp.activity_id = a.id
           WHERE
               st.user_id = ? AND
               st.status = ?

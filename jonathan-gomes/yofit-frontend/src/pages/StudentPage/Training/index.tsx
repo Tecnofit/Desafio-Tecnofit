@@ -49,7 +49,7 @@ const Training = () => {
     }
 
     // @ts-ignore
-    await patchChangeStatusStudentTrainingProgress(enabledTraining?.student_training_uuid, activity?.activity_uuid);
+    await patchChangeStatusStudentTrainingProgress(enabledTraining?.student_training_uuid, activity?.activity_uuid, value);
   }
 
   const onPriorActivity = () => {
