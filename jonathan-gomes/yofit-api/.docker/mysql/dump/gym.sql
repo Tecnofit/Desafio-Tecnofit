@@ -138,8 +138,8 @@ INSERT INTO profile (id, uuid, name, slug, description) VALUES (2, '6a513f05-bf3
 INSERT INTO user (id, uuid, profile_id, password, status, email, first_name, middle_name, last_name, weight, height, photo, birth_date, created_at, updated_at, deleted_at) VALUES (1, 'd758b7f4-3e81-49b2-a334-3d8b3698384f', 1, '81dc9bdb52d04dc20036dbd8313ed055', 'ENABLED', 'admin@yofit.com.br', 'Admin', 'Root', 'General', null, null, null, null, '2021-02-06 14:25:35', null, null);
 INSERT INTO user (id, uuid, profile_id, password, status, email, first_name, middle_name, last_name, weight, height, photo, birth_date, created_at, updated_at, deleted_at) VALUES (2, '9cc2b708-68ce-4086-a754-6337a8e68932', 2, '81dc9bdb52d04dc20036dbd8313ed055', 'ENABLED', 'guest@yofit.com.br', 'Guest', null, 'User', null, null, null, null, '2021-02-06 13:42:50', null, null);
 
-INSERT INTO training (id, uuid, status, name) VALUES (1, 'f8eadab1-1e0d-411e-99e9-28c28f889691', 1, 'Peito, Ombro, Bíceps');
-INSERT INTO training (id, uuid, status, name) VALUES (2, 'e0ea22f2-6977-11eb-95a2-0242ac130002', 1, 'Costas, Trapézio, Bíceps');
+INSERT INTO training (id, uuid, status, name) VALUES (1, 'f8eadab1-1e0d-411e-99e9-28c28f889691', 1, 'Peito, Ombro, Biceps');
+INSERT INTO training (id, uuid, status, name) VALUES (2, 'e0ea22f2-6977-11eb-95a2-0242ac130002', 1, 'Costas, Trapezio, Biceps');
 INSERT INTO training (id, uuid, status, name) VALUES (3, '09cff2a2-6978-11eb-95a2-0242ac130002', 1, 'Perna');
 
 INSERT INTO activity (id, uuid, name) VALUES (1, '4b754ba2-6978-11eb-95a2-0242ac130002', 'Supino Reto');
@@ -147,10 +147,10 @@ INSERT INTO activity (id, uuid, name) VALUES (2, '67fd052e-6978-11eb-95a2-0242ac
 INSERT INTO activity (id, uuid, name) VALUES (3, '713618c7-6978-11eb-95a2-0242ac130002', 'Peck Peito\\Voador');
 INSERT INTO activity (id, uuid, name) VALUES (4, '8189f4d4-6978-11eb-95a2-0242ac130002', 'Pullover\\Crucifixo');
 INSERT INTO activity (id, uuid, name) VALUES (5, '8860434f-6978-11eb-95a2-0242ac130002', 'Desenvolvimento\\Barra');
-INSERT INTO activity (id, uuid, name) VALUES (6, '8ec292c5-6978-11eb-95a2-0242ac130002', 'Elevação lateral');
-INSERT INTO activity (id, uuid, name) VALUES (7, '94260707-6978-11eb-95a2-0242ac130002', 'Tríceps\\Testa');
-INSERT INTO activity (id, uuid, name) VALUES (8, '99f1e8e2-6978-11eb-95a2-0242ac130002', 'Tríceps pulley');
-INSERT INTO activity (id, uuid, name) VALUES (9, 'a090c90e-6978-11eb-95a2-0242ac130002', 'Tríceps francês');
+INSERT INTO activity (id, uuid, name) VALUES (6, '8ec292c5-6978-11eb-95a2-0242ac130002', 'Elevacao lateral');
+INSERT INTO activity (id, uuid, name) VALUES (7, '94260707-6978-11eb-95a2-0242ac130002', 'Triceps\\Testa');
+INSERT INTO activity (id, uuid, name) VALUES (8, '99f1e8e2-6978-11eb-95a2-0242ac130002', 'Triceps pulley');
+INSERT INTO activity (id, uuid, name) VALUES (9, 'a090c90e-6978-11eb-95a2-0242ac130002', 'Triceps francês');
 INSERT INTO activity (id, uuid, name) VALUES (10, '0e5ea61a-6979-11eb-95a2-0242ac130002', 'Aquecimento barra fixa');
 INSERT INTO activity (id, uuid, name) VALUES (11, '13315ed7-6979-11eb-95a2-0242ac130002', 'Puxador costas');
 INSERT INTO activity (id, uuid, name) VALUES (12, '15bf2b56-6979-11eb-95a2-0242ac130002', 'Puxador frente');
@@ -165,7 +165,7 @@ INSERT INTO activity (id, uuid, name) VALUES (20, '4945be2e-6979-11eb-95a2-0242a
 INSERT INTO activity (id, uuid, name) VALUES (21, 'a643bc9e-6979-11eb-95a2-0242ac130002', 'Aquecimento na bike');
 INSERT INTO activity (id, uuid, name) VALUES (22, 'ab3c32b8-6979-11eb-95a2-0242ac130002', 'Cadeira extensora');
 INSERT INTO activity (id, uuid, name) VALUES (23, 'b1f0d473-6979-11eb-95a2-0242ac130002', 'Agachamento\\Hack');
-INSERT INTO activity (id, uuid, name) VALUES (24, 'b8dcece8-6979-11eb-95a2-0242ac130002', 'Stiff\\Avanço');
+INSERT INTO activity (id, uuid, name) VALUES (24, 'b8dcece8-6979-11eb-95a2-0242ac130002', 'Stiff\\Avanco');
 INSERT INTO activity (id, uuid, name) VALUES (25, 'bf476c11-6979-11eb-95a2-0242ac130002', 'Cama flexora');
 INSERT INTO activity (id, uuid, name) VALUES (26, 'c23f388b-6979-11eb-95a2-0242ac130002', 'Leg 45');
 INSERT INTO activity (id, uuid, name) VALUES (27, 'c73f5ec5-6979-11eb-95a2-0242ac130002', 'Gêmeos plantar');

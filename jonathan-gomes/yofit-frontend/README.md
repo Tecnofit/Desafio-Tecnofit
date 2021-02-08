@@ -1,4 +1,4 @@
-# Yofit Front-End
+# Yofit UI
 > Sistema de gerenciamento de treinos e exercícios
 
 __Tabela de Conteúdos__
@@ -69,7 +69,7 @@ npm run build:production
 
 Não consegui atender aos requisitos
 
-* Tela do administrador da plaforma com Gestão de treinos, exercícios e alunos
+* Tela do administrador da plataforma com gestão de treinos, exercícios e alunos em formato de tela, apenas via api.
 
 OBS: Minha dica de ouro! Use por gentileza o settings exportado do POSTMAN no projeto de Api.
 
