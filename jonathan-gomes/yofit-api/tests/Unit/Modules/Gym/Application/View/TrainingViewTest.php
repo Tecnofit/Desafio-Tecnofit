@@ -28,7 +28,7 @@ class TrainingViewTest extends TestCase
 
         $params = $trainingView->serialize();
 
-        self::assertIsString($params);
+        self::assertIsArray($params);
 
         self::assertNotEmpty($params);
 

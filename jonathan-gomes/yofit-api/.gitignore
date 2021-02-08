@@ -7,3 +7,5 @@ composer.lock
 .htaccess
 
 .idea
+
+.phpunit.result.cache
