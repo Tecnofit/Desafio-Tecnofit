@@ -45,3 +45,15 @@ export async function patchChangeStatusStudentTrainingProgress(studentTrainingUu
     });
     return !response.data ? [] : response.data;
 }
+
+export async function getOtherTrainings() {
+    const response = await api.get(`student-training/${uuidGuest}/other-trainings`);
+    return !response.data ? [] : response.data;
+}
+
+export async function patchChangeStatusStudentTraining(studentTrainingUuid: string) {
+    const response = await api.patch(`student-training/${studentTrainingUuid}/change-status`, {
+        'status': 'ENABLED'
+    });
+    return !response.data ? [] : response.data;
+}

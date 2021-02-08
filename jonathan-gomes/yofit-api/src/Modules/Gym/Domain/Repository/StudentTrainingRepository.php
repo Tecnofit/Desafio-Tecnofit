@@ -83,10 +83,32 @@ abstract class StudentTrainingRepository
                 ON stp.student_training_id = st.id AND
                    stp.activity_id = a.id
           WHERE
-              st.user_id = ? AND
+              st.user_id = ? AND 
               st.status = ?
           ORDER BY
             a.name ASC;
+        "), [$userId, StudentTrainingEnum::$STATUS_ENABLED]);
+    }
+
+    /**
+     * @param int $userId
+     * @return mixed
+     */
+    public static function getOtherTrainings(int $userId)
+    {
+        return DB::select(DB::raw("
+          SELECT
+              DISTINCT
+              st.uuid student_training_uuid,
+              t.name training_name
+          FROM training t
+             JOIN activity_training at
+                ON at.training_id = t.id
+             JOIN student_training st 
+                ON t.id = st.training_id
+          WHERE
+              st.user_id = ? AND
+              st.status != ?
         "), [$userId, StudentTrainingEnum::$STATUS_ENABLED]);
     }
 

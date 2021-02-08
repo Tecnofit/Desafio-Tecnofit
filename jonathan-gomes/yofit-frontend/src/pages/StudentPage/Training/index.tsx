@@ -53,7 +53,6 @@ const Training = () => {
   }
 
   const onPriorActivity = () => {
-    console.log("PRIOR INDEX");
     const priorIndex = activityIndex -1;
     const totalActivities = enabledTraining?.activities.length;
     
