@@ -1,10 +1,9 @@
-# YOFIT
+# YOFIT Api
 > Sistema de gerenciamento de treinos e exercícios
  
 __Tabela de Conteúdos__
 =====================
 
-<!--ts-->
 * [Yofit](#yofit)
     * [Tabela de Conteúdos](#tabela-de-contedos)
     * [Objetivo](#objetivo)
@@ -15,7 +14,6 @@ __Tabela de Conteúdos__
         * [Unitários](#unitarios)
         * [Integração](#integracao)
     * [Contribuintes](#contribuintes)
-<!--te-->
 
 ## Objetivo
 
