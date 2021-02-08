@@ -71,6 +71,7 @@ abstract class StudentTrainingRepository
               t.name AS training_name,
               a.uuid AS activity_uuid,
               a.name AS activity_name,
+              at.sections AS activity_training_sections,
               stp.status AS student_training_progress_status
           FROM student_training st
               JOIN training t

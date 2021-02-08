@@ -50,6 +50,7 @@ class StudentEnabledTrainingHandler extends Handler
                     return [
                         'activity_uuid' => $training->activity_uuid,
                         'activity_name' => $training->activity_name,
+                        'activity_training_sections' => $training->activity_training_sections,
                         'status' => $training->student_training_progress_status
                     ];
                 }, $trainings);

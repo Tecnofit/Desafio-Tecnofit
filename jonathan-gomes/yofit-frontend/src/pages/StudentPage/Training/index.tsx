@@ -6,6 +6,7 @@ import GymContainer from './styles'
 export interface IActivity {
   activity_uuid: string;
   activity_name: string;
+  activity_training_sections: number;
   status: string;
 }
 
@@ -77,10 +78,13 @@ const Training = () => {
 
   return (
     <GymContainer>
-        <Typhography> Treino </Typhography>
+        <Typhography>Treino </Typhography>
         
-        <span className='training'> {enabledTraining?.training_name}  </span>
+        <span className='training'> 
+          {enabledTraining?.training_name} 
+        </span>
 
+        
         <hr className='divider' style={{marginTop: '1rem', marginBottom: '1rem'}} />
 
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -94,6 +98,8 @@ const Training = () => {
         </div>
 
         <span className='activity'>{activity?.activity_name}</span>
+
+        <span> {activity?.activity_training_sections || 0} Seções </span>
 
         <hr className='divider' style={{marginTop: '1rem', marginBottom: '1rem'}} />
 
