@@ -1,0 +1,583 @@
+{
+	"info": {
+		"_postman_id": "b910697c-e06a-498b-a119-5f4b74895dab",
+		"name": "Yofit Gym",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Activity",
+			"item": [
+				{
+					"name": "Associar um exercício ao treino",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uuid\": \"1eab0d29-9eee-4caa-87f4-c933ef8550a2\",\n    \"name\": \"Agachamento avanço 3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}activity/e5a3abcf-fafc-4824-b6bc-8d28c903160f/training/3c817ec3-00fd-4102-8428-aed3797532a3/sections/15",
+							"host": [
+								"{{apiv1}}activity"
+							],
+							"path": [
+								"e5a3abcf-fafc-4824-b6bc-8d28c903160f",
+								"training",
+								"3c817ec3-00fd-4102-8428-aed3797532a3",
+								"sections",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover um exercício",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uuid\": \"1eab0d29-9eee-4caa-87f4-c933ef8550a2\",\n    \"name\": \"Agachamento avanço 3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}activity/e5a3abcf-fafc-4824-b6bc-8d28c903160f",
+							"host": [
+								"{{apiv1}}activity"
+							],
+							"path": [
+								"e5a3abcf-fafc-4824-b6bc-8d28c903160f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar um excercício",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uuid\": \"6a513f05-bf33-4cd1-a5b0-8ae43f9389e5\",\n    \"name\": \"Agachamento avanço 99\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}activity",
+							"host": [
+								"{{apiv1}}activity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar um exercício",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Agachamento avanço 7\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}activity",
+							"host": [
+								"{{apiv1}}activity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar um exercício",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiv1}}activity/d758b7f4-3e81-49b2-a334-3d8b3698384f",
+							"host": [
+								"{{apiv1}}activity"
+							],
+							"path": [
+								"d758b7f4-3e81-49b2-a334-3d8b3698384f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "StudentTraining",
+			"item": [
+				{
+					"name": "Buscar demais treinos inscritos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}student-training/9cc2b708-68ce-4086-a754-6337a8e68932/other-trainings",
+							"host": [
+								"{{apiv1}}student-training"
+							],
+							"path": [
+								"9cc2b708-68ce-4086-a754-6337a8e68932",
+								"other-trainings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar treino ativo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}student-training/9cc2b708-68ce-4086-a754-6337a8e68932/enabled-training",
+							"host": [
+								"{{apiv1}}student-training"
+							],
+							"path": [
+								"9cc2b708-68ce-4086-a754-6337a8e68932",
+								"enabled-training"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar treinos disponíveis",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}student-training/9cc2b708-68ce-4086-a754-6337a8e68932/available-trainings",
+							"host": [
+								"{{apiv1}}student-training"
+							],
+							"path": [
+								"9cc2b708-68ce-4086-a754-6337a8e68932",
+								"available-trainings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trocar o status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"ENABLED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}student-training/2591866d-8f32-4541-a06a-cee8e49ec7a6/change-status",
+							"host": [
+								"{{apiv1}}student-training"
+							],
+							"path": [
+								"2591866d-8f32-4541-a06a-cee8e49ec7a6",
+								"change-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inscrever estudante no treino",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_uuid\": \"f8eadab1-1e0d-411e-99e9-28c28f889691\",\n    \"training_uuid\": \"5e47fe11-7bb8-4474-a080-6a7e745a6f1c\",\n    \"status\": \"ENABLED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}student-training",
+							"host": [
+								"{{apiv1}}student-training"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar atividades do estudante",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}student-training/f8eadab1-1e0d-411e-99e9-28c28f889691/training/f8eadab1-1e0d-411e-99e9-28c28f889691/activities",
+							"host": [
+								"{{apiv1}}student-training"
+							],
+							"path": [
+								"f8eadab1-1e0d-411e-99e9-28c28f889691",
+								"training",
+								"f8eadab1-1e0d-411e-99e9-28c28f889691",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar treinos do estudante",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}student-training/f8eadab1-1e0d-411e-99e9-28c28f889691/trainings",
+							"host": [
+								"{{apiv1}}student-training"
+							],
+							"path": [
+								"f8eadab1-1e0d-411e-99e9-28c28f889691",
+								"trainings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "StudentTrainingProgress",
+			"item": [
+				{
+					"name": "Criar progresso estudante no exercício",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"student_training_uuid\": \"bc97baab-56ed-4ce9-afe7-381d74c766f7\",\n    \"activity_uuid\": \"df9799e3-b3af-4a16-8efb-e91b402519cd\",\n    \"status\": \"IN_PROGRESS\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}student-training-progress",
+							"host": [
+								"{{apiv1}}student-training-progress"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trocar o status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"COMPLETED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}student-training-progress/f8eadab1-1e0d-411e-99e9-28c28f889691/student-training/df9799e3-b3af-4a16-8efb-e91b402519cd/activity/change-status",
+							"host": [
+								"{{apiv1}}student-training-progress"
+							],
+							"path": [
+								"f8eadab1-1e0d-411e-99e9-28c28f889691",
+								"student-training",
+								"df9799e3-b3af-4a16-8efb-e91b402519cd",
+								"activity",
+								"change-status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Training",
+			"item": [
+				{
+					"name": "Buscar um treino",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiv1}}training/93a7919b-6bf1-4cc1-a771-9253d4a4a50e",
+							"host": [
+								"{{apiv1}}training"
+							],
+							"path": [
+								"93a7919b-6bf1-4cc1-a771-9253d4a4a50e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar um treino",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Perna\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}training",
+							"host": [
+								"{{apiv1}}training"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar um treino",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 3,\n    \"uuid\": \"8f1c0151-c48c-4478-9fb3-afd01b4e9306\",\n    \"name\": \"Perna\",\n    \"status\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}training",
+							"host": [
+								"{{apiv1}}training"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Criar um usuário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"profile_id\": 3,\n    \"password\": \"1234\",\n    \"email\": \"jonathan.gomes@yofit.com.br\",\n    \"first_name\": \"Jonathan\",\n    \"middle_name\": \"Alves\",\n    \"last_name\": \"Gomes\",\n    \"weight\": 78.9,\n    \"height\": 171,\n    \"photo\": \"\",\n    \"birth_date\": \"1988-05-09\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}user",
+							"host": [
+								"{{apiv1}}user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar um usuário",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uuid\": \"f8eadab1-1e0d-411e-99e9-28c28f889691\",\n    \"profile_id\": 3,\n    \"password\": \"81dc9bdb52d04dc20036dbd8313ed055\",\n    \"email\": \"jonathan.gomes3@yofit.com.br\",\n    \"status\": \"ENABLED\",\n    \"first_name\": \"Jonathan\",\n    \"middle_name\": \"Alves\",\n    \"last_name\": \"Gomes\",\n    \"weight\": 78.9,\n    \"height\": 171,\n    \"photo\": null,\n    \"birth_date\": \"1988-05-09\",\n    \"created_at\": \"2021-02-06 19:44:21\",\n    \"updated_at\": \"2021-02-06 14:14:51\",\n    \"deleted_at\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}user",
+							"host": [
+								"{{apiv1}}user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover um usuário",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uuid\": \"f8eadab1-1e0d-411e-99e9-28c28f889691\",\n    \"profile_id\": 3,\n    \"password\": \"81dc9bdb52d04dc20036dbd8313ed055\",\n    \"email\": \"jonathan.gomes3@yofit.com.br\",\n    \"status\": \"ENABLED\",\n    \"first_name\": \"Jonathan\",\n    \"middle_name\": \"Alves\",\n    \"last_name\": \"Gomes\",\n    \"weight\": 78.9,\n    \"height\": 171,\n    \"photo\": null,\n    \"birth_date\": \"1988-05-09\",\n    \"created_at\": \"2021-02-06 19:44:21\",\n    \"updated_at\": \"2021-02-06 14:14:51\",\n    \"deleted_at\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiv1}}user/f8eadab1-1e0d-411e-99e9-28c28f889691",
+							"host": [
+								"{{apiv1}}user"
+							],
+							"path": [
+								"f8eadab1-1e0d-411e-99e9-28c28f889691"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

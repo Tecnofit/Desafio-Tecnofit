@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+>
+    <testsuites>
+        <testsuite name="tests">
+            <directory>./tests</directory>
+        </testsuite>
+        <testsuite name="test.unit.modules.gym">
+            <directory>./tests/Unit/Modules/Gym</directory>
+        </testsuite>
+        <testsuite name="test.integration.modules.gym">
+            <directory>./tests/Integration/Modules/Gym</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <const name="APPLICATION_ENV" value="test"/>
+    </php>
+</phpunit>

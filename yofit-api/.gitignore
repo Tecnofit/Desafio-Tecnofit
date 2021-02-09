@@ -1,0 +1,11 @@
+.docker/mysql/data
+
+vendor
+composer.lock
+
+.env
+.htaccess
+
+.idea
+
+.phpunit.result.cache
