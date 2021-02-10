@@ -2,7 +2,7 @@
 
 **Nome**: Fredman Tamashiro
 
-**Email**: fyukio@gmail.com.br
+**Email**: fyukio@gmail.com
 
 # Instalação
 1. Importar o banco de dados (MySQL) que está dentro da pasta "db";
