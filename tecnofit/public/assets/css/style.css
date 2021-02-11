@@ -1,0 +1,64 @@
+html,
+body {
+    min-height: 100vh;
+}
+
+body {
+    /* font-family: "Poppins", Helvetica, Arial, sans-serif; */
+    background: #f4f5f7;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+a,
+a:hover {
+    text-decoration: none !important;
+}
+
+ol,
+ul {
+    margin: 0 !important;
+    list-style: none;
+}
+
+.list-group {
+    border-radius: 0;
+}
+
+/** Auth **/
+.auth__wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.auth__form{
+    width: 350px;
+    max-width: 100%;
+}
+
+/** Dashboard **/
+.wrapper{
+    display: flex;
+    min-height: 100vh;
+}
+
+.wrapper__sidebar{
+    width: 250px;
+    max-width: 250px;
+    background:  #0052cc;
+    height: 100%;
+}
+
+.wrapper__body{
+    flex: 1;
+}
+
