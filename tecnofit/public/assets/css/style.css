@@ -54,7 +54,7 @@ ul {
     width: 250px;
     max-width: 250px;
     background:  #212529;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .wrapper__body{

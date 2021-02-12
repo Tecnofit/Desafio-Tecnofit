@@ -2,10 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CustomerStoreFormRequest;
+use App\Http\Requests\CustomerUpdateFormRequest;
+use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Services\UserService;
 
 class CustomerController extends Controller
 {
+
+    protected $service;
+    protected $repository;
+
+    public function __construct(UserService $service, UserRepositoryInterface $repository)
+    {
+        $this->service = $service;
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +26,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('dashboard.customer.index');
+        $users = $this->repository->getAllCustomers();
+        return view('dashboard.customer.index', compact('users'));
     }
 
     /**
@@ -32,20 +46,9 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerStoreFormRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return $this->service->store($request->all());
     }
 
     /**
@@ -56,7 +59,10 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (!$user = $this->repository->find($id)) {
+            return redirect()->route('customers.index')->with('error', 'Cliente não encontrado!');
+        }
+        return view('dashboard.customer.edit', compact('user'));
     }
 
     /**
@@ -66,9 +72,9 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CustomerUpdateFormRequest $request, $id)
     {
-        //
+        return $this->service->update($id, $request->all());
     }
 
     /**
@@ -79,6 +85,6 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->service->delete($id);
     }
 }
