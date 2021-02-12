@@ -13,7 +13,7 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.training.index');
     }
 
     /**

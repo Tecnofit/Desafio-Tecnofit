@@ -3,7 +3,7 @@
 
 
 <section>
-    <h1>Dashboard</h1>
+    <h1>Clientes</h1>
 </section>
 
 

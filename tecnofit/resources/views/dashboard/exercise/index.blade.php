@@ -3,7 +3,7 @@
 
 
 <section>
-    <h1>Dashboard</h1>
+    <h1>Exercicios</h1>
 </section>
 
 
