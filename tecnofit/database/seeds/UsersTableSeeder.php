@@ -15,12 +15,11 @@ class UsersTableSeeder extends Seeder
         $password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
 
         $items = [
+            /**Instructor */
+            ['name' => 'Instructor', 'email' => 'instructor@email.com', 'password' => $password, 'role' => 'instructor', 'created_at' => now(), 'updated_at' => now()],
 
             /**Customer */
-            ['name' => 'John Doe', 'email' => 'customer@email.com', 'password' => $password, 'role' => 'customer', 'created_at' => now(), 'updated_at' => now()],
-
-            /**Instructor */
-            ['name' => 'Instructor', 'email' => 'instructor@email.com', 'password' => $password, 'role' => 'instructor', 'created_at' => now(), 'updated_at' => now()]
+            ['name' => 'John Doe', 'email' => 'customer@email.com', 'password' => $password, 'role' => 'customer', 'created_at' => now(), 'updated_at' => now()]
         ];
 
         User::insert($items);
