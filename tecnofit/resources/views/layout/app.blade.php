@@ -34,6 +34,33 @@
     </script>
 
 
+    <script type="text/javascript">
+        var i = 999;
+        $("#add").click(function() {
+            ++i;
+            $("#dynamicTable").append(
+                `<tr>
+                    <td>
+                        <input type="text" name="exercises[${i}][name]" class="form-control" />
+                    </td>
+                    <td>
+                        <input type="number" name="exercises[${i}][sessions]" class="form-control" />
+                    </td>
+                    <td>
+                        <button type="button" style="border:none;" class="remove-tr"><i class="fa fa-trash-alt text-danger"></i></button>
+                    </td>
+                </tr>
+                `
+            );
+        });
+
+        $(document).on('click', '.remove-tr', function() {
+            $(this).parents('tr').remove();
+        });
+
+    </script>
+
+
 </body>
 
 </html>

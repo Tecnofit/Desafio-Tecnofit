@@ -13,9 +13,4 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     {
         $this->model = $user;
     }
-
-    public function getAllCustomers()
-    {
-        return User::where('role', 'customer')->get();
-    }
 }

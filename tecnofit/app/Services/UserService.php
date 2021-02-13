@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
-use Exception;
 
 class UserService
 {
