@@ -34,7 +34,7 @@
     </script>
 
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         var i = 999;
         $("#add").click(function() {
             ++i;
@@ -58,7 +58,7 @@
             $(this).parents('tr').remove();
         });
 
-    </script>
+    </script> --}}
 
 
 </body>

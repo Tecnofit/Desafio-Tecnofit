@@ -16,12 +16,15 @@ class CreateTrainingsTable extends Migration
         Schema::create('trainings', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->string('name', 100);
+            $table->unsignedInteger('exercise_id');
+            $table->unsignedInteger('sessions')->default(1);
+            $table->enum('status', ['created', 'started', 'finished'])->default('created');
             $table->boolean('active')->default(true);
             $table->timestamps();
 
             /**Foreign Keys */
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('exercise_id')->references('id')->on('exercises')->onDelete('cascade');
         });
     }
 

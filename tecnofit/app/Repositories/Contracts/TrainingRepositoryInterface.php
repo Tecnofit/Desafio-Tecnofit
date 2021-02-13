@@ -6,4 +6,5 @@ interface TrainingRepositoryInterface extends AbstractRepositoryInterface
 {
     public function getAllWorkoutPlan();
     public function getWorkoutPlanById(int $id);
+    public function exerciseIsActiveInTraining(int $id);
 }

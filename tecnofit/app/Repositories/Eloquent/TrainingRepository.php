@@ -15,10 +15,15 @@ class TrainingRepository extends AbstractRepository implements TrainingRepositor
     }
 
     public function getAllWorkoutPlan(){
-        return Training::with('user')->with('exercises')->get();
+        return $this->model->with('user')->with('exercises')->get();
     }
 
     public function getWorkoutPlanById(int $id){
-        return Training::where('id', $id)->with('user')->with('exercises')->first();
+        return $this->model->where('id', $id)->with('user')->with('exercises')->first();
+    }
+
+    public function exerciseIsActiveInTraining(int $exercise_id)
+    {
+        return $this->model->where('exercise_id', $exercise_id)->where('active', true)->exists();
     }
 }
