@@ -2,10 +2,6 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\AbstractRepositoryInterface;
-use App\Repositories\Contracts\UserRepositoryInterface;
-use App\Repositories\Eloquent\AbstractRepository;
-use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -17,8 +13,10 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(AbstractRepositoryInterface::class, AbstractRepository::class);
-        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $models = ['Abstract', 'User', 'Training', 'Exercise'];
+        foreach ($models as $model) {
+            $this->app->bind("App\Repositories\Contracts\\{$model}RepositoryInterface", "App\Repositories\Eloquent\\{$model}Repository");
+        }
     }
 
     /**
