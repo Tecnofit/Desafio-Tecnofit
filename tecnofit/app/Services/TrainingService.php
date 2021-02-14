@@ -81,6 +81,19 @@ class TrainingService
         return $this->trainingRepository->getCustomerTrainingByUserId($user_id);
     }
 
+    public function handleTrainingStatusById(int $id, string $status)
+    {
+        if (!$this->trainingRepository->find($id)) {
+            return redirect()->back()->with('error', 'Treino não encontrado!');
+        }
+
+        if (!$this->trainingRepository->handleTrainingStatusById($id, $status)) {
+            return redirect()->back()->with('error', 'Falha ao atualizar!');
+        }
+
+        return redirect()->route('workout');
+    }
+
     private function validateAndPrepare(array $arr, int $user_id)
     {
         $exercises = [];

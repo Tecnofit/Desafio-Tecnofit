@@ -21,7 +21,7 @@
     <link href="{{ url('assets/css/style.css') }}" rel="stylesheet">
 
 
-    <title>GYM</title>
+    <title>TECNOFIT</title>
 </head>
 
 <body>

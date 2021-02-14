@@ -41,9 +41,9 @@ class TrainingRepository extends AbstractRepository implements TrainingRepositor
         return User::with('trainings')->with('trainings.exercises')->where('users.role', 'customer')->where('users.id', $id)->first();
     }
 
-    public function handleTrainingStatusByUserId(int $id, bool $active = true)
+    public function handleTrainingStatusById(int $id, string $status = 'created')
     {
-        return $this->model->where('user_id', $id)->update(['active' => $active]);
+        return $this->model->where('id', $id)->update(['status' => $status]);
     }
 
     public function deleteAllExercisesByUserId(int $id)
