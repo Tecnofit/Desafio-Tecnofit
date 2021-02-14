@@ -5,65 +5,64 @@
         <h1>Atualizar Treino</h1>
         <div class="card">
             <div class="card-body">
-
                 @include('includes.errors')
                 @include('includes.alerts')
-
                 <form method="POST" action="{{ route('trainings.update', $training->id) }}" class="my-3">
                     @csrf
                     @method('PUT')
-
                     <div class="form-row">
-
-                        <input type="hidden" name="user_id" value="{{ $training->user->id }}"/>
-
+                        <input type="hidden" name="user_id" value="{{ $training->id }}" />
                         <div class="form-group col-md-6">
                             <label for="exampleInputName1">Cliente</label>
                             <input type="text" class="form-control" id="exampleInputName1" disabled
-                                value="{{ $training->user->name }}">
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="exampleInputName1">Treino</label>
-                            <input type="text" class="form-control" id="exampleInputName1" name="name"
-                                value="{{ old('name') ?? $training->name }}">
+                                value="{{ $training->name }}">
                         </div>
                     </div>
-
-                    <table class="table" id="dynamicTable">
+                    <?php
+                    foreach ($training->trainings as $t) {
+                        $selectedNames[] = $t->exercises->name;
+                        $default[] = array('id' => $t->exercise_id, 'name' => $t->exercises->name, 'sessions' => $t->sessions, 'checked' => true);
+                    }
+                    foreach($exercises as $e)
+                    {
+                        if(!in_array($e->name, $selectedNames))
+                        {
+                            $default[] = array('id' => $e->id, 'name' => $e->name, 'checked' => false, 'sessions' => '');
+                        }
+                    }
+                    ?>
+                    <table class="table">
                         <thead class="thead-dark">
-                            <tr>
-                                <th>Exercicio</th>
-                                <th>Sessões</th>
-                                <th>Acão</th>
-                            </tr>
+                            <tr><th>Exercicio</th><th>Sessões</th></tr>
                         </thead>
                         <tbody>
-                            @foreach ($training->exercises as $key => $exercise)
+                            @foreach ($default as $key => $item)
                                 <tr>
                                     <td>
-                                        <input type="text" name="{{ 'exercises[' . $key . '][name]' }}"
-                                            class="form-control" value="{{ $exercise->name }}" />
+                                        <div class="form-check">
+                                            <input class="form-check-input"
+                                                type="checkbox"
+                                                value="{{ $item['id'] }}"
+                                                id="{{ 'checkbox' . $key }}"
+                                                name="{{ 'exercises[' . $key . '][exercise_id]' }}"
+                                                {{$item['checked'] == true ? 'checked' : ''}}
+                                                />
+                                            <label class="form-check-label" for="{{ 'checkbox' . $key }}">{{ $item['name'] }}</label>
+                                        </div>
                                     </td>
                                     <td>
-                                        <input type="number" name="{{ 'exercises[' . $key . '][sessions]' }}"
-                                            class="form-control" value="{{ $exercise->sessions }}" />
-                                    </td>
-                                    <td>
-                                        <button type="button" style="border:none;" class="remove-tr"><i
-                                                class="fa fa-trash-alt text-danger"></i></button>
+                                        <input type='number'
+                                            name="{{ 'exercises[' . $key . '][sessions]' }}"
+                                            class="form-control"
+                                            value="{{$item['sessions']}}"
+                                        />
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-
-                    <div class="d-flex justify-content-between">
-                        <button type="button" name="add" id="add" class="btn btn-dark">
-                            <i class="fa fa-plus"></i>
-                        </button>
-
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Atualizar</button>
                     </div>
                 </form>
             </div>

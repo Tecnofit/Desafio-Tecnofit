@@ -26,7 +26,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $users = $this->repository->getAllCustomers();
+        $users = $this->repository->findBy(['role' => 'customer']);
         return view('dashboard.customer.index', compact('users'));
     }
 

@@ -2,10 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Http\Requests\ExerciseStoreUpdateFormRequest;
+use App\Repositories\Contracts\ExerciseRepositoryInterface;
+use App\Services\ExerciseService;
 class ExerciseController extends Controller
 {
+
+    protected $service;
+    protected $repository;
+
+    public function __construct(ExerciseService $service, ExerciseRepositoryInterface $repository)
+    {
+        $this->service = $service;
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +24,8 @@ class ExerciseController extends Controller
      */
     public function index()
     {
-        return view('dashboard.exercise.index');
+        $exercises = $this->repository->all();
+        return view('dashboard.exercise.index', compact('exercises'));
     }
 
     /**
@@ -23,7 +35,7 @@ class ExerciseController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.exercise.create');
     }
 
     /**
@@ -32,20 +44,9 @@ class ExerciseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExerciseStoreUpdateFormRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return $this->service->store($request->all());
     }
 
     /**
@@ -56,7 +57,10 @@ class ExerciseController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (!$exercise = $this->repository->find($id)) {
+            return redirect()->route('exercises.index')->with('error', 'Exercicio não encontrado!');
+        }
+        return view('dashboard.exercise.edit', compact('exercise'));
     }
 
     /**
@@ -66,9 +70,9 @@ class ExerciseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ExerciseStoreUpdateFormRequest $request, $id)
     {
-        //
+        return $this->service->update($id, $request->all());
     }
 
     /**
@@ -79,6 +83,6 @@ class ExerciseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->service->delete($id);
     }
 }

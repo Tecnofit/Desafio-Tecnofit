@@ -71,15 +71,7 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
-    padding: 10px;
-}
-
-.logo a {
-    color: white;
-    font-size: 2rem;
-    line-height: 1.2;
-    font-weight: 500;
+    padding: 20px;
 }
 
 .menu {
@@ -89,7 +81,7 @@ ul {
 
 .menu li {
     flex: 1;
-    padding: 10px;
+    padding: 10px 20px;
 }
 
 .menu li a {
@@ -106,4 +98,12 @@ ul {
 
 .menu .fa {
     margin-right: 10px;
+}
+
+.menu li.active {
+    background: #0052cc;
+}
+
+.menu li.active a {
+    color: white;
 }

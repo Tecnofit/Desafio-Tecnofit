@@ -13,9 +13,4 @@ class ExerciseRepository extends AbstractRepository implements ExerciseRepositor
     {
         $this->model = $exercise;
     }
-
-    public function deleteAllExercisesByTrainingId(int $id)
-    {
-        return $this->model->where('training_id', $id)->delete();
-    }
 }

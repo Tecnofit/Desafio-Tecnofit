@@ -12,16 +12,10 @@ class Training extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'active',
+        'user_id', 'exercise_id', 'sessions', 'status', 'active'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
-    }
-
-    public function exercises()
-    {
-        return $this->hasMany('App\Models\Exercise', 'training_id', 'id');
+    public function exercises(){
+        return $this->belongsTo('App\Models\Exercise', 'exercise_id');
     }
 }

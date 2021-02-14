@@ -4,89 +4,91 @@ namespace App\Services;
 
 use App\Repositories\Contracts\ExerciseRepositoryInterface;
 use App\Repositories\Contracts\TrainingRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 class TrainingService
 {
     protected $exerciseRepository;
     protected $trainingRepository;
+    protected $userRepository;
 
-    public function __construct(TrainingRepositoryInterface $trainingRepository, ExerciseRepositoryInterface $exerciseRepository)
+    public function __construct(TrainingRepositoryInterface $trainingRepository, ExerciseRepositoryInterface $exerciseRepository, UserRepositoryInterface $userRepository)
     {
         $this->trainingRepository = $trainingRepository;
         $this->exerciseRepository = $exerciseRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function store(array $data)
     {
         DB::beginTransaction();
 
-        //Store a new training
-        $training = $this->trainingRepository->create($data);
-        $exercises = true;
-
-        //Prepare Exercises if exists in request
-        if (!empty($data['exercises'])) {
-            $data['exercises'] = $this->prepareExercises($data['exercises'], $training->id);
-            $exercises = $this->exerciseRepository->insert($data['exercises']);
+        if ($this->trainingRepository->userHasAnActiveTraining($data['user_id'])) {
+            return redirect()->back()->with('error', 'Este usuário já possui um treino ativo!');
         }
 
-        //Validate all operations before commit
-        if ($training && $exercises) {
-            DB::commit();
-            return redirect()->route('trainings.index')->with('success', 'Cadastro realizado com sucesso!');
+        $data['exercises'] = $this->validateAndPrepare($data['exercises'], $data['user_id']);
+        foreach ($data['exercises'] as $exercise) {
+            if (!$this->trainingRepository->create($exercise)) {
+                DB::rollback();
+                return redirect()->back()->with('error', 'Falha ao cadastrar!');
+            }
         }
 
-        DB::rollback();
-        return redirect()->back()->with('error', 'Falha ao cadastrar!');
+        DB::commit();
+        return redirect()->route('trainings.index')->with('success', 'Cadastro realizado com sucesso!');
     }
 
     public function update(int $id, array $data)
     {
-        if (!$training = $this->trainingRepository->find($id)) {
+        if (!$this->getCustomerTrainingByUserId($id)) {
             return redirect()->route('trainings.index')->with('error', 'Treino não encontrado!');
         }
 
         DB::beginTransaction();
 
-        $training = $this->trainingRepository->update($id, $data);
-        $deletedExercises = $this->exerciseRepository->deleteAllExercisesByTrainingId($training->id);
-        $exercises = true;
-        //Prepare Exercises if exists in request
-        if (!empty($data['exercises'])) {
-            $data['exercises'] = $this->prepareExercises($data['exercises'], $training->id);
-            $exercises = $this->exerciseRepository->insert($data['exercises']);
+        $this->trainingRepository->deleteAllExercisesByUserId($data['user_id']);
+        $data['exercises'] = $this->validateAndPrepare($data['exercises'], $data['user_id']);
+        foreach ($data['exercises'] as $exercise) {
+            if (!$this->trainingRepository->create($exercise)) {
+                DB::rollback();
+                return redirect()->back()->with('error', 'Falha ao atualizar!');
+            }
         }
 
-        //Validate all operations before commit
-        if ($training && $deletedExercises && $exercises) {
-            DB::commit();
-            return redirect()->route('trainings.index')->with('success', 'Atualizado com sucesso!');
-        }
-
-        DB::rollback();
-        return redirect()->back()->with('error', 'Falha ao atualizar!');
+        DB::commit();
+        return redirect()->route('trainings.index')->with('success', 'Atualizado com sucesso!');
     }
 
-    public function delete(int $id)
+    public function getAllCustomers()
     {
-        if (!$training = $this->trainingRepository->find($id)) {
-            return redirect()->route('trainings.index')->with('error', 'Treino não encontrado!');
-        }
-
-        $response = $this->trainingRepository->delete($training);
-        if ($response) {
-            return redirect()->route('trainings.index')->with('success', 'Deletado com sucesso!');
-        }
-        return redirect()->back()->with('error', 'Falha ao deletar!');
+        return $this->userRepository->findBy(['role' => 'customer']);
     }
 
-    private function prepareExercises(array $arr, int $training_id)
+    public function getAllExercises()
+    {
+        return $this->exerciseRepository->all();
+    }
+
+    public function getAllCustomersTraining()
+    {
+        return $this->trainingRepository->getAllCustomersTraining();
+    }
+
+    public function getCustomerTrainingByUserId(int $user_id)
+    {
+        return $this->trainingRepository->getCustomerTrainingByUserId($user_id);
+    }
+
+    private function validateAndPrepare(array $arr, int $user_id)
     {
         $exercises = [];
+        $defaultSessions = 1;
         foreach ($arr as $item) {
-            if (is_string($item['name']) && is_numeric($item['sessions'])) {
-                $exercises[] = array_merge($item, ['training_id' => $training_id]);
+            if (!empty($item['exercise_id']) && is_numeric($item['exercise_id'])) {
+                $sessions = is_numeric($item['sessions']) && $item['sessions'] > 0 ? $item['sessions'] : $defaultSessions;
+                $exercises[] = ['exercise_id' => $item['exercise_id'], 'sessions' => $sessions, 'user_id' => $user_id];
             }
         }
         return $exercises;
