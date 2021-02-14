@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth', 'instructor']], function(){
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::resource('/customers', 'CustomerController');
     Route::resource('/exercises', 'ExerciseController');
+    Route::post('/trainings/handleStatus', 'TrainingController@handleStatus')->name('trainings.handleStatus');
     Route::resource('/trainings', 'TrainingController');
 });
 

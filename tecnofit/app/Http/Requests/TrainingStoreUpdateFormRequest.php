@@ -24,7 +24,8 @@ class TrainingStoreUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'   => 'required|integer'
+            'user_id'   => 'required|integer',
+            'exercises' => 'required|array'
         ];
     }
 }

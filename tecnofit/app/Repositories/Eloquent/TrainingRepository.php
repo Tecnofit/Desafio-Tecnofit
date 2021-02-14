@@ -32,7 +32,6 @@ class TrainingRepository extends AbstractRepository implements TrainingRepositor
             ->select('u.*', 't.id as training_id', 't.active')
             ->leftjoin('trainings as t', 't.id', '=', DB::raw("(SELECT MIN(t.id) FROM trainings as t WHERE t.user_id = u.id)"))
             ->where('u.role', 'customer')
-            ->where('t.active', true)
             ->get();
     }
 
@@ -41,9 +40,14 @@ class TrainingRepository extends AbstractRepository implements TrainingRepositor
         return User::with('trainings')->with('trainings.exercises')->where('users.role', 'customer')->where('users.id', $id)->first();
     }
 
-    public function handleTrainingStatusById(int $id, string $status = 'created')
+    public function handleTrainingStatusById(int $id, string $status)
     {
         return $this->model->where('id', $id)->update(['status' => $status]);
+    }
+
+    public function handleTrainingActiveByUserId(int $user_id, bool $active)
+    {
+        return $this->model->where('user_id', $user_id)->update(['active' => $active]);
     }
 
     public function deleteAllExercisesByUserId(int $id)

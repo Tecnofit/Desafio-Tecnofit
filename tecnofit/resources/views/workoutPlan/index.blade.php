@@ -5,9 +5,7 @@
     <section>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'TECNOFIT') }}
-                </a>
+                <a class="navbar-brand" href="{{ url('/') }}">TECNOFIT</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
@@ -43,8 +41,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="get"
-                                        style="display: none;">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="get" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
@@ -58,15 +55,12 @@
         <div class="container">
             <div class="row">
                 <div class="col my-3">
-
                     <div class="card">
                         <div class="card-body">
-
-
                             @include('includes.alerts')
 
                             <!--Table-->
-                            @if (isset($training->trainings) && $training->trainings->isNotEmpty())
+                            @if (isset($training->trainings) && $training->trainings->isNotEmpty() && $training->trainings[0]->active)
                                 <h1 class="card-title">Treino</h1>
                                 <table class="table">
                                     <thead class="thead-dark">
@@ -105,7 +99,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
                             @else
                                 <div class="alert alert-primary" role="alert">
                                     Você não possui nenhum treino ativo.

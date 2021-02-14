@@ -10,4 +10,5 @@ interface TrainingRepositoryInterface extends AbstractRepositoryInterface
     public function getCustomerTrainingByUserId(int $id);
     public function handleTrainingStatusById(int $id, string $status);
     public function deleteAllExercisesByUserId(int $id);
+    public function handleTrainingActiveByUserId(int $user_id, bool $active);
 }

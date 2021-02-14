@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TrainingStoreUpdateFormRequest;
 use App\Services\TrainingService;
+use Illuminate\Http\Request;
 
 class TrainingController extends Controller
 {
@@ -88,5 +89,16 @@ class TrainingController extends Controller
     public function update(TrainingStoreUpdateFormRequest $request, $id)
     {
         return $this->service->update($id, $request->all());
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function handleStatus(Request $request)
+    {
+        return $this->service->handleTraining($request->all());
     }
 }

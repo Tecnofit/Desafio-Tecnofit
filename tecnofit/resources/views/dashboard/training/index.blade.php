@@ -15,13 +15,14 @@
             </thead>
             <tbody>
                 @forelse($trainings as $training)
+                @if($training->active !== null)
                     <tr>
                         <td>{{ $training->id }}</td>
                         <td>{{ $training->name }}</td>
                         <td>
                             @if ($training->active)
                                 <span class="badge badge-success">Ativo</span>
-                            @else
+                                @else
                                 <span class="badge badge-danger">Desativado</span>
                             @endif
                         </td>
@@ -32,8 +33,22 @@
                             <a href="{{ route('trainings.edit', $training->id) }}" class="mx-1">
                                 <i class="fa fa-pen text-dark"></i>
                             </a>
+                            <form action="{{ route('trainings.handleStatus') }}" method="POST"
+                            class="mx-1 d-inline-block">
+                            @csrf
+                            <input type="hidden" value="{{ $training->id }}" name="user_id" />
+                            <input type="hidden" value="{{ $training->active }}" name="active" />
+                            <button type="submit" style="border:none; background: transparent;" data-toggle="tooltip" data-placement="top" title="Ativar/Desativar">
+                                @if ($training->active)
+                                <i class="fa fa-chevron-down text-danger"></i>
+                                @else
+                                <i class="fa fa-chevron-up text-success"></i>
+                                @endif
+                            </button>
+                        </form>
                         </td>
                     </tr>
+                    @endif
                 @empty
                     <tr>
                         <td colspan="200">Nenhum item cadastrado!</td>

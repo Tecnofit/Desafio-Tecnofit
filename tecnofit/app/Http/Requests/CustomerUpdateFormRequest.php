@@ -25,9 +25,8 @@ class CustomerUpdateFormRequest extends FormRequest
     {
         $user_id = request()->segment(2);
         return [
-            'name' => 'nullable|string',
-            'email' => 'nullable|email|unique:users,email,' . $user_id,
-            'password' => 'nullable|string',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $user_id,
         ];
     }
 }

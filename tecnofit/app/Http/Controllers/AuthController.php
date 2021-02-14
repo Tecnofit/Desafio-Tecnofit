@@ -27,7 +27,18 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
+
+            $user = auth()->user();
+
+            switch ($user->role) {
+                case 'instructor':
+                    return redirect()->intended('dashboard');
+                    break;
+
+                default:
+                    return redirect()->intended('workout');
+                    break;
+            }
         }
         return redirect()->back()->with('error', 'Falha ao entrar!');
     }
@@ -43,6 +54,4 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/login');
     }
-
-
 }

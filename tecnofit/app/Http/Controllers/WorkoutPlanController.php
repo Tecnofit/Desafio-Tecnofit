@@ -26,12 +26,24 @@ class WorkoutPlanController extends Controller
         return view('workoutPlan.index', compact('training'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function skip(Request $request)
     {
         $id = $request->get('id');
         return $this->service->handleTrainingStatusById($id, 'skipped');
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function completed(Request $request)
     {
         $id = $request->get('id');

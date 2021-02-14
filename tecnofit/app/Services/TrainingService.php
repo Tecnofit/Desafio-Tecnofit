@@ -29,6 +29,10 @@ class TrainingService
         }
 
         $data['exercises'] = $this->validateAndPrepare($data['exercises'], $data['user_id']);
+        if(count($data['exercises']) <= 0){
+            return redirect()->back()->with('error', 'Selecione ao menos 1 exercicio!');
+        }
+
         foreach ($data['exercises'] as $exercise) {
             if (!$this->trainingRepository->create($exercise)) {
                 DB::rollback();
@@ -50,6 +54,9 @@ class TrainingService
 
         $this->trainingRepository->deleteAllExercisesByUserId($data['user_id']);
         $data['exercises'] = $this->validateAndPrepare($data['exercises'], $data['user_id']);
+        if(count($data['exercises']) <= 0){
+            return redirect()->back()->with('error', 'Selecione ao menos 1 exercicio!');
+        }
         foreach ($data['exercises'] as $exercise) {
             if (!$this->trainingRepository->create($exercise)) {
                 DB::rollback();
@@ -105,5 +112,18 @@ class TrainingService
             }
         }
         return $exercises;
+    }
+
+    public function handleTraining(array $arr)
+    {
+        if (!$this->getCustomerTrainingByUserId($arr['user_id'])) {
+            return redirect()->back()->with('error', 'Treino não encontrado!');
+        }
+        $active = $arr['active'] ? false : true;
+        if (!$this->trainingRepository->handleTrainingActiveByUserId($arr['user_id'], $active)) {
+            return redirect()->back()->with('error', 'Falha ao atualizar!');
+        }
+
+        return redirect()->route('trainings.index')->with('success', 'Atualizado com sucesso!');
     }
 }
