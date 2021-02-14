@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TrainingStoreFormRequest extends FormRequest
+class TrainingStoreUpdateFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class TrainingStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'   => 'required|integer',
-            'name'      => 'required|string',
-            'exercises' => 'required|array'
+            'user_id'   => 'required|integer'
         ];
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Training;
+use App\Models\User;
 use App\Repositories\Contracts\TrainingRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class TrainingRepository extends AbstractRepository implements TrainingRepositoryInterface
 {
@@ -14,16 +16,38 @@ class TrainingRepository extends AbstractRepository implements TrainingRepositor
         $this->model = $training;
     }
 
-    public function getAllWorkoutPlan(){
-        return $this->model->with('user')->with('exercises')->get();
-    }
-
-    public function getWorkoutPlanById(int $id){
-        return $this->model->where('id', $id)->with('user')->with('exercises')->first();
-    }
-
     public function exerciseIsActiveInTraining(int $exercise_id)
     {
         return $this->model->where('exercise_id', $exercise_id)->where('active', true)->exists();
+    }
+
+    public function userHasAnActiveTraining(int $user_id)
+    {
+        return $this->model->where('user_id', $user_id)->where('active', true)->exists();
+    }
+
+    public function getAllCustomersTraining()
+    {
+        return DB::table('users as u')
+            ->select('u.*', 't.id as training_id', 't.active')
+            ->leftjoin('trainings as t', 't.id', '=', DB::raw("(SELECT MIN(t.id) FROM trainings as t WHERE t.user_id = u.id)"))
+            ->where('u.role', 'customer')
+            ->where('t.active', true)
+            ->get();
+    }
+
+    public function getCustomerTrainingByUserId(int $id)
+    {
+        return User::with('trainings')->with('trainings.exercises')->where('users.role', 'customer')->where('users.id', $id)->first();
+    }
+
+    public function handleTrainingStatusByUserId(int $id, bool $active = true)
+    {
+        return $this->model->where('user_id', $id)->update(['active' => $active]);
+    }
+
+    public function deleteAllExercisesByUserId(int $id)
+    {
+        return $this->model->where('user_id', $id)->delete();
     }
 }

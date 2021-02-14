@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TrainingStoreFormRequest;
-use App\Http\Requests\TrainingUpdateFormRequest;
-use App\Repositories\Contracts\TrainingRepositoryInterface;
+use App\Http\Requests\TrainingStoreUpdateFormRequest;
 use App\Services\TrainingService;
-use Illuminate\Http\Request;
 
 class TrainingController extends Controller
 {
 
     protected $service;
-    protected $repository;
 
-    public function __construct(TrainingService $service, TrainingRepositoryInterface $repository)
+    public function __construct(TrainingService $service)
     {
         $this->service = $service;
-        $this->repository = $repository;
     }
 
     /**
@@ -27,7 +22,7 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        $trainings = $this->repository->getAllWorkoutPlan();
+        $trainings = $this->service->getAllCustomersTraining();
         return view('dashboard.training.index', compact('trainings'));
     }
 
@@ -38,8 +33,9 @@ class TrainingController extends Controller
      */
     public function create()
     {
-        $customers = $this->repository->getAllCustomers();
-        return view('dashboard.training.create', compact('customers'));
+        $customers = $this->service->getAllCustomers();
+        $exercises = $this->service->getAllExercises();
+        return view('dashboard.training.create', compact('customers', 'exercises'));
     }
 
     /**
@@ -48,7 +44,7 @@ class TrainingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TrainingStoreFormRequest $request)
+    public function store(TrainingStoreUpdateFormRequest $request)
     {
         return $this->service->store($request->all());
     }
@@ -61,7 +57,9 @@ class TrainingController extends Controller
      */
     public function show($id)
     {
-        $training = $this->repository->getWorkoutPlanById($id);
+        if (!$training = $this->service->getCustomerTrainingByUserId($id)) {
+            return redirect()->route('trainings.index')->with('error', 'Treino não encontrado!');
+        }
         return view('dashboard.training.show', compact('training'));
     }
 
@@ -73,10 +71,11 @@ class TrainingController extends Controller
      */
     public function edit($id)
     {
-        if (!$training = $this->repository->getWorkoutPlanById($id)) {
-            return redirect()->route('trainings.index')->with('error', 'Cliente não encontrado!');
+        if (!$training = $this->service->getCustomerTrainingByUserId($id)) {
+            return redirect()->route('trainings.index')->with('error', 'Treino não encontrado!');
         }
-        return view('dashboard.training.edit', compact('training'));
+        $exercises = $this->service->getAllExercises();
+        return view('dashboard.training.edit', compact('training', 'exercises'));
     }
 
     /**
@@ -86,19 +85,8 @@ class TrainingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TrainingUpdateFormRequest $request, $id)
+    public function update(TrainingStoreUpdateFormRequest $request, $id)
     {
         return $this->service->update($id, $request->all());
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        return $this->service->delete($id);
     }
 }

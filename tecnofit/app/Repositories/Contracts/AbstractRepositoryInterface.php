@@ -12,6 +12,4 @@ interface AbstractRepositoryInterface
     public function create(array $data);
     public function update(int $id, array $data);
     public function delete($model);
-    public function getAllCustomers();
-    public function insert(array $data);
 }

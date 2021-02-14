@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ExerciseStoreUpdateFormRequest;
 use App\Repositories\Contracts\ExerciseRepositoryInterface;
 use App\Services\ExerciseService;
-use Illuminate\Http\Request;
-
 class ExerciseController extends Controller
 {
 

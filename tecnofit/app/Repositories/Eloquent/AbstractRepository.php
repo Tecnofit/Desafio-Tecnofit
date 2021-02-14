@@ -108,12 +108,10 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
      */
     public function findBy(array $searchCriteria = [])
     {
-        $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15; // it's needed for pagination
         $queryBuilder = $this->model->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
-
-        return $queryBuilder->paginate($limit);
+        return $queryBuilder->get();
     }
 
     /**
@@ -126,20 +124,8 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
     protected function applySearchCriteriaInQueryBuilder($queryBuilder, array $searchCriteria = [])
     {
         foreach ($searchCriteria as $key => $value) {
-            //skip pagination related query params
-            if (in_array($key, ['page', 'per_page'])) {
-                continue;
-            }
-            //we can pass multiple params for a filter with commas
-            $allValues = explode(',', $value);
-            if (count($allValues) > 1) {
-                $queryBuilder->whereIn($key, $allValues);
-            } else {
-                $operator = '=';
-                $queryBuilder->where($key, $operator, $value);
-            }
+            $queryBuilder->where($key, $value);
         }
-
         return $queryBuilder;
     }
 
@@ -160,26 +146,6 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
         }
 
         return $this->model->create($data);
-    }
-
-    /**
-     * Insert array in resource
-     *
-     * @param array $data
-     * @return Model
-     */
-    public function insert(array $data)
-    {
-        foreach($data as $item){
-            $filledProperties = $this->model->getFillable();
-            foreach (array_keys($item) as $key) {
-                if (!in_array($key, $filledProperties)) {
-                    unset($item[$key]);
-                    $data[] = $item;
-                }
-            }
-        }
-        return $this->model->insert($data);
     }
 
     /**
@@ -212,15 +178,5 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
     public function delete($model)
     {
         return $model->delete();
-    }
-
-    /**
-     * Get a list of customers
-     *
-     * @return Collection
-     */
-    public function getAllCustomers()
-    {
-        return User::where('role', 'customer')->get();
     }
 }
