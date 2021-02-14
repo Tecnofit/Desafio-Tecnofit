@@ -18,7 +18,7 @@ class CreateTrainingsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('exercise_id');
             $table->unsignedInteger('sessions')->default(1);
-            $table->enum('status', ['created', 'started', 'finished'])->default('created');
+            $table->enum('status', ['skipped', 'completed'])->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
 
