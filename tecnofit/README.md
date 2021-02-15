@@ -1,14 +1,14 @@
-# Candidato
+# DESAFIO TECNOFIT
 
-**Nome**: Hélder Ferrari Harayashiki
+Este repositório contem os arquivos do desafio tecnofit
 
-**Email**: helderferrari2@gmail.com
-
-# Pré Requisitos
+## Pré - Requisitos
 
 -   [laravel](http://laravel.com/)
 -   [Composer](https://getcomposer.org/)
-# Instalação
+
+## Instalação
+
 1. Clone este repositório para seu computador.
 2. Navegue até o diretório e rode `composer install`.
 3. Copie o arquivo `.env.example` para `.env`.
@@ -23,6 +23,3 @@
 
 Na pasta do projeto execute:
 `vendor\bin\phpunit`
-
-# Observações
-[...]
