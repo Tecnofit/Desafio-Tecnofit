@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TrainingHandleActiveFormRequest;
 use App\Http\Requests\TrainingStoreUpdateFormRequest;
 use App\Services\TrainingService;
 use Illuminate\Http\Request;
@@ -97,7 +98,7 @@ class TrainingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function handleStatus(Request $request)
+    public function handleActive(TrainingHandleActiveFormRequest $request)
     {
         return $this->service->handleTraining($request->all());
     }

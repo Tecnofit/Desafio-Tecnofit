@@ -33,7 +33,7 @@
                             <a href="{{ route('trainings.edit', $training->id) }}" class="mx-1">
                                 <i class="fa fa-pen text-dark"></i>
                             </a>
-                            <form action="{{ route('trainings.handleStatus') }}" method="POST"
+                            <form action="{{ route('trainings.handleActive') }}" method="POST"
                             class="mx-1 d-inline-block">
                             @csrf
                             <input type="hidden" value="{{ $training->id }}" name="user_id" />

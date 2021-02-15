@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WorkoutFormRequest;
 use App\Services\TrainingService;
 use Illuminate\Http\Request;
 
@@ -32,7 +33,7 @@ class WorkoutPlanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function skip(Request $request)
+    public function skip(WorkoutFormRequest $request)
     {
         $id = $request->get('id');
         return $this->service->handleTrainingStatusById($id, 'skipped');
@@ -44,7 +45,7 @@ class WorkoutPlanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function completed(Request $request)
+    public function completed(WorkoutFormRequest $request)
     {
         $id = $request->get('id');
         return $this->service->handleTrainingStatusById($id, 'completed');

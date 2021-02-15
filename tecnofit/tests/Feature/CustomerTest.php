@@ -65,11 +65,10 @@ class CustomerTest extends TestCase
     }
 
     /** @test */
-    public function it_errors_when_trying_to_updated_a_customer_without_data()
+    public function it_errors_when_trying_to_update_a_customer_without_data()
     {
         $this->actingAs($this->instructor)->put(route('customers.update', $this->customer->id, array()))
-            ->assertStatus(302)
-            ->assertRedirect('customers');
+            ->assertStatus(302);
     }
 
     /** @test */

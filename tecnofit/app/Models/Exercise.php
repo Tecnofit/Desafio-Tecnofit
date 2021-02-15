@@ -12,6 +12,6 @@ class Exercise extends Model
      * @var array
      */
     protected $fillable = [
-        'training_id', 'name', 'sessions'
+        'name'
     ];
 }

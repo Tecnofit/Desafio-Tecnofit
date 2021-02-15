@@ -9,7 +9,6 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-
     protected $customer;
     protected $instructor;
 
@@ -19,7 +18,6 @@ abstract class TestCase extends BaseTestCase
     public function setUp(): void
     {
         parent::setUp();
-
         $this->instructor = factory(User::class)->create(['role' => 'instructor']);
         $this->customer = factory(User::class)->create();
     }
