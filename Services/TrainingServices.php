@@ -60,6 +60,22 @@
 			}
 		}
 
+		public static function deleteTrainingExercise($request) {
+			try {
+
+				$trainingExercise = new TrainingExercise();
+				$trainingExercise->setId($request["id"]);
+
+				if(isset($request["id"]) && !empty($request["id"])) {
+					return TrainingExerciseDAO::deleteTrainingExercise($trainingExercise);
+				}
+				return false;
+
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
 		public static function getTrainingById($request) {
 			try {
 				$training = new Training();

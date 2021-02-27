@@ -11,14 +11,25 @@
 		public function login() {
 
 			$request["login"] = $_POST["login"];
-			$request["pass"] = $_POST["pass"];
-			// $request["pass"] = md5($_POST["pass"]);
-			// $request["pass"] = "";
+			$request["pass"] = md5($_POST["pass"]);
 
 			if (UserServices::checkLogin($request) === true) {
-				// redireciona para a página inicial
-				header("Location: index");
+				if($_SESSION["user"]["profile"] == "ADMIN") {
+					header("Location: " . BASE_PROJECT . "admin/athlete/list");
+				} else {
+					// redireciona para a página inicial
+					header("Location: index");
+				}
 			}
+		}
+
+		public function logout() {
+
+			// remover sessão do usuário
+			if (isset($_SESSION["user"])) {
+				unset($_SESSION["user"]);
+			}
+			header("Location: index");
 		}
 	}
 ?>

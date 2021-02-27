@@ -9,7 +9,7 @@
 				$pdo = parent::connect();
 
 				$query = $pdo->prepare("
-					SELECT login, name, profile
+					SELECT id, login, name, profile
 					FROM user
 					WHERE login = :login
 					AND pass = :pass
@@ -126,17 +126,20 @@
 						user
 					SET
 						login = :login,
-						name = :name
+						name = :name,
+						pass = :pass
 					WHERE
 						id = :id
 				");
 
 				$login = $user->getLogin();
 				$name = $user->getName();
+				$pass = $user->getPass();
 				$id = $user->getId();
 				$query->bindParam(':login', $login, PDO::PARAM_STR);
 				$query->bindParam(':name', $name, PDO::PARAM_STR);
-				$query->bindParam(':id', $id, PDO::PARAM_STR);
+				$query->bindParam(':pass', $pass, PDO::PARAM_STR);
+				$query->bindParam(':id', $id, PDO::PARAM_INT);
 
 				$result = $query->execute();
 
@@ -176,8 +179,8 @@
 
 				$query = $pdo->prepare("
 					SELECT u.id, u.login, u.name, u.profile,
-						(SELECT COUNT(1) FROM user_training AS ut WHERE ut.id = u.id) AS total_training,
-						(SELECT t.name FROM user_training AS ut JOIN training AS t ON t.id = ut.id_training WHERE ut.id = u.id AND ut.active IS TRUE) AS current
+						(SELECT COUNT(1) FROM user_training AS ut WHERE ut.id_user = u.id) AS total_training,
+						(SELECT t.name FROM user_training AS ut JOIN training AS t ON t.id = ut.id_training WHERE ut.id_user = u.id AND ut.active IS TRUE) AS current
 					FROM user AS u
 					WHERE profile = :profile
 					"

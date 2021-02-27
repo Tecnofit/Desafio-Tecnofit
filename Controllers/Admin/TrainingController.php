@@ -65,6 +65,34 @@
 			echo json_encode($return);
 		}
 
+		public function removeExercise() {
+
+			$request["id"] = $_POST["id"];
+
+			$result = TrainingServices::deleteTrainingExercise($request);
+			if ($result === true) {
+				$return["result"] = true;
+				$return["msg"] = "Treino salvo com sucesso.";
+
+				$request["id"] = $_POST["id_training"];
+
+				$return["listExercises"] = TrainingServices::getExercisesAvaliableByTraining($request);
+
+				// exercicios vinculados
+				$list = TrainingServices::getTrainingExerciseById($request);
+				$return["htmlExercises"] = $this->partialView("admin/training/exercise-list.php", compact("list"));
+
+				// lista geral de treinos
+				$list = TrainingServices::getTrainings();
+				$return["html"] = $this->partialView("admin/training/list.php", compact("list"));
+			} else {
+				$return["result"] = false;
+				$return["msg"] = $result;
+			}
+
+			echo json_encode($return);
+		}
+
 		public function save() {
 
 			$request["id"] = $_POST["id"];

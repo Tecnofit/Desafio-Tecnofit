@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo BASE_PROJECT; ?>Views/includes/athlete.js"> </script>
+<script type="text/javascript" src="<?php echo BASE_PROJECT; ?>Views/includes/admin/athlete.js"> </script>
 
 <div class="body-msg">
 </div>
@@ -16,7 +16,7 @@
 </div>
 
 <div class="modal" id="modal-athlete">
-	<form method="POST" action="<?php echo BASE_PROJECT; ?>athlete/save" id="form-athlete">
+	<form method="POST" action="<?php echo BASE_PROJECT; ?>admin/athlete/save" id="form-athlete">
 		<div class="modal-title">Novo Atleta</div>
 		<div class="modal-body">
 			<div class="modal-msg"></div>

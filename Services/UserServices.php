@@ -1,8 +1,10 @@
 <?php
 	require_once PATH_PROJECT . "Models/User.php";
 	require_once PATH_PROJECT . "Models/UserTraining.php";
+	require_once PATH_PROJECT . "Models/UserTrainingExercise.php";
 	require_once PATH_PROJECT . "DAO/UserDAO.php";
 	require_once PATH_PROJECT . "DAO/UserTrainingDAO.php";
+	require_once PATH_PROJECT . "DAO/UserTrainingExerciseDAO.php";
 
 	class UserServices
 	{
@@ -23,6 +25,7 @@
 				$isValid = UserDAO::exists($user);
 				if($isValid) {
 					$user->setPass("");
+					$user->setId($isValid["id"]);
 					$user->setName($isValid["name"]);
 					$user->setProfile($isValid["profile"]);
 
@@ -88,6 +91,160 @@
 			}
 		}
 
+		public static function deleteUserTraining($request) {
+			try {
+
+				$userTraining = new UserTraining();
+				$userTraining->setId($request["id"]);
+				$userTraining->setIdUser($request["id_user"]);
+
+				if(isset($request["id"]) && !empty($request["id"])) {
+					return UserTrainingDAO::deleteUserTraining($userTraining);
+				}
+				return false;
+
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
+		// ativar treino do atleta
+		public static function playUserTraining($request) {
+			try {
+
+				$userTraining = new UserTraining();
+				$userTraining->setId($request["id"]);
+				$userTraining->setIdUser($request["id_user"]);
+
+				if(isset($request["id"]) && !empty($request["id"])) {
+					UserTrainingDAO::disableAllUserTraining($userTraining);
+					return UserTrainingDAO::playUserTraining($userTraining);
+				}
+				return false;
+
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
+		public static function getUserTrainingActive($request) {
+			try {
+
+				$userTraining = new UserTraining();
+				$userTraining->setIdUser($request["id_user"]);
+
+				if(isset($request["id_user"]) && !empty($request["id_user"])) {
+					return UserTrainingDAO::getUserTrainingActive($userTraining);
+				}
+				return false;
+
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
+
+		public static function getUserTrainingExercise($request) {
+			try {
+
+				$userTrainingExercise = new UserTrainingExercise();
+				$userTrainingExercise->setIdUser($request["id_user"]);
+				$userTrainingExercise->setIdTraining($request["id_training"]);
+
+				if(isset($request["id_user"]) && !empty($request["id_user"])) {
+					return UserTrainingExerciseDAO::getUserTrainingExercise($userTrainingExercise);
+				}
+				return false;
+
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
+		public static function finishSession($request) {
+			try {
+
+				$userTrainingExercise = new UserTrainingExercise();
+				$userTrainingExercise->setIdUser($request["id_user"]);
+				$userTrainingExercise->setIdTraining($request["id_training"]);
+				$userTrainingExercise->setIdExercise($request["id_exercise"]);
+
+				// verificar dados da sessão do exercicio
+				$session = UserTrainingExerciseDAO::getSessionByUserTraining($userTrainingExercise);
+				if(!empty($session)) {
+
+					$userTrainingExercise->setExecutedSession(!empty($session["executed_session"]) ? $session["executed_session"] + 1 : 1);
+					$userTrainingExercise->setStatus($userTrainingExercise->getExecutedSession() >= $session["session"] ? "COMPLETED" : "INPROGRESS");
+
+					if(empty($session["id"])) {
+						// inserir sessão do exercício para o usuário, treino e exercício
+						return UserTrainingExerciseDAO::insertSessionByUserTraining($userTrainingExercise);
+					} else {
+						// inserir sessão do exercício para o usuário, treino e exercício
+						return UserTrainingExerciseDAO::updateSessionByUserTraining($userTrainingExercise);
+					}
+				}
+
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
+		public static function finishExercise($request) {
+			try {
+
+				$userTrainingExercise = new UserTrainingExercise();
+				$userTrainingExercise->setIdUser($request["id_user"]);
+				$userTrainingExercise->setIdTraining($request["id_training"]);
+				$userTrainingExercise->setIdExercise($request["id_exercise"]);
+
+				// verificar dados da sessão do exercicio
+				$session = UserTrainingExerciseDAO::getSessionByUserTraining($userTrainingExercise);
+				if(!empty($session)) {
+					$userTrainingExercise->setExecutedSession($session["session"]);
+					$userTrainingExercise->setStatus("COMPLETED");
+
+					if(empty($session["id"])) {
+						// inserir sessão do exercício para o usuário, treino e exercício
+						return UserTrainingExerciseDAO::insertSessionByUserTraining($userTrainingExercise);
+					} else {
+						// inserir sessão do exercício para o usuário, treino e exercício
+						return UserTrainingExerciseDAO::updateSessionByUserTraining($userTrainingExercise);
+					}
+				}
+
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
+		public static function skipExercise($request) {
+			try {
+
+				$userTrainingExercise = new UserTrainingExercise();
+				$userTrainingExercise->setIdUser($request["id_user"]);
+				$userTrainingExercise->setIdTraining($request["id_training"]);
+				$userTrainingExercise->setIdExercise($request["id_exercise"]);
+
+				// verificar dados da sessão do exercicio
+				$session = UserTrainingExerciseDAO::getSessionByUserTraining($userTrainingExercise);
+				if(!empty($session)) {
+					$userTrainingExercise->setExecutedSession(!empty($session["executed_session"]) ? $session["executed_session"] : 1);
+					$userTrainingExercise->setStatus("SKIPPED");
+
+					if(empty($session["id"])) {
+						// inserir sessão do exercício para o usuário, treino e exercício
+						return UserTrainingExerciseDAO::insertSessionByUserTraining($userTrainingExercise);
+					} else {
+						// inserir sessão do exercício para o usuário, treino e exercício
+						return UserTrainingExerciseDAO::updateSessionByUserTraining($userTrainingExercise);
+					}
+				}
+
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
 
 		public static function getUserById($request) {
 			try {

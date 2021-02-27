@@ -4,7 +4,6 @@
 			<th>Nome</th>
 			<th>Login</th>
 			<th>Treino Ativo</th>
-			<th>Progresso</th>
 			<th width="15%">Ação</th>
 		</tr>
 	</thead>
@@ -14,7 +13,6 @@
 				<td><?=$athlete["name"]?></td>
 				<td><?=$athlete["login"]?></td>
 				<td><?=$athlete["current"]?></td>
-				<td></td>
 				<td>
 					<button class="link-training" data-modal="#modal-training" data-id="<?=$athlete['id']?>" title="Vincular Treino"><i class="fas fa-tasks"></i></button>
 					<button class="edit-athlete" data-modal="#modal-athlete" data-id="<?=$athlete['id']?>"><i class="fas fa-user-edit"></i></button>

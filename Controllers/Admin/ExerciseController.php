@@ -45,7 +45,8 @@
 
 			$request["id"] = $_POST["id"];
 
-			if(ExerciseServices::deleteExercise($request)) {
+			$result = ExerciseServices::deleteExercise($request);
+			if($result === true) {
 				$return["result"] = true;
 				$return["msg"] = "Removido com sucesso.";
 
@@ -53,7 +54,7 @@
 				$return["html"] = $this->partialView("admin/exercise/list.php", compact("list"));
 			} else {
 				$return["result"] = false;
-				$return["msg"] = $result;;
+				$return["msg"] = $result;
 			}
 
 			echo json_encode($return);

@@ -20,6 +20,7 @@ body {
 	height: 50px;
 	background-color: #6f6f6f;
 	padding-left: 50px;
+	padding-right: 50px;
 	color: white !important;
 	font-family: 'Roboto', sans-serif;
 }
@@ -28,6 +29,10 @@ body {
 	height: 100%;
 	display: inline-block;
 }
+.topnav .menu-item.pull-right {
+	float: right;
+}
+
 .topnav .menu-item a {
 	text-decoration: none !important;
 	margin: 0px 15px;

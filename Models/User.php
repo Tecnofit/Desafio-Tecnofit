@@ -68,6 +68,7 @@
 
 		public function toArray() {
 			return [
+				'id' => $this->id,
 				'login' => $this->login,
 				'name' => $this->name,
 				'profile' => $this->profile

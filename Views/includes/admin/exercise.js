@@ -9,7 +9,7 @@ $(document).ready(function(){
 
 			$.ajax({
 				method: "GET",
-				url: localStorage.getItem("BASE_PROJECT") + "exercise/get-exercise",
+				url: localStorage.getItem("BASE_PROJECT") + "admin/exercise/get-exercise",
 				data: {
 					id: $(this).data("id"),
 					return: "JSON"
@@ -44,7 +44,7 @@ $(document).ready(function(){
 		if(confirm("Tem certeza que deseja remove o Exercício " + name)) {
 			$.ajax({
 				method: "POST",
-				url: localStorage.getItem("BASE_PROJECT") + "exercise/remove-exercise",
+				url: localStorage.getItem("BASE_PROJECT") + "admin/exercise/remove-exercise",
 				data: {
 					id: $(this).data("id")
 				},

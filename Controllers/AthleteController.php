@@ -5,98 +5,148 @@
 	class AthleteController extends Controller
 	{
 		public function index() {
-			$list = UserServices::getUsersByProfile("ATHLETE");
 
-			$this->view("admin/athlete/index.php", compact("list"));
-		}
-
-		public function getUser() {
-
-			$request["id"] = $_GET["id"];
-
-			$user = UserServices::getUserById($request);
-
-			if(isset($_GET["return"]) && $_GET["return"] == "JSON") {
-				echo json_encode($user->toArray());
-			}
-		}
-
-		public function getTrainingsByUser() {
-
-			$request["id"] = $_GET["id"];
-
-			// treinos disponiveis a vincular
-			$return["listTrainings"] = UserServices::getTrainingsAvaliableByUser($request);
+			$request["id"] = $_SESSION["user"]["id"];
 
 			// treinos vinculados
 			$list = UserServices::getTrainingsByUser($request);
 
-			$return["htmlTrainings"] = $this->partialView("admin/athlete/training-list.php", compact("list"));
+			$this->view("athlete/index.php", compact("list"));
+		}
+
+		public function playTraining() {
+
+			$request["id"] = $_POST["id"];
+			$request["id_user"] = $_SESSION["user"]["id"];
+
+			if(UserServices::playUserTraining($request)) {
+				$return["result"] = true;
+			} else {
+				$return["result"] = false;
+			}
+
 			echo json_encode($return);
 		}
 
-		public function linkTraining() {
+		public function executeTraining() {
+			$request["id_user"] = $_SESSION["user"]["id"];
 
-			$request["id"] = @$_POST["id"];
-			$request["id_user"] = $_POST["id_user"];
+			// buscar o treino ativo do atleta
+			$training = UserServices::getUserTrainingActive($request);
+
+			if(!empty($training)) {
+				// buscar os exercicios referente ao atleta e treino
+				$list = UserServices::getUserTrainingExercise($training);
+
+				$currentExercise = null;
+				// pegar o exercicio atual
+				foreach ($list as $exercise) {
+					// verificação se tem sessões a serem finalizadas e se o exercício não foi pulado
+					if(empty($exercise["status"]) || $exercise["status"] == "INPROGRESS") {
+						$currentExercise = $exercise;
+						break;
+					}
+				}
+
+				$this->view("athlete/training.php", compact("training", "currentExercise", "list"));
+			}
+
+		}
+
+		public function finishSession() {
+
+			$request["id_user"] = $_SESSION["user"]["id"];
 			$request["id_training"] = $_POST["id_training"];
+			$request["id_exercise"] = $_POST["id_exercise"];
 
-			$result = UserServices::saveUserTraining($request);
-			if ($result === true) {
+			if(UserServices::finishSession($request)) {
 				$return["result"] = true;
-				$return["msg"] = "Treino salvo com sucesso.";
 
-				$request["id"] = $request["id_user"];
-				// treinos disponiveis a vincular
-				$return["listTrainings"] = UserServices::getTrainingsAvaliableByUser($request);
+				// buscar o treino ativo do atleta
+				$training = UserServices::getUserTrainingActive($request);
 
-				// treinos vinculados
-				$list = UserServices::getTrainingsByUser($request);
+				// buscar os exercicios referente ao atleta e treino
+				$list = UserServices::getUserTrainingExercise($training);
 
-				$return["htmlTrainings"] = $this->partialView("admin/athlete/training-list.php", compact("list"));
+				$currentExercise = null;
+				// pegar o exercicio atual
+				foreach ($list as $exercise) {
+					// verificação se tem sessões a serem finalizadas e se o exercício não foi pulado
+					if(empty($exercise["status"]) || $exercise["status"] == "INPROGRESS") {
+						$currentExercise = $exercise;
+						break;
+					}
+				}
+
+				$return["html"] = $this->partialView("athlete/partial/execute-training.php", compact("training", "currentExercise", "list"));
 			} else {
 				$return["result"] = false;
-				$return["msg"] = $result;
 			}
 
 			echo json_encode($return);
 		}
 
-		public function save() {
+		public function finishExercise() {
 
-			$request["id"] = $_POST["id"];
-			$request["name"] = trim($_POST["name"]);
-			$request["login"] = trim($_POST["login"]);
-			$request["pass"] = md5(trim($_POST["pass"]));
+			$request["id_user"] = $_SESSION["user"]["id"];
+			$request["id_training"] = $_POST["id_training"];
+			$request["id_exercise"] = $_POST["id_exercise"];
 
-			$result = UserServices::saveUser($request);
-			if ($result === true) {
+			if(UserServices::finishExercise($request)) {
 				$return["result"] = true;
-				$return["msg"] = "Atleta salvo com sucesso.";
 
-				$list = UserServices::getUsersByProfile("ATHLETE");
-				$return["html"] = $this->partialView("admin/athlete/list.php", compact("list"));
+				// buscar o treino ativo do atleta
+				$training = UserServices::getUserTrainingActive($request);
+
+				// buscar os exercicios referente ao atleta e treino
+				$list = UserServices::getUserTrainingExercise($training);
+
+				$currentExercise = null;
+				// pegar o exercicio atual
+				foreach ($list as $exercise) {
+					// verificação se tem sessões a serem finalizadas e se o exercício não foi pulado
+					if(empty($exercise["status"]) || $exercise["status"] == "INPROGRESS") {
+						$currentExercise = $exercise;
+						break;
+					}
+				}
+
+				$return["html"] = $this->partialView("athlete/partial/execute-training.php", compact("training", "currentExercise", "list"));
 			} else {
 				$return["result"] = false;
-				$return["msg"] = $result;
 			}
 
 			echo json_encode($return);
 		}
 
-		public function removeUser() {
+		public function skipExercise() {
 
-			$request["id"] = $_POST["id"];
+			$request["id_user"] = $_SESSION["user"]["id"];
+			$request["id_training"] = $_POST["id_training"];
+			$request["id_exercise"] = $_POST["id_exercise"];
 
-			if(UserServices::deleteUser($request)) {
+			if(UserServices::skipExercise($request)) {
 				$return["result"] = true;
-				$return["msg"] = "Removido com sucesso.";
 
-				$list = UserServices::getUsersByProfile("ATHLETE");
-				$return["html"] = $this->partialView("admin/athlete/list.php", compact("list"));
+				// buscar o treino ativo do atleta
+				$training = UserServices::getUserTrainingActive($request);
+
+				// buscar os exercicios referente ao atleta e treino
+				$list = UserServices::getUserTrainingExercise($training);
+
+				$currentExercise = null;
+				// pegar o exercicio atual
+				foreach ($list as $exercise) {
+					// verificação se tem sessões a serem finalizadas e se o exercício não foi pulado
+					if(empty($exercise["status"]) || $exercise["status"] == "INPROGRESS") {
+						$currentExercise = $exercise;
+						break;
+					}
+				}
+
+				$return["html"] = $this->partialView("athlete/partial/execute-training.php", compact("training", "currentExercise", "list"));
 			} else {
 				$return["result"] = false;
-				$return["msg"] = $result;;
 			}
 
 			echo json_encode($return);

@@ -22,7 +22,7 @@ PHP, Mysql, jQuery, JS, CSS, HTML
 
 **7 -** Alterar as configurações do acesso ao banco de dados criado no arquivo ".config" (localizado na raiz do projeto) ;
 
-**8 -** Dentro do banco criado, executar os scripts do arquivo ".tables.sql" (localizado na raiz do projeto) para criar as tabelas e um usuário inicial ao sistema .
+**8 -** Dentro do banco criado, executar os scripts do arquivo "tables.sql" (localizado na raiz do projeto) para criar as tabelas e um usuário inicial ao sistema .
 
 
 # Observações
@@ -32,10 +32,21 @@ Comando para habilitar: sudo a2enmod rewrite
 
 
 # Acessos
-Após realizar a instalação e configuração do projeto. Será criado um usuário ADMIN que terá permissões para gerenciar atletas, treinos e exercícios. 
+Após realizar a instalação e configuração do projeto. Será criado um usuário ADMIN.
 
 Dados de acesso:
 
 **login**: admin
 
 **senha**: pass
+
+# Perfils de Acessos
+**ADMIN**
+Pode gerenciar atletas, treinos e exercícios.
+Pode adicionar e remover treinos aos atletas.
+Pode adicionar e remover exercícios aos treinos.
+
+**Atleta**
+Pode ativar um treino.
+Pode concluir uma sessão de exercício.
+Pode finalizar ou pular um exercício.

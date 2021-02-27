@@ -1,6 +1,7 @@
 <?php
 	class Controller
 	{
+
 		public function view($view, $data = []) {
 			include PATH_PROJECT . "Views/layout/main.php";
 		}

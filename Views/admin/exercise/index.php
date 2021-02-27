@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo BASE_PROJECT; ?>Views/includes/exercise.js"> </script>
+<script type="text/javascript" src="<?php echo BASE_PROJECT; ?>Views/includes/admin/exercise.js"> </script>
 
 <div class="body-msg">
 </div>
@@ -16,7 +16,7 @@
 </div>
 
 <div class="modal" id="modal-exercise">
-	<form method="POST" action="<?php echo BASE_PROJECT; ?>exercise/save" id="form-exercise">
+	<form method="POST" action="<?php echo BASE_PROJECT; ?>admin/exercise/save" id="form-exercise">
 		<div class="modal-title">Novo Exercício</div>
 		<div class="modal-body">
 			<div class="modal-msg"></div>
@@ -31,7 +31,7 @@
 
 
 <div class="modal" id="modal-exercise-exercises">
-	<form method="POST" action="<?php echo BASE_PROJECT; ?>exercise/save" id="form-exercise">
+	<form method="POST" action="#" id="form-exercise">
 		<div class="modal-title">Exercícios</div>
 		<div class="modal-body">
 			<div class="modal-msg"></div>

@@ -31,15 +31,15 @@
 
 				// remover possiveis parametros get
 				$request = explode('?', $request, 2);
-				$request = $request[0];
+				$routeName = $request[0];
 
 				// quebrar rota e pegar apenas o possivel controller e action
-				$request = explode("/", $request);
-				if(count($request) == 1) {
-					$routeName = $request[0];
-				} else {
-					$routeName = $request[0] . "/" . $request[1];
-				}
+				// $request = explode("/", $request);
+				// if(count($request) == 1) {
+				// 	$routeName = $request[0];
+				// } else {
+				// 	$routeName = $request[0] . "/" . $request[1];
+				// }
 			}
 
 			// Checagem se a rota existe e foi definida com nome e tipo acessado e o perfil de acesso
@@ -61,8 +61,9 @@
 			print_r($routeName);
 
 			// caso não tenha econtrado a routa especifica, retorna como página não encontrada
-			die("404 pagina não encontrada");
-			return "404";
+			header("Location: " . BASE_PROJECT . "index");
+			// die("404 pagina não encontrada");
+			// return "404";
 		}
 
 		public static function executeRoute() {
@@ -72,7 +73,9 @@
 
 			require_once PATH_PROJECT . $route->getController();
 			$controllerAux = str_replace(".php", "", $route->getController());
-			$controllerAux = str_replace("Controllers/", "", $controllerAux);
+			// $controllerAux = str_replace("Controllers/", "", $controllerAux);
+			$controllerAux = explode("/", $controllerAux);
+			$controllerAux = end($controllerAux);
 			$controller = new $controllerAux;
 
 			// verificação se action existe na controller, se existindo executa

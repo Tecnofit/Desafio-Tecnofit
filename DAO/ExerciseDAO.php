@@ -54,6 +54,37 @@
 			}
 		}
 
+		// Buscar exercicio pelo id em algum treino ativo
+		public static function existExerciseTrainingActive($user) {
+			try {
+				$pdo = parent::connect();
+
+				$query = $pdo->prepare("
+					SELECT count(1) AS exist
+					FROM exercise e
+					JOIN training_exercise te on te.id_exercise = e.id
+					JOIN user_training ut ON ut.id_training = te.id_training
+					WHERE e.id = :id
+					AND active IS TRUE
+				");
+
+				$id = $user->getId();
+				$query->bindParam(':id', $id, PDO::PARAM_INT);
+
+				$query->execute();
+				$result = $query->fetch();
+
+				if(empty($result)) {
+					return false;
+				} else {
+
+					return $result;
+				}
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+		}
+
 		// Salvar exercicio na base
 		public static function insertExercise($exercise) {
 			try {

@@ -57,7 +57,15 @@
 			try {
 
 				$exercise = self::getExerciseById($request);
+
 				if($exercise) {
+
+					// verificar se o exercicio está em algum treino ativo
+					$check = ExerciseDAO::existExerciseTrainingActive($exercise);
+					if($check["exist"] > 0) {
+						throw new Exception("Não foi possível remover o execício. Está vínculado à algum treino ativo.");
+					}
+
 					return ExerciseDAO::deleteExercise($exercise);
 				}
 

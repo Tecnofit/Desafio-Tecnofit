@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo BASE_PROJECT; ?>Views/includes/training.js"> </script>
+<script type="text/javascript" src="<?php echo BASE_PROJECT; ?>Views/includes/admin/training.js"> </script>
 
 <div class="body-msg">
 </div>
@@ -16,7 +16,7 @@
 </div>
 
 <div class="modal" id="modal-training">
-	<form method="POST" action="<?php echo BASE_PROJECT; ?>training/save" id="form-training">
+	<form method="POST" action="<?php echo BASE_PROJECT; ?>admin/training/save" id="form-training">
 		<div class="modal-title">Novo Treino</div>
 		<div class="modal-body">
 			<div class="modal-msg"></div>

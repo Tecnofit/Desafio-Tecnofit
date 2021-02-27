@@ -9,7 +9,10 @@
 				$pdo = parent::connect();
 
 				$query = $pdo->prepare("
-					SELECT t.id, t.name, ut.active
+					SELECT
+						ut.id, t.name, ut.active, t.id AS id_training,
+						(SELECT COUNT(1) FROM training_exercise AS te WHERE te.id_training = t.id) AS total_exercise,
+						(SELECT SUM(session) FROM training_exercise AS te WHERE te.id_training = t.id) AS total_session
 					FROM training AS t
 					JOIN user_training AS ut ON ut.id_training = t.id
 					WHERE ut.id_user = :id"
@@ -111,18 +114,18 @@
 			}
 		}
 
-		// Remove treino da base
-		public static function deleteTrainingExercise($trainingExercise) {
+		// Remove treino do usuário
+		public static function deleteUserTraining($userTraining) {
 			try {
 				$pdo = parent::connect();
 				$query = $pdo->prepare("
 					DELETE FROM
-						training
+						user_training
 					WHERE
 						id = :id
 				");
 
-				$id = $trainingExercise->getId();
+				$id = $userTraining->getId();
 				$query->bindParam(':id', $id, PDO::PARAM_INT);
 
 				$result = $query->execute();
@@ -133,6 +136,82 @@
 			}
 		}
 
+		// Desativar treinos do usuário
+		public static function disableAllUserTraining($userTraining) {
+			try {
+				$pdo = parent::connect();
+				$query = $pdo->prepare("
+					UPDATE
+						user_training
+					SET
+						active = false
+					WHERE id_user = :id_user
+				");
+
+				$id_user = $userTraining->getIdUser();
+				$query->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+
+				$result = $query->execute();
+
+				return $result;
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+		}
+
+		// Ativar treino do usuário
+		public static function playUserTraining($userTraining) {
+			try {
+				$pdo = parent::connect();
+				$query = $pdo->prepare("
+					UPDATE
+						user_training
+					SET
+						active = true
+					WHERE
+						id = :id
+						AND id_user = :id_user
+				");
+
+				$id = $userTraining->getId();
+				$id_user = $userTraining->getIdUser();
+				$query->bindParam(':id', $id, PDO::PARAM_INT);
+				$query->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+
+				$result = $query->execute();
+
+				return $result;
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+		}
+
+		// buscar treino ativo do usuário
+		public static function getUserTrainingActive($userTraining) {
+			try {
+				$pdo = parent::connect();
+				$query = $pdo->prepare("
+					SELECT
+						ut.id, ut.id_user, t.name, ut.active, t.id AS id_training,
+						(SELECT COUNT(1) FROM training_exercise AS te WHERE te.id_training = t.id) AS total_exercise,
+						(SELECT SUM(session) FROM training_exercise AS te WHERE te.id_training = t.id) AS total_session
+					FROM training AS t
+					JOIN user_training AS ut ON ut.id_training = t.id
+					WHERE ut.id_user = :id_user
+					AND active IS TRUE
+				");
+
+				$id_user = $userTraining->getIdUser();
+				$query->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+
+				$query->execute();
+				$result = $query->fetch();
+
+				return $result;
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+		}
 
 	}
 ?>

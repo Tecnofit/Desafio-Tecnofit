@@ -9,7 +9,7 @@ $(document).ready(function(){
 
 			$.ajax({
 				method: "GET",
-				url: localStorage.getItem("BASE_PROJECT") + "training/get-training",
+				url: localStorage.getItem("BASE_PROJECT") + "admin/training/get-training",
 				data: {
 					id: $(this).data("id"),
 					return: "JSON"
@@ -43,14 +43,13 @@ $(document).ready(function(){
 
 		$.ajax({
 			method: "GET",
-			url: localStorage.getItem("BASE_PROJECT") + "training/get-training-exercise",
+			url: localStorage.getItem("BASE_PROJECT") + "admin/training/get-training-exercise",
 			data: {
 				id: $(this).data("id"),
 				return: "JSON"
 			},
 			dataType: 'json'
 		}).done(function(data) {
-			console.log(data)
 			$("#modal-training-exercises .modal-content").html(data.htmlExercises);
 
 			$("#modal-training-exercises select[name='exercise']").empty().append($("<option value=''>Selecione o Exercício</option>"));
@@ -78,11 +77,34 @@ $(document).ready(function(){
 
 		$.ajax({
 			method: "POST",
-			url: localStorage.getItem("BASE_PROJECT") + "training/link-exercise",
+			url: localStorage.getItem("BASE_PROJECT") + "admin/training/link-exercise",
 			data: {
 				id_training: $("#modal-training-exercises input[name='id']").val(),
 				id_exercise: $("#modal-training-exercises select[name='exercise'] option:selected").val(),
 				session: $("#modal-training-exercises input[name='session']").val(),
+			},
+			dataType: 'json'
+		}).done(function(data) {
+			$("#modal-training-exercises .modal-content").html(data.htmlExercises);
+			$(".training-list").html(data.html);
+
+			$("#modal-training-exercises select[name='exercise']").empty().append($("<option value=''>Selecione o Exercício</option>"));
+			$.each(data.listExercises, function(i, value) {
+				$("#modal-training-exercises select[name='exercise']").append($("<option></option>").val(value.id).text(value.name));
+			});
+			$("#modal-training-exercises input[name='session']").val("");
+		});
+	});
+
+	$(document).on("click", ".remove-exercise", function() {
+		// event.preventDefault();
+
+		$.ajax({
+			method: "POST",
+			url: localStorage.getItem("BASE_PROJECT") + "admin/training/remove-exercise",
+			data: {
+				id: $(this).data("id"),
+				id_training: $("#modal-training-exercises input[name='id']").val(),
 			},
 			dataType: 'json'
 		}).done(function(data) {
@@ -107,7 +129,7 @@ $(document).ready(function(){
 		if(confirm("Tem certeza que deseja remove o Treino " + name)) {
 			$.ajax({
 				method: "POST",
-				url: localStorage.getItem("BASE_PROJECT") + "training/remove-training",
+				url: localStorage.getItem("BASE_PROJECT") + "admin/training/remove-training",
 				data: {
 					id: $(this).data("id")
 				},

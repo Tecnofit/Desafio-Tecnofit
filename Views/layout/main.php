@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>teste</title>
+		<title>Desafio Tecnofit - Leandro Ivanaga</title>
 		<link rel="stylesheet" href="<?php echo BASE_PROJECT; ?>Views/includes/main.css">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 

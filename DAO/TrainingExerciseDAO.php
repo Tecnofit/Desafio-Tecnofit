@@ -60,7 +60,7 @@
 				$pdo = parent::connect();
 				$query = $pdo->prepare("
 					DELETE FROM
-						training
+						training_exercise
 					WHERE
 						id = :id
 				");
