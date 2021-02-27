@@ -42,11 +42,18 @@ Dados de acesso:
 
 # Perfils de Acessos
 **ADMIN**
+
 Pode gerenciar atletas, treinos e exercícios.
+
 Pode adicionar e remover treinos aos atletas.
+
 Pode adicionar e remover exercícios aos treinos.
 
+
 **Atleta**
+
 Pode ativar um treino.
+
 Pode concluir uma sessão de exercício.
+
 Pode finalizar ou pular um exercício.
