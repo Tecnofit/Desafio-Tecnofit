@@ -1,0 +1,83 @@
+body {
+	margin: 0px !important;
+}
+.body-content {
+	padding: 50px;
+}
+.body-title {
+	position: relative;
+}
+.body-title h3 {
+	display: inline-block;
+}
+.body-title button {
+	right: 0;
+	position: absolute;
+	display: inline-block;
+	margin-top: 20px;
+}
+.topnav {
+	height: 50px;
+	background-color: #6f6f6f;
+	padding-left: 50px;
+	color: white !important;
+	font-family: 'Roboto', sans-serif;
+}
+
+.topnav .menu-item {
+	height: 100%;
+	display: inline-block;
+}
+.topnav .menu-item a {
+	text-decoration: none !important;
+	margin: 0px 15px;
+	line-height: 50px;
+	color: white;
+}
+.topnav .menu-item.active {
+	background-color: #284eca;
+}
+
+.full-table {
+	width: 100%;
+    text-align: left;
+}
+
+.body-msg {
+	display: none;
+}
+
+.modal {
+	display: none;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background: aqua;
+	width: 300px;
+	padding: 30px;
+	margin-left: -150px;
+	border-radius: 10px;
+	z-index: 10;
+}
+.modal.modal-lg {
+	width: 500px;
+	margin-left: -250px;
+}
+.modal .modal-title {
+	margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+}
+.modal .modal-msg {
+	display: none;
+}
+
+#block-body {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: black;
+	opacity: 0.4;
+}
