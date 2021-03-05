@@ -1,0 +1,30 @@
+
+.menuitems {
+    color: #999;
+}
+.menuitems a {
+    color: #999;
+    text-decoration: none;
+}
+.menuitems a:hover,
+.menuitems a.active {
+    color: #FFF;
+}
+
+.component-realizar, .component-realizado, .component-pular, .component-ignorado {
+    line-height: 60px;
+}
+
+.component-realizar, .component-realizar i, .component-realizado {
+    font-size: 25px; color:green; display: inline-block; cursor: pointer; opacity: .8;
+}
+.component-realizar:hover, .component-realizado,
+.component-pular:hover, .component-ignorado {
+    opacity: 1;
+}
+.component-pular, .component-pular i, .component-ignorado {
+    font-size: 25px; color:orange; display: inline-block; cursor: pointer; opacity: .8;
+}
+.component-pular { margin-left: 20px; }
+.component-realizado, .component-ignorado { cursor: unset;  }
+.component-ignorado { opacity: .6;  }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/5.0/examples/sign-in/signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center vsc-initialized">
+    <main class="form-signin">
+        <form id="submitlogin">
+            <h1 class="h3 mb-3 fw-normal">Tecnofit</h1>
+            <label id="error" style="color: red;"></label>
+            <label for="inputEmail" class="visually-hidden">Email address</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required=""
+                autofocus="">
+            <label for="inputPassword" class="visually-hidden">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+            <p class="mt-5 mb-3 text-muted">© 2021</p>
+        </form>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../src/system.js"></script>
+    <script>
+        $(function () {
+            $("#submitlogin").on("submit", function(e) {
+                e.preventDefault();
+                $("#error").html('');
+                let res = auth.requestLogin(
+                    $("#inputEmail").val(),
+                    $("#inputPassword").val(),
+                    function (res) {
+                        if (res.status == 400) {
+                            $("#error").html(res.message+"<p/>");
+                        } else {
+                            if (auth.getUserData().perfil == "admin") {
+                                window.location = "/admin/treinos";
+                            } else {
+                                window.location = "/";
+                            }
+                        }
+                    }
+                );
+            });
+        });
+    </script>
+</body>
+
+</html>

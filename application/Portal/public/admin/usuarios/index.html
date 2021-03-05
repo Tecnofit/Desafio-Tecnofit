@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <link href="../../src/style.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container">
+                <a href="javascript:void(0)" class="navbar-brand d-flex align-items-center">
+                    <strong>Painel Administrativo</strong>
+                </a>
+                <span class="menuitems">
+                    <a href="/admin/usuarios" class="active">Usuários</a> &nbsp;•&nbsp;
+                    <a href="/admin/treinos">Treinos</a> &nbsp;•&nbsp;
+                    <a href="/admin/exercicios">Exercícios</a> &nbsp;•&nbsp;
+                    <a href="javascript:auth.logout()">Sair</a>
+                </span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="py-5 container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Perfil</th>
+                                <th scope="col" style="width: 160px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="listitems"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <a href="/admin/usuarios/cadastro" class="btn btn-primary">Cadastrar novo usuário</a>
+        </section>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../../src/system.js"></script>
+    <script>
+        function removeUser(userid)
+        {
+            $.ajax({
+                method: "DELETE",
+                url: "http://localhost:60001/v1/user/"+userid,
+                cache: false,
+                processData: false,
+                contentType: 'application/json',
+            }).done(function (result) {
+                modal.showMessage('Usuário removido com sucesso!', "success", 5000);
+                window.location.reload()
+            }).fail(function (result) {
+                modal.showMessage(result.responseJSON.errors[0], "error", 5000);
+            });
+        }
+
+        $(function () {
+            $("#listitems").html(``);
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:60001/v1/user",
+                data: JSON.stringify({
+                }),
+                cache: false,
+                processData: false,
+                contentType: 'application/json',
+            }).done(function (result) {
+                if (!result.users || result.users.length == 0) {
+                    $("#listitems").html(`
+                        <tr>
+                            <td colspan="3">Nenhum usuário cadastrado</td>
+                        </tr>
+                    `);
+                } else {
+                    $(result.users).each(function (i, user) {
+                        $("#listitems").append(`
+                            <tr data-user-id="`+user.id+`">
+                                <td>`+user.nome+`</td>
+                                <td>`+user.email+`</td>
+                                <td>`+user.perfilDescricao+`</td>
+                                <td>
+                                    <a href="/admin/usuarios/cadastro?user=`+user.id+`" class="btn btn-primary btn-sm">EDITAR</a>
+                                    <a href="javascript:removeUser('`+user.id+`')" class="btn btn-danger btn-sm">EXCLUIR</a>
+                                </td>
+                            </tr>
+                        `);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

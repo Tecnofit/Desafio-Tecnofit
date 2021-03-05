@@ -1,0 +1,360 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Tecnofit",
+		"_postman_id": "dc449ca6-10c1-722f-81f5-a7678ab06d15",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ACL",
+			"description": "",
+			"item": [
+				{
+					"name": "v1/user",
+					"request": {
+						"url": "{{TecnoACLHost}}/v1/user",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/user/{userId}",
+					"request": {
+						"url": "{{TecnoACLHost}}/v1/user/e29eabff-3a17-41f4-bf14-92784d564ebd",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/user",
+					"request": {
+						"url": "{{TecnoACLHost}}/v1/user",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Jhonatan Rodrigues\",\n\t\"email\": \"jhonatan.rodrigueasdfxx2@gmail.com\",\n\t\"senha\": \"xasdkjhfkasdj\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/user/{userId}",
+					"request": {
+						"url": "{{TecnoACLHost}}/v1/user/ad2df166-7775-4ae9-b2b0-f4ec98033733",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Jhonatan Rodriguesx\",\n\t\"email\": \"jhonatan.rodrigues2@gmail.com\",\n\t\"senha\": \"\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/access/auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setGlobalVariable(\"accessToken\", jsonData.jwt);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{TecnoACLHost}}/v1/access/auth",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"sifin@mailinator.com\",\n\t\"senha\": \"batata\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Gym",
+			"description": "",
+			"item": [
+				{
+					"name": "v1/exercicio",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/exercicio",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/exercicio/{exercicioId}",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/exercicio/1fb0e2d9-956d-44bc-ac50-697f8a1dc843",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/exercicio",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/exercicio",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Pulard tudo\",\n\t\"descricao\": \"\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/exercicio/{exercicioId}",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/exercicio/1fb0e2d9-956d-44bc-ac50-697f8a1dc843",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"e29eabff-3a17-41f4-bf14-92784d564ebd\",\n\t\"nome\": \"Jxxxxxxxxx\",\n\t\"descricao\": \"UPDATED\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/treino",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/treino",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/treino/{treinoId}",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/treino/1fb0e2d9-956d-44bc-ac50-697f8a1dc843",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/treino",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/treino",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Jdddddddddes\",\n\t\"descricao\": \"\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/treino/{treinoId}",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/treino/a16dd422-40eb-4c61-8989-a24317d7f05d",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"e29eabff-3a17-41f4-bf14-92784d564ebd\",\n\t\"nome\": \"Jxxxxxxxxx\",\n\t\"descricao\": \"UPDATED\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/aluno/{userId}/treino",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/aluno/a16dd422-40eb-4c61-8989-a24317d7f05d/treino",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"treinoId\": \"a16dd422-40eb-4c61-8989-a24317d7f05d\",\n\t\"expiracao\": \"2021-03-02\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/aluno/{userId}/treino",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/aluno/31741a68-30ee-4a6b-b5d3-a300e0b40c3d/treino",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"treinoId\": \"a16dd422-40eb-4c61-8989-a24317d7f05d\",\n\t\"expiracao\": \"2021-03-02\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "v1/aluno/{userId}/treino/exercicio/status",
+					"request": {
+						"url": "{{TecnoGymHost}}/v1/aluno/31741a68-30ee-4a6b-b5d3-a300e0b40c3d/treino/exercicio/status",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"alunoTreinoId\": \"6183c4b9-9c54-40a7-b223-8b12131125b2\",\n\t\"alunoTreinoExercicioId\": \"4c3091a8-3950-4b23-9357-bf3f310432a2\",\n\t\"executado\": true\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
