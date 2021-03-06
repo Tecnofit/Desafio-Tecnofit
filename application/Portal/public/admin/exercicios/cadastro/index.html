@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <link href="../../../src/style.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container">
+                <a href="javascript:void(0)" class="navbar-brand d-flex align-items-center">
+                    <strong>Painel Administrativo</strong>
+                </a>
+                <span class="menuitems">
+                    <a href="/admin/usuarios">Usuários</a> &nbsp;•&nbsp;
+                    <a href="/admin/treinos">Treinos</a> &nbsp;•&nbsp;
+                    <a href="/admin/exercicios" class="active">Exercícios</a> &nbsp;•&nbsp;
+                    <a href="javascript:auth.logout()">Sair</a>
+                </span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="py-5 container">
+            <div id="errormessage" style="color: red"></div>
+            <form id="formsub" class="row g-3" autocomplete="off">
+                
+                <div class="col-12">
+                    <label for="inputName" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="inputName" placeholder="" autocomplete="off">
+                </div>
+                <div class="col-12">
+                    <label for="inputDescricao" class="form-label">Descricao</label>
+                    <textarea name="email" type="text" class="form-control" id="inputDescricao" placeholder=""
+                        autocomplete="off"></textarea>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../../../src/system.js"></script>
+    <script>
+        currentExercicioId = "";
+
+        $(function () {
+            var queries = {};
+            $.each(document.location.search.substr(1).split('&'), function (c, q) {
+                var i = q.split('=');
+                if (!i[0]) {
+                    return;
+                }
+                queries[i[0].toString()] = i[1].toString();
+            });
+
+            if (queries && queries.exercicio) {
+                currentExercicioId = queries.exercicio;
+
+                $(function () {
+                    $.ajax({
+                        method: "GET",
+                        url: "http://localhost:60002/v1/exercicio/" + currentExercicioId,
+                        cache: false,
+                        processData: false,
+                        contentType: 'application/json',
+                        headers: {
+                            "Authorization": auth.getUserData().jwt
+                        }
+                    }).done(function (result) {
+                        $("#inputName").val(result.exercicio.nome);
+                        $("#inputDescricao").val(result.exercicio.descricao);
+                    });
+                });
+            }
+        });
+
+        $("#formsub").on("submit", function (e) {
+            e.preventDefault();
+            $.ajax({
+                method: currentExercicioId ? "PUT" : "POST",
+                url: "http://localhost:60002/v1/exercicio/" + currentExercicioId,
+                data: JSON.stringify({
+                    "nome": $("#inputName").val(),
+                    "descricao": $("#inputDescricao").val()
+                }),
+                cache: false,
+                processData: false,
+                contentType: 'application/json',
+                headers: {
+                    "Authorization": auth.getUserData().jwt
+                }
+            }).done(function (result) {
+                window.location = "/admin/exercicios"
+            }).fail(function (result) {
+                $("#errormessage").html(result.responseJSON.errors[0].message);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+**/vendor
+**/bucket
+.history
+**/composer.lock
+**/composer.phar
+**/application/**/.env
