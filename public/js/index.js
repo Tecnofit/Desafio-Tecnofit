@@ -90,6 +90,8 @@ angular.module("app", ["angular-extensions"])
     .controller("main", ["$scope", "$async", "$timeout", function ($scope, $async, $timeout) {
 
         $scope.currentEntityName = null;
+        $scope.searchText = "";
+        $scope.search = { text: ""};
 
 
         $scope.setEntityName = function(entityName) {
@@ -136,8 +138,16 @@ angular.module("app", ["angular-extensions"])
             return entityName === $scope.currentEntityName;
         }
 
+        $scope.hasAnyEntitySelected = function() {
+            return $scope.currentEntityName != null
+        }
+
+        $scope.addItem = function() {
+            alert("aqui");
+        }
+
         // paginação e busca no data table
-        $scope.searchText = "";
+
         $scope.tableState = {
             itemsPerPage: 8,
             numPages: 0,
@@ -148,10 +158,11 @@ angular.module("app", ["angular-extensions"])
             let selectedRows = [];
             $scope.isLoading = true;
             if(rows) {
-                if ($scope.searchText.length > 0) {
+
+                if ($scope.search.text.length > 0) {
 
                     for (let i = 0; i < rows.length; i++) {
-                        if (rows[i].name.toLowerCase().indexOf($scope.searchText.toLowerCase()) !== -1 || rows[i].id == parseInt($scope.searchText)) {
+                        if (rows[i].name.toLowerCase().indexOf($scope.search.text.toLowerCase()) !== -1 || rows[i].id == parseInt($scope.search.text)) {
                             selectedRows.push(rows[i]);
                         }
                     }

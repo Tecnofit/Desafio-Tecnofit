@@ -1,0 +1,42 @@
+<div class="ui dimmer inverted" data-ng-class="{'active': isLoading}">
+    <div class="ui loader"></div>
+</div>
+
+<div data-ng-show="currentEntityName != null">
+
+    <div data-ng-include data-src="'templates/toolbar.html'"></div>
+
+    <table class="ui basic striped selectable table">
+        <thead>
+        <tr>
+            <th class="one wide" >C&oacute;digo</th>
+            <th class="eleven wide">Nome</th>
+            <th class="four wide"></th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in getSelectedRows(rows) track by $index">
+            <td>{{row.id}}</td>
+            <td>{{row.name | uppercase}}</td>
+            <td>
+
+                <i class="edit blue link popup icon" data-content="Editar cadastro" data-position="top center"></i>
+                <i class="chart line green link popup icon" data-content="Ver/Vincular treinos" data-position="top center"></i>
+                <i class="clipboard list purple link popup icon" data-content="Ambiente do aluno" data-position="top center"></i>
+                <i class="times red link popup icon" data-content="Exluir cadastro" data-position="top center"></i>
+
+            </td>
+
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3">
+                <div data-ng-include data-src="'templates/pagination.html'"></div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+</div>
