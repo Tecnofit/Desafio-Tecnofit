@@ -1,0 +1,71 @@
+<html>
+<head>
+
+    <title>Desafio Tecnofit</title>
+    <link href="public/css/semantic.min.css" rel="stylesheet"/>
+    <link href="public/css/alertify.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+
+<div data-ng-app="app" data-ng-controller="main">
+
+    <div class="ui two column centered grid">
+
+        <div class="two column centered row segment">
+           <div class="column">
+
+               <div class="ui segment secondary grid row" style="padding-right: 15px !important; padding-bottom: 15px !important;">
+                   <div class="three wide column">
+
+                       <a href="" class="ui center aligned icon grey header" data-ng-click="setEntityName('students')" >
+                           <i class="circular users blue icon" data-ng-class="{'inverted': entityName == 'students'}"></i>
+                           Alunos
+                       </a>
+
+                       <a href="" class="ui center aligned icon grey header" data-ng-click="setEntityName('exercises')">
+                           <i class="circular thumbtack green icon" data-ng-class="{'inverted': entityName == 'exercises'}"></i>
+                           Exerc.
+                       </a>
+
+                       <a href="" class="ui link center aligned icon grey header" data-ng-click="setEntityName('trainings')">
+                           <i class="circular child grey icon" data-ng-class="{'inverted': entityName == 'trainings'}"></i>
+                           Treinos
+                       </a>
+
+
+                   </div>
+
+
+                   <div class="thirteen wide column ui" data-ng-class="{'segment': entityName != null}" >
+
+                       <div class="ui dimmer inverted" data-ng-class="{'active': isLoading}">
+                           <div class="ui loader"></div>
+                       </div>
+
+                   </div>
+
+               </div>
+
+           </div>
+
+
+
+
+
+        </div>
+    </div>
+
+
+</div>
+
+<script src="public/js/jquery.min.js"></script>
+<script src="public/js/angular.min.js"></script>
+<script src="public/js/angular-desafio-tecnofit-extensios.js"></script>
+<script src="public/js/semantic.min.js"></script>
+<script src="public/js/alertify.min.js"></script>
+<script src="public/js/index.js"></script>
+
+
+</body>
+</html>

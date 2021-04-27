@@ -12,7 +12,6 @@ require_once("models/StudentTraining.php");
 require_once("models/StudentTrainingExercise.php");
 
 if($_GET && $_GET["entity"]) {
-
     $entityModel = getEntityModel($_GET["entity"]);
 
     if(isset($_GET["id"]))
