@@ -11,8 +11,9 @@ require_once("models/TrainingExercise.php");
 require_once("models/StudentTraining.php");
 require_once("models/StudentTrainingExercise.php");
 
-if($_GET && $_GET["entity"]) {
-    $entityModel = getEntityModel($_GET["entity"]);
+if(isset($_GET["entityName"])) {
+
+    $entityModel = getEntityModel($_GET["entityName"]);
 
     if(isset($_GET["id"]))
         echo json_encode($entityModel->findById($_GET["id"]));
