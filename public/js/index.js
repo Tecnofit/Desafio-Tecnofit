@@ -1,11 +1,13 @@
+
+
+$('[data-phone]').mask('(00) 0000-00009');
+
 angular.module("angular-extensions", [])
-    // GENERAL CONFIGURATIONS
     .config(["$httpProvider", function ($httpProvider) {
         $httpProvider.defaults.headers.post["Content-Type"] = "application/json; charset=utf-8"
         // Indica que as requisições são Ajax. Usado na checagem do .NET IsAjaxRequest().
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     }])
-    // FACTORIES
     .factory("$async", ["$http", "$filter", function ($http, $filter) {
         var csrf = {
             headers: { "X-Csrf-Token": $("input[name='__RequestVerificationToken']").val() }
@@ -52,98 +54,223 @@ angular.module("angular-extensions", [])
 
         return fn;
     }])
-    // FILTERS
-    .filter("resolveUrl", function () {
-        return function (url, query) {
-            var baseUrl = window.$ROOT$;
-            if (!url || !baseUrl) return "";
-            if (url.indexOf("~/") === 0) url = baseUrl + url.substring(2);
-            else if (url.indexOf("/") === 0) url = baseUrl + url.substring(1);
-            if (query) url = url + "?" + query;
-            return url;
-        }
-    })
-    .filter("empty", function () {
-        return function (value, replace) {
-            if (value === undefined || value === null || value === "")
-                return replace;
-            return value;
-        }
-    })
-    .filter("truncate", function () {
-        return function (text, len, sufix) {
-            if (!text || isNaN(len))
-                return "";
 
-            if (sufix === undefined || sufix === null)
-                sufix = "...";
-
-            var str = String(text);
-            if (str.length <= len)
-                return str;
-
-            return str.substring(0, len) + sufix;
-        }
-    });
 
 angular.module("app", ["angular-extensions"])
     .controller("main", ["$scope", "$async", "$timeout", function ($scope, $async, $timeout) {
-
-        $scope.currentEntityName = null;
-        $scope.searchText = "";
+        $scope.isLoading = false;
+        $scope.stateEntity = {}
+        $scope.entity = {};
+        $scope.exercises = [];
         $scope.search = { text: ""};
+        $scope.rows = [];
+
+        function startStateEntity() {
+            $scope.stateEntity = {
+                id: null,
+                name: null,
+                action: null,
+
+                permissions: {
+                    edit: true,
+                    delete: true,
+                    activate: false,
+                    deactivate: false,
+                    dashboard : false,
+                    trainings: false
+                }
+
+            };
+        }
+        startStateEntity();
 
 
-        $scope.setEntityName = function(entityName) {
+        function getData(fromEntityName, fromId, action) {
+
+            $scope.isLoading = true;
+            let routePath = "route.php?entityName=" + fromEntityName;
+            routePath += fromId > 0? "&id=" + fromId: "";
+
+            $async.get(routePath).then(function (r) {
+
+                switch (action) {
+                    case "list": {
+                        $scope.rows = r.data;
+                        break;
+                    }
+                    case "edit": {
+                        $scope.entity = r.data;
+                        break;
+                    }
+                    case "get-exercises": {
+                        $scope.exercises = r.data;
+
+                        console.log($scope.exercises);
+
+                        // $scope.setEntity("trainings");
+                        // $timeout(function() {
+                        //     $scope.edit(10);
+                        // }, 100)
+
+                        break;
+                    }
+                }
+
+                startJqueryComponents();
+                $scope.isLoading = false;
+
+            }, function(data) {
+                $scope.isLoading = false;
+                showErrorMessage(data);
+            })
+        }
+
+        getData("exercises", null, "get-exercises");
+
+
+        $scope.setEntity = function(entityName) {
 
             if(!$scope.isLoading) {
-                $scope.currentEntityName = entityName;
-                $scope.isLoading = true;
-
-                $async.get("route.php?entityName=" + $scope.currentEntityName).then(function (r) {
-
-                    $timeout(function () {
-                        $scope.rows = r.data;
-                        $scope.isLoading = false;
-
-                        $timeout(function() {
-                            $('.popup')
-                                .popup({
-                                    delay: {
-                                        show: 400
-                                    }
-                                });
-
-                        });
+                startStateEntity();
+                $scope.entity = {};
+                $scope.stateEntity.name = entityName;
+                $scope.stateEntity.action = "list";
 
 
-                    })
+                switch (entityName) {
+                    case "students": {
+                        $scope.stateEntity.permissions.dashboard = true;
+                        $scope.stateEntity.permissions.trainings = true;
+                        $scope.stateEntity.permissions.delete = true;
+                        break;
+                    }
+
+                    case "trainings": {
+                        $scope.stateEntity.permissions.activate = true;
+                        $scope.stateEntity.permissions.deactivate = true;
+                        $scope.stateEntity.permissions.delete = false;
+                        break;
+                    }
+                }
+                getData($scope.stateEntity.name, $scope.stateEntity.id, $scope.stateEntity.action);
+            }
+        }
 
 
 
-                },function(data) {
-                    alertify.error('Falha de comunicação com o servidor. Contate o suporte técnico.', 'error', 5, function() {
-                        console.log(data);
-                    });
-
-                    $scope.isLoading = false;
-
-                })
-
+        $scope.$watch("stateEntity.action", function (newAction) {
+            if (newAction === "edit" && $scope.stateEntity.id > 0) {
+                getData($scope.stateEntity.name, $scope.stateEntity.id, $scope.stateEntity.action);
             }
 
+        });
+
+        $scope.new = function () {
+            $scope.edit(null);
         }
 
-        $scope.isCurrentEntity = function(entityName) {
-            return entityName === $scope.currentEntityName;
+        $scope.save = function () {
+            if($scope.validateForm($scope.stateEntity.name))
+                post("save");
         }
 
-        $scope.hasAnyEntitySelected = function() {
-            return $scope.currentEntityName != null
+        function post(action) {
+
+                console.log(action);
+                $scope.isLoading = true;
+                $scope.entity.action =  action;
+                $scope.entity.id = $scope.stateEntity.id;
+                $scope.entity.entityName = $scope.stateEntity.name;
+
+                $async.post("route.php", JSON.stringify($scope.entity)).then(function (r) {
+                    $scope.entity = r.data;
+                    $scope.stateEntity.id = $scope.entity.id;
+                    $scope.entity = r.data;
+                    $scope.isLoading = false;
+
+                    if($scope.entity.entityName === "exercises")
+                        getData("exercises", null, "get-exercises")
+
+                    if(action === "save")
+                        alertify.success("Registro salvo com sucesso", 'success', 5);
+                    if(action === "delete") {
+                        getData($scope.stateEntity.name, $scope.stateEntity.id, $scope.stateEntity.action);
+                        alertify.success("Registro removido com sucesso", 'success', 5);
+                    }
+
+
+                }, function (response) {
+                    showErrorMessage(response.data);
+                });
+
         }
 
-        $scope.addItem = function() {
-            alert("aqui");
+        $scope.delete = function (row) {
+            alertify.confirm("Tem certeza que deseja deletar esse registro?", function () {
+                $scope.entity = row;
+                $scope.stateEntity.id = row.id;
+                post("delete")
+
+
+            }, function () {
+
+            })
+                .set({ labels: { ok: 'Deletar registro', cancel: 'Voltar' } })
+                .set({ title: "Deletar registro" })
+        }
+
+        $scope.goBack = function () {
+            $scope.setEntity($scope.stateEntity.name, "list");
+        }
+
+        $scope.isEntity = function(entityName) {
+            return entityName === $scope.stateEntity.name;
+        }
+
+        $scope.hasEntitySelected = function() {
+            return $scope.stateEntity.name != null
+        }
+
+        $scope.edit = function(id) {
+            $scope.stateEntity.id = id;
+            $scope.stateEntity.action = "edit";
+        }
+
+        $scope.isAction = function (actionName) {
+            return $scope.stateEntity.action === actionName;
+        }
+
+        $scope.newTrainingExercise = {exerciseId: null, numberOfSessions: null}
+
+        $scope.addExerciseToTraining = function () {
+            if (!$scope.validateForm("add-exercise-to-training"))
+                return false;
+            else {
+
+                if(!$scope.entity.trainingExercises)
+                    $scope.entity.trainingExercises = [];
+
+                let exerciseName = "";
+
+                for(let i = 0; i < $scope.exercises.length; i++) {
+                    if($scope.exercises[i].id === $scope.newTrainingExercise.exerciseId)
+                        exerciseName = $scope.exercises[i].name;
+                }
+
+
+                $scope.entity.trainingExercises.push({
+                    id: null,
+                    exerciseId: $scope.newTrainingExercise.exerciseId,
+                    numberOfSessions: $scope.newTrainingExercise.numberOfSessions,
+                    exercise: {name: exerciseName}
+                });
+
+                $scope.newTrainingExercise = {exerciseId: null, numberOfSessions: null}
+            }
+        }
+
+        $scope.hasTrainingExercises = function() {
+            return $scope.entity.trainingExercises !== undefined
         }
 
         // paginação e busca no data table
@@ -153,7 +280,7 @@ angular.module("app", ["angular-extensions"])
             numPages: 0,
             currentPage: 1
         }
-
+        $scope.isGridEmpty = true;
         $scope.getSelectedRows = function(rows) {
             let selectedRows = [];
             $scope.isLoading = true;
@@ -174,8 +301,7 @@ angular.module("app", ["angular-extensions"])
             }
 
             $scope.isLoading = false;
-
-
+            $scope.isGridEmpty = selectedRows.length === 0;
 
             return getPagedRows(selectedRows);
 
@@ -205,6 +331,53 @@ angular.module("app", ["angular-extensions"])
 
         $scope.selectPage = function(pageNumber) {
             $scope.tableState.currentPage = pageNumber <= 0 || pageNumber > $scope.tableState.numPages? $scope.tableState.currentPage: pageNumber;
+        }
+
+        function showErrorMessage(errorMessage) {
+            alertify.error("Falha ao se comunicar com o servidor: " + errorMessage, 'error', 5);
+            $scope.isLoading = false;
+        }
+
+
+
+        $scope.validateForm = function (className) {
+
+            let fields = {};
+            switch (className) {
+                case "students": {
+                    fields.txtName = "empty";
+                    fields.txtEmail = "empty";
+                    fields.txtPhone = "empty";
+                    break;
+                }
+                case "exercises": fields.txtName = "empty"; break;
+                case "trainings": fields.txtName = "empty"; break;
+                case "add-exercise-to-training": {
+                    fields.ddlExercicios = "empty";
+                    fields.txtNumberOfSessions = "empty";
+                }
+            }
+
+            let formValidator = $(".ui.form." + className).form({
+                fields: fields,
+                on: "blur"
+            });
+
+            return formValidator.form("validate form");
+        }
+
+        function startJqueryComponents() {
+            $timeout(function() {
+
+                $('[data-phone]').mask('(00) 0000-00009');
+
+                $('.popup').popup({
+                    delay: {
+                        show: 400
+                    }
+                });
+            }, 10)
+
         }
 
     }]);

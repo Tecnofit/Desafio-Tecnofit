@@ -1,0 +1,70 @@
+<h3 class="ui header">Treino - cadastro</h3>
+
+<div data-ng-include data-src="'templates/toolbar-edit.html'"></div>
+
+<div class="ui divider"></div>
+<form class="ui form trainings">
+    <div class="field">
+        <label>Nome<span class="ui tiny red header">*</span></label>
+        <input type="text" name="txtName" maxlength="64" data-ng-model="entity.name">
+    </div>
+    <div>
+        <div class="ui divider"></div>
+        <h4 class="ui blue header">Vincular novo exercício</h4>
+
+        <div class="ui form add-exercise-to-training">
+            <div class="fields">
+                <div class="eight wide field">
+                    <label>Exercício</label>
+                    <select name="ddlExercicios" data-ng-options="exercise.id as exercise.name for exercise in exercises" data-ng-model="newTrainingExercise.exerciseId">
+                        <option value="">-- selecione --</option>
+                    </select>
+                </div>
+                <div class="four wide field">
+                    <label>Repetições</label>
+                    <input type="number" name="txtNumberOfSessions" data-ng-model="newTrainingExercise.numberOfSessions" />
+                </div>
+                <div class="four wide field">
+                    <label>&nbsp;</label>
+                    <a class="ui primary button" data-ng-click="addExerciseToTraining()">
+                        Vincular
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <h4 class="ui blue header">Exercícios vinculados</h4>
+
+
+
+        <div data-ng-if="hasTrainingExercises()">
+            <table class="ui basic striped selectable compact table">
+                <thead>
+                    <tr>
+                        <th class="twelve wide">Exercício</th>
+                        <th class="four wide">Repetições</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="trainingExercise in entity.trainingExercises">
+                        <td>
+                            {{trainingExercise.exercise.name}}
+                        </td>
+                        <td>
+                            <input type="number" data-ng-model="trainingExercise.numberOfSessions">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ui info message" data-ng-if="!hasTrainingExercises()">
+            Ainda não há exercícios associados a esse treino
+        </div>
+
+
+
+
+    </div>
+</form>

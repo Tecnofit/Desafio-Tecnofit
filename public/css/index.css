@@ -1,0 +1,12 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.frame-content {
+    padding-right: 15px !important; padding-bottom: 15px !important;
+}
+
+body {
+    background-color: #96c8da;
+}
+

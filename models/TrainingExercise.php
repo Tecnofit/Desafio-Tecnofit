@@ -31,8 +31,8 @@ class TrainingExercise extends ORMMapper {
         $data = parent::findByProperty($propertyName, $propertyValue);
 
         foreach ($data as $d) {
-
             $exercise = new Exercise();
+            $d->numberOfSessions = intval($d->numberOfSessions);
             $d->exercise = $exercise->findById($d->exerciseId);
         }
 
@@ -58,6 +58,10 @@ class TrainingExercise extends ORMMapper {
             $this->trainingId = $data->trainingId;
             $this->exerciseId = $data->exerciseId;
             $this->numberOfSessions = $data->numberOfSessions;
+
+            $exercise = new Exercise();
+
+            $this->exercise = $exercise->findById($this->exerciseId);
 
             parent::save();
         }

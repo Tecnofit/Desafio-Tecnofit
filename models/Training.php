@@ -23,7 +23,7 @@ class Training extends ORMMapper {
         $data = parent::findById($id);
 
         $trainingExercise = new TrainingExercise();
-        foreach ($trainingExercise->findByTrainingId($id) as $trainingExercise) {
+        foreach ($trainingExercise->findByProperty("trainingId", $id) as $trainingExercise) {
 
             $data->trainingExercises[] = $trainingExercise;
         }
@@ -35,15 +35,17 @@ class Training extends ORMMapper {
         $invalidStateMessage = null;
         if(!isset($data->name))
             $invalidStateMessage = "nome do treino é obrigatório";
-        if(!isset($data->status))
-            $invalidStateMessage = "status do treino é obrigatório";
 
         if(!$invalidStateMessage) {
             if (isset($data->id))
                 $this->id = $data->id;
 
             $this->name = $data->name;
-            $this->status = $data->status;
+
+            if(!isset($data->status))
+                $this->status = "Waiting";
+            else
+                $this->status = $data->status;
 
             parent::save();
 
@@ -53,6 +55,7 @@ class Training extends ORMMapper {
                     $te->trainingId = $this->id;
                     $trainingExercise = new TrainingExercise();
                     $trainingExercise->save($te);
+                    $te->id = $trainingExercise->id;
                     $this->trainingExercises[] = $trainingExercise;
 
 

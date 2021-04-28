@@ -29,6 +29,7 @@ CREATE TABLE trainings
     status ENUM('Waiting', 'Active', 'Canceled') DEFAULT 'Waiting',
     createdAt DATETIME NOT NULL,
     modifiedAt DATETIME NULL,
+    deletedAt DATETIME NULL,
     PRIMARY KEY (id)
 );
 

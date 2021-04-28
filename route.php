@@ -31,13 +31,11 @@ if(isset($_GET["entityName"])) {
 else {
     try {
         $jsonString = file_get_contents('php://input');
-
         if (strlen($jsonString)) {
             $data = json_decode($jsonString);
 
             if (isset($data->entityName) && isset($data->action)) {
                 $entityModel = getEntityModel($data->entityName);
-
                 if($entityModel != null) {
                     if ($data->action == "save") {
 

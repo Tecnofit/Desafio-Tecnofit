@@ -22,7 +22,7 @@ class ORMMapper implements MapperInterface
 
     function findAll()
     {
-        $result = $this->_adapter->select($this->_tableName, '*', []);
+        $result = $this->_adapter->select($this->_tableName, '*', ['deletedAt' => [' IS ', 'NULL', '']]);
         return $this->buildResponseObject($result);
     }
 
@@ -47,8 +47,7 @@ class ORMMapper implements MapperInterface
     function save($data = null)
     {
         $fields = $this->_adapter->fetchFields($this->_adapter->getTableColuns($this->_tableName));
-
-        if (isset($this->id))
+        if (isset($this->id) && $this->id != null)
             $this->_adapter->update($this->_tableName, $fields, (array)$this, ['id' => ['=', $this->id, '']]);
         else
             $this->id = $this->_adapter->insert($this->_tableName, $fields, (array)$this);

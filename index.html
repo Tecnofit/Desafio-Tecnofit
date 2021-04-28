@@ -3,29 +3,24 @@
     <title>Desafio Tecnofit</title>
     <link href="public/css/semantic.min.css" rel="stylesheet"/>
     <link href="public/css/alertify.min.css" rel="stylesheet"/>
-    <style type="text/css">
-        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-            display: none !important;
-        }
-
-        .frame-content {
-            padding-right: 15px !important; padding-bottom: 15px !important;
-        }
-
-    </style>
+    <link href="public/css/index.css" rel="stylesheet"/>
 </head>
+
 <body>
 
 <div data-ng-app="app" data-ng-controller="main" class="ng-cloak">
     <div class="ui two column centered grid">
-        <div class="two column centered row segment">
+        <div class="two column centered">
            <div class="column">
-               <div class="ui segment secondary grid row frame-content" >
+               <div class="ui raised segment secondary grid row frame-content" >
                    <div class="three wide column" >
                        <div data-ng-include data-src="'templates/nav-bar.html'"></div>
                    </div>
-                   <div class="thirteen wide column " data-ng-class="{'ui segment': hasAnyEntitySelected()}" >
-                       <div data-ng-include data-src="'templates/data-table.html'"></div>
+                   <div class="thirteen wide column " data-ng-class="{'ui segment': hasEntitySelected()}" >
+                       <div data-ng-include data-src="'templates/data-table.html'" data-ng-show="isAction('list')"></div>
+                       <div data-ng-include data-src="'templates/student-edit.html'" data-ng-show="isEntity('students') && isAction('edit')"></div>
+                       <div data-ng-include data-src="'templates/exercise-edit.html'" data-ng-show="isEntity('exercises') && isAction('edit')"></div>
+                       <div data-ng-include data-src="'templates/training-edit.html'" data-ng-show="isEntity('trainings') && isAction('edit')"></div>
                    </div>
                </div>
            </div>
@@ -34,6 +29,7 @@
 </div>
 
 <script src="public/js/jquery.min.js"></script>
+<script src="public/js/jquery.mask.min.js"></script>
 <script src="public/js/angular.min.js"></script>
 <script src="public/js/semantic.min.js"></script>
 <script src="public/js/alertify.min.js"></script>

@@ -64,6 +64,7 @@ class MysqlAdapter implements DatabaseInterface
 
         $query = "INSERT INTO $tableName (".implode(",", $columns).") VALUES ('".implode("','", $insertValues)."')";
 
+
         if($this->_mysqli->query($query))
             return $this->_mysqli->insert_id;
         else
@@ -114,10 +115,12 @@ class MysqlAdapter implements DatabaseInterface
             $whereString = $this->generateWhereString($conditions);
             $query .= " WHERE $whereString";
         }
+
+        $query .= " ORDER BY id DESC";
+
         if (isset($limit) && isset($offset)) {
             $query .= "LIMIT $limit OFFSET $offset";
         }
-
         $result = $this->_mysqli->query($query);
         $response = [];
 

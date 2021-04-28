@@ -32,7 +32,6 @@ class StudentTraining extends ORMMapper {
         $data = parent::findByProperty($propertyName, $propertyValue);
 
         foreach ($data as $d) {
-
             $training = new Training();
             $d->exercise = $training->findById($d->trainingId);
         }

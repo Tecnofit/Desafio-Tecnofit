@@ -36,6 +36,8 @@ class Student extends ORMMapper {
             $this->phoneNumber = $data->phoneNumber;
             parent::save();
         }
+        else
+            throw new Exception($invalidStateMessage);
 
     }
 

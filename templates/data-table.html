@@ -2,11 +2,12 @@
     <div class="ui loader"></div>
 </div>
 
-<div data-ng-show="currentEntityName != null">
+<div data-ng-show="hasEntitySelected()">
 
-    <div data-ng-include data-src="'templates/toolbar.html'"></div>
+    <div data-ng-include data-src="'templates/toolbar-list.html'"></div>
 
-    <table class="ui basic striped selectable table">
+
+    <table class="ui basic striped selectable celled table" data-ng-show="!isGridEmpty">
         <thead>
         <tr>
             <th class="one wide" >C&oacute;digo</th>
@@ -16,15 +17,54 @@
 
         </thead>
         <tbody>
-        <tr ng-repeat="row in getSelectedRows(rows) track by $index">
-            <td>{{row.id}}</td>
+        <tr ng-repeat="row in getSelectedRows(rows) track by $index" >
+            <td class="center aligned">{{row.id}}</td>
             <td>{{row.name | uppercase}}</td>
-            <td>
+            <td class="center aligned">
 
-                <i class="edit blue link popup icon" data-content="Editar cadastro" data-position="top center"></i>
-                <i class="chart line green link popup icon" data-content="Ver/Vincular treinos" data-position="top center"></i>
-                <i class="clipboard list purple link popup icon" data-content="Ambiente do aluno" data-position="top center"></i>
-                <i class="times red link popup icon" data-content="Exluir cadastro" data-position="top center"></i>
+                <i
+                        class="edit blue link popup icon"
+                        data-content="Editar cadastro"
+                        data-position="top center"
+                        data-ng-click="edit(row.id)"
+                        data-ng-show="stateEntity.permissions.edit">
+
+                </i>
+                <i
+                        class="chart line green link popup icon"
+                        data-content="Ver/Vincular treinos"
+                        data-position="top center"
+                        data-ng-show="stateEntity.permissions.trainings">
+
+                </i>
+                <i
+                        class="clipboard list purple link popup icon"
+                        data-content="Ambiente do aluno"
+                        data-position="top center"
+                        data-ng-show="stateEntity.permissions.dashboard">
+
+                </i>
+                <i
+                        class="thumbs up green link popup icon"
+                        data-content="Ativar treino"
+                        data-position="top center"
+                        data-ng-show="stateEntity.permissions.activate && row.status == 'Waiting'">
+
+                </i>
+                <i
+                        class="thumbs down red link popup icon"
+                        data-content="Desativar treino"
+                        data-position="top center"
+                        data-ng-show="stateEntity.permissions.activate && row.status == 'Active'">
+
+                </i>
+                <i
+                        class="times red link popup icon"
+                        data-content="Exluir cadastro"
+                        data-position="top center"
+                        data-ng-click="delete(row)"
+                        data-ng-show="stateEntity.permissions.delete">
+                </i>
 
             </td>
 
@@ -32,11 +72,15 @@
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="3">
+            <td colspan="3" data-ng-if="tableState.numPages > 2">
                 <div data-ng-include data-src="'templates/pagination.html'"></div>
             </td>
         </tr>
         </tfoot>
     </table>
+
+    <div class="ui info message" data-ng-show="isGridEmpty">
+        Ainda não há exercícios associados a esse treino
+    </div>
 
 </div>
