@@ -1,0 +1,84 @@
+<h2 class="ui header">Aluno</h2>
+
+<!-- Template de toolbar -->
+<div data-ng-include data-src="'templates/toolbar-edit.html'"></div>
+
+<div class="ui divider"></div>
+<form class="ui form students">
+    <div class="field">
+        <label>Nome<span class="ui tiny red header">*</span></label>
+        <input type="text" name="txtName" maxlength="64" data-ng-model="entity.name">
+    </div>
+    <div class="field">
+        <label>Email<span class="ui tiny red header">*</span></label>
+        <input type="text" name="txtEmail" maxlength="32" data-ng-model="entity.email">
+    </div>
+
+    <div class="field">
+        <label>Telefone<span class="ui tiny red header">*</span></label>
+        <input type="text" name="txtPhone" maxlength="16" data-phone data-ng-model="entity.phoneNumber">
+    </div>
+
+    <div class="ui divider"></div>
+    <h4 class="ui blue header">Vincular novo treino</h4>
+
+    <div class="ui form add-training-to-student">
+        <div class="fields">
+            <div class="twelve wide field">
+                <label>Treino</label>
+                <select
+                        name="ddlTrainings"
+                        class="ui dropdown"
+                        data-ng-options="training.id as training.name for training in getActiveTrainings(trainings)"
+                        data-ng-model="newStudentTraining.trainingId">
+
+                    <option value="">Selecione</option>
+                </select>
+                <small>*somente treinos ativos estão disponíveis</small>
+
+            </div>
+
+            <div class="four wide field">
+                <label>&nbsp;</label>
+                <a class="ui primary button" data-ng-click="addTrainingToStudent()">
+                    Vincular
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <h4 class="ui blue header">Treinos vinculados</h4>
+
+
+    <div data-ng-if="hasStudentTrainings()">
+        <table class="ui basic striped selectable compact table">
+            <thead>
+            <tr>
+                <th class="ten wide">Treino</th>
+                <th class="six wide">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="studentTraining in entity.studentTrainings">
+                <td>
+                    {{studentTraining.training.name}}
+                </td>
+                <td>
+                    <div class="ui green horizontal label" data-ng-show="isStudentTrainingStatus(studentTraining, 'Active')">Ativo</div>
+                    <div class="ui blue horizontal label" data-ng-show="isStudentTrainingStatus(studentTraining, 'Finished')">Finalizado</div>
+                    <div class="ui horizontal label" data-ng-show="isStudentTrainingStatus(studentTraining, 'Canceled')">Cancelado</div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="ui info message" data-ng-if="!hasStudentTrainings()">
+        Ainda não há treinos associados a esse aluno
+    </div>
+
+
+</form>

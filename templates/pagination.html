@@ -1,0 +1,15 @@
+<div class="ui pagination right floated menu">
+
+    <a class="icon item" data-ng-click="selectPage(tableState.currentPage - 1)"><i class="left chevron icon"></i></a>
+    <div class="item">
+        <div class="ui small input" style="width: 80px">
+            <input type="text" placeholder="{{tableState.currentPage}}" data-ng-enter="selectPage($event)" class="text right aligned">
+        </div>
+        &nbsp;de&nbsp;
+        <div class="ui small input" style="width: 80px">
+            <input type="text" value="{{tableState.numPages}}" readonly class="text right aligned">
+        </div>
+    </div>
+    <a class="icon item" data-ng-click="selectPage(tableState.currentPage + 1)"><i class="right chevron icon"></i></a>
+
+</div>

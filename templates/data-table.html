@@ -1,0 +1,85 @@
+<div class="ui dimmer inverted" data-ng-class="{'active': isLoading}">
+    <div class="ui loader"></div>
+</div>
+
+<div data-ng-show="hasEntitySelected()">
+
+    <!-- Template da toolbar com ações de pesquisa e botão novo -->
+    <div data-ng-include data-src="'templates/toolbar-list.html'"></div>
+
+    <table class="ui basic striped selectable celled table" data-ng-show="!isGridEmpty">
+        <thead>
+        <tr>
+            <th class="one wide" >C&oacute;digo</th>
+            <th class="eleven wide">Nome</th>
+            <th class="four wide"></th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in getSelectedRows(rows) track by $index" >
+            <td class="center aligned">{{row.id}}</td>
+            <td>{{row.name | uppercase}}</td>
+            <td class="center aligned">
+
+                <!-- Ações: somente visíveis para entidade com as respectivas permissões -->
+
+                <i
+                        class="edit blue link popup icon"
+                        data-content="Editar cadastro"
+                        data-position="top center"
+                        data-ng-click="edit(row.id)"
+                        data-ng-show="stateEntity.permissions.edit">
+
+                </i>
+                <i
+                        class="clipboard list purple link popup icon"
+                        data-content="Perfil do aluno"
+                        data-position="top center"
+                        data-ng-click="showStudentProfile(row.id)"
+                        data-ng-show="stateEntity.permissions.dashboard">
+
+                </i>
+                <i
+                        class="arrow alternate circle down red link popup icon"
+                        data-content="Ativar treino"
+                        data-position="top center"
+                        data-ng-click="changeTrainingStatus(row, 'Active')"
+                        data-ng-show="stateEntity.permissions.activate && row.status == 'Waiting'">
+
+                </i>
+                <i
+                        class="arrow alternate circle up green link popup icon"
+                        data-content="Desativar treino"
+                        data-position="top center"
+                        data-ng-click="changeTrainingStatus(row, 'Waiting')"
+                        data-ng-show="stateEntity.permissions.activate && row.status == 'Active'">
+
+                </i>
+                <i
+                        class="times red link popup icon"
+                        data-content="Exluir cadastro"
+                        data-position="top center"
+                        data-ng-click="delete(row)"
+                        data-ng-show="stateEntity.permissions.delete">
+                </i>
+
+            </td>
+
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3" data-ng-if="tableState.numPages > 2">
+                <!-- Template de paginação -->
+                <div data-ng-include data-src="'templates/pagination.html'"></div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <div class="ui info message" data-ng-show="isGridEmpty">
+        Nenhum registro encontrado
+    </div>
+
+</div>

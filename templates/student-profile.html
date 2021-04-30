@@ -1,0 +1,68 @@
+<h2 class="ui header">
+    <i class="settings  icon"></i>
+    <div class="content">
+        {{entity.name | uppercase}}
+        <div class="sub header">Perfil do aluno - gerencie aqui os seus treinos</div>
+    </div>
+</h2>
+<div class="ui divider"></div>
+
+
+<div class="ui info message" data-ng-show="!(entity.studentTrainings.length > 0)">
+    Ainda não há exercícios associados a você
+</div>
+<div class="ui styled accordion" data-ng-show="entity.studentTrainings.length > 0">
+    <div data-ng-repeat="studentTraining in entity.studentTrainings">
+        <div class="title" data-ng-class="{'active': isStudentTraining(studentTraining, 'Active')}">
+
+
+            <table class="ui table">
+                <tr>
+                    <td><i class="dropdown icon"></i> {{studentTraining.training.name}}</td>
+                    <td class="ui right aligned"><small  class="ui green horizontal label right floated" data-ng-show="isStudentTrainingStatus(studentTraining, 'Active')">Ativo</small>
+                        <small class="ui blue horizontal label right floated" data-ng-show="isStudentTrainingStatus(studentTraining, 'Finished')">Finalizado</small>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="content" data-ng-class="{'active': isStudentTrainingStatus(studentTraining, 'Active')}">
+            <table class="ui basic selectable compact table">
+                <thead>
+                <tr>
+                    <th class="eight wide">Exercício</th>
+                    <th class="four wide">Repetições</th>
+                    <th class="three wide">Finalizar</th>
+                    <th class="three wide">Pular</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="studentTrainingExercise in studentTraining.studentTrainingExercises">
+                    <td>
+                        {{studentTrainingExercise.trainingExercise.exercise.name}}
+                    </td>
+                    <td>
+                        {{studentTrainingExercise.trainingExercise.numberOfSessions}}
+                    </td>
+                    <td>
+                        <div class="ui fitted toggle disabled checkbox" data-ng-click="changeStudentTrainingExerciseStatus(studentTrainingExercise, studentTraining, 'Finished')">
+                            <input
+                                    type="checkbox"
+                                    data-ng-checked="studentTrainingExercise.status == 'Finished'">
+                            <label></label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ui fitted toggle disabled checkbox" data-ng-click="changeStudentTrainingExerciseStatus(studentTrainingExercise, studentTraining, 'Skiped')">
+                            <input
+                                    type="checkbox"
+                                    data-ng-checked="studentTrainingExercise.status == 'Skiped'">
+                            <label></label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
