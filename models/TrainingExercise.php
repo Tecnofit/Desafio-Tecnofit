@@ -19,24 +19,28 @@ class TrainingExercise extends ORMMapper {
 
     function findById($id)
     {
-        $data = parent::findById($id);
+        $trainingExercise = parent::findById($id);
         $exercise = new Exercise();
-        $data->exercise = $exercise->findById($data->exerciseId);
 
-        return $data;
+        // carrega dependência: exercise associado
+        $trainingExercise->exercise = $exercise->findById($trainingExercise->exerciseId);
+
+        return $trainingExercise;
     }
 
     function findByProperty($propertyName, $propertyValue)
     {
-        $data = parent::findByProperty($propertyName, $propertyValue);
+        $trainingExercises = parent::findByProperty($propertyName, $propertyValue);
 
-        foreach ($data as $d) {
+        foreach ($trainingExercises as $trainingExercise) {
             $exercise = new Exercise();
-            $d->numberOfSessions = intval($d->numberOfSessions);
-            $d->exercise = $exercise->findById($d->exerciseId);
+            $trainingExercise->numberOfSessions = intval($trainingExercise->numberOfSessions);
+
+            // carrega dependência: exercise associado
+            $trainingExercise->exercise = $exercise->findById($trainingExercise->exerciseId);
         }
 
-        return $data;
+        return $trainingExercises;
     }
 
     function save($data = null) {

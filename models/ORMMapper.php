@@ -1,13 +1,28 @@
 <?php
 
+/*
+ * Código copiado em partes a partir da solução apresentada no link:
+ * https://codereview.stackexchange.com/questions/169345/building-a-simple-orm-in-php
+ */
 
 require_once dirname(__FILE__) . "/../interfaces/MapperInterface.php";
 require_once dirname(__FILE__) . "/../db/MysqlAdapter.php";
 
+/*
+ * ORM primitivo porém funcional. É herdada por todos os models da aplicação
+ * Através de chamadas à classe MysqlAdaptar, Implementa as funções
+ *
+ *  - findAll
+ *  - findById
+ *  - findByProperty
+ *  - save
+ *  - delete
+ */
+
 class ORMMapper implements MapperInterface
 {
 
-    private $_tableName = '';
+    private $_tableName = ''; // nome da tabela trabalhada
 
     private $_adapter;
 
@@ -47,8 +62,11 @@ class ORMMapper implements MapperInterface
     function save($data = null)
     {
         $fields = $this->_adapter->fetchFields($this->_adapter->getTableColuns($this->_tableName));
+
+        // se objeto possui id, é update
         if (isset($this->id) && $this->id != null)
             $this->_adapter->update($this->_tableName, $fields, (array)$this, ['id' => ['=', $this->id, '']]);
+        // senão, é insert
         else
             $this->id = $this->_adapter->insert($this->_tableName, $fields, (array)$this);
 

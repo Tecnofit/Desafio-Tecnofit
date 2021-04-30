@@ -1,5 +1,6 @@
-<h3 class="ui header">Treino - cadastro</h3>
+<h2 class="ui header">Treino</h2>
 
+<!-- Template de toolbar -->
 <div data-ng-include data-src="'templates/toolbar-edit.html'"></div>
 
 <div class="ui divider"></div>
@@ -16,9 +17,17 @@
             <div class="fields">
                 <div class="eight wide field">
                     <label>Exercício</label>
-                    <select name="ddlExercicios" data-ng-options="exercise.id as exercise.name for exercise in exercises" data-ng-model="newTrainingExercise.exerciseId">
-                        <option value="">-- selecione --</option>
+                    <select
+                            name="ddlExercises"
+                            class="ui dropdown"
+                            data-ng-options="exercise.id as exercise.name for exercise in exercises"
+                            data-ng-model="newTrainingExercise.exerciseId">
+
+                            <option value="">Selecione</option>
                     </select>
+
+
+
                 </div>
                 <div class="four wide field">
                     <label>Repetições</label>

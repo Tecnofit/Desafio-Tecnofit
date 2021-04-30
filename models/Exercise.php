@@ -1,6 +1,7 @@
 <?php
 
 require_once "ORMMapper.php";
+require_once "Training.php";
 
 class Exercise extends ORMMapper {
     private $tableName = 'exercises';
@@ -12,6 +13,25 @@ class Exercise extends ORMMapper {
         parent::setTableName($this->tableName);
         parent::__construct();
 
+    }
+
+    function delete($data = null)
+    {
+        $trainingModel = new Training();
+
+        $trainings = $trainingModel->findByProperty("status", "'Active'");
+
+        foreach ($trainings as $training) {
+
+            foreach ($training->trainingExercises as $trainingExercise) {
+
+                if($trainingExercise->exerciseId == $data->id)
+                    throw new Exception('não é possível excluir um exercício que faz parte de um treino ativo');
+
+            }
+        }
+
+        return parent::delete($data);
     }
 
     function save($data = null) {

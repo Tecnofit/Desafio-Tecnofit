@@ -14,13 +14,21 @@
            <div class="column">
                <div class="ui raised segment secondary grid row frame-content" >
                    <div class="three wide column" >
+                        <!-- Template de navegação da lateral esquerda-->
                        <div data-ng-include data-src="'templates/nav-bar.html'"></div>
                    </div>
                    <div class="thirteen wide column " data-ng-class="{'ui segment': hasEntitySelected()}" >
+
+                       <!-- Template de datatable -->
                        <div data-ng-include data-src="'templates/data-table.html'" data-ng-show="isAction('list')"></div>
+                       <!-- Template de edição de estudantes -->
                        <div data-ng-include data-src="'templates/student-edit.html'" data-ng-show="isEntity('students') && isAction('edit')"></div>
+                       <!-- Template de edição exercícios estudantes -->
                        <div data-ng-include data-src="'templates/exercise-edit.html'" data-ng-show="isEntity('exercises') && isAction('edit')"></div>
+                       <!-- Template de edição exercícios treinos -->
                        <div data-ng-include data-src="'templates/training-edit.html'" data-ng-show="isEntity('trainings') && isAction('edit')"></div>
+                       <!-- Template de visualização do perfil do aluno -->
+                       <div data-ng-include data-src="'templates/student-profile.html'" data-ng-show="isEntity('students') && isAction('profile')"></div>
                    </div>
                </div>
            </div>

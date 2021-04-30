@@ -18,47 +18,82 @@ class Training extends ORMMapper {
 
     }
 
-    function findById($id)
+    function findAll()
     {
-        $data = parent::findById($id);
+        $trainings = parent::findAll();
 
-        $trainingExercise = new TrainingExercise();
-        foreach ($trainingExercise->findByProperty("trainingId", $id) as $trainingExercise) {
-
-            $data->trainingExercises[] = $trainingExercise;
+        // para cada item, carrega os trainingExercises associados
+        foreach ($trainings as $training) {
+            $training->trainingExercises = self::getTrainingExercises($training->id);
         }
 
-        return $data;
+        return $trainings;
+
+    }
+
+    function findByProperty($propertyName, $propertyValue)
+    {
+        $trainings = parent::findByProperty($propertyName, $propertyValue);
+
+        // para cada item, carrega os trainingExercises associados
+        foreach ($trainings as $training) {
+            $training->trainingExercises = self::getTrainingExercises($training->id);
+        }
+
+        return $trainings;
+    }
+
+
+    function findById($id)
+    {
+        $training = parent::findById($id);
+
+        // carrega os trainingExercises associados
+        $training->trainingExercises = self::getTrainingExercises($id);
+
+        return $training;
+    }
+
+    function getTrainingExercises($trainingId) {
+        $trainingExercises = array();
+        $trainingExercise = new TrainingExercise();
+        foreach ($trainingExercise->findByProperty("trainingId", $trainingId) as $te) {
+            $trainingExercises[] = $te;
+        }
+
+        return $trainingExercises;
     }
 
     function save($data = null) {
         $invalidStateMessage = null;
+
+        /* valida informações antes de salvar */
         if(!isset($data->name))
             $invalidStateMessage = "nome do treino é obrigatório";
 
         if(!$invalidStateMessage) {
             if (isset($data->id))
-                $this->id = $data->id;
+                $this->id = $data->id; // se tem id, é update
 
             $this->name = $data->name;
 
-            if(!isset($data->status))
+            if(!isset($data->status)) // se não tem status, atribui default
                 $this->status = "Waiting";
             else
                 $this->status = $data->status;
 
-            parent::save();
+            parent::save(); // salva
 
+            $this->trainingExercises = array();
             if (isset($data->trainingExercises)) {
-                foreach ($data->trainingExercises as $te) {
 
+                // para cada trainingExercises associado ao training, faz o salvamento
+                foreach ($data->trainingExercises as $te) {
                     $te->trainingId = $this->id;
                     $trainingExercise = new TrainingExercise();
                     $trainingExercise->save($te);
                     $te->id = $trainingExercise->id;
                     $this->trainingExercises[] = $trainingExercise;
-
-
                 }
             }
         }

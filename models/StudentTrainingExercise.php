@@ -2,7 +2,7 @@
 
 require_once "ORMMapper.php";
 require_once "TrainingExercise.php";
-require_once "StudentTraining.php";
+require_once "Exercise.php";
 
 class StudentTrainingExercise extends ORMMapper {
     private $tableName = 'studentTrainingExercises';
@@ -20,13 +20,16 @@ class StudentTrainingExercise extends ORMMapper {
 
     function findByProperty($propertyName, $propertyValue)
     {
-        $data = parent::findByProperty($propertyName, $propertyValue);
-        foreach ($data as $d) {
+        $studentTrainingExercises = parent::findByProperty($propertyName, $propertyValue);
+
+        // para cada item, carrega dependências: trainingExercise associado
+        foreach ($studentTrainingExercises as $studentTrainingExercise) {
             $trainingExercise = new TrainingExercise();
-            $d->trainingExercise = $trainingExercise->findById($d->trainingExerciseId);
+            $studentTrainingExercise->trainingExercise = $trainingExercise->findById($studentTrainingExercise->trainingExerciseId);
+
         }
 
-        return $data;
+        return $studentTrainingExercises;
     }
 
     function save($data = null) {
@@ -40,7 +43,7 @@ class StudentTrainingExercise extends ORMMapper {
 
         if(!$invalidStateMessage) {
             if (isset($data->id))
-                $this->id = $data->id;
+                $this->id = $data->id; // se tem id, é update
 
             $this->studentTrainingId = $data->studentTrainingId;
             $this->trainingExerciseId = $data->trainingExerciseId;

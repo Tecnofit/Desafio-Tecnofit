@@ -1,7 +1,21 @@
 <?php
 
+/*
+ * Código copiado em partes a partir da solução apresentada no link:
+ * https://codereview.stackexchange.com/questions/169345/building-a-simple-orm-in-php
+ */
+
 require_once dirname(__FILE__) ."/../interfaces/DatabaseInterface.php";
 
+/*
+ * Classe que encapsula as funções
+ *
+ *  - Conexão com a base de dados
+ *  - Função genérica para realização de insert
+ *  - Função genérica para realização de update
+ *  - Função genérica para realização de select
+ *  - Função genérica para realização de soft delete
+ */
 class MysqlAdapter implements DatabaseInterface
 {
     private $host;
@@ -14,6 +28,7 @@ class MysqlAdapter implements DatabaseInterface
 
     function __construct()
     {
+        // carrega os dados para conexão com o banco a partir do contido no arquivo config.ini
         $connectionConfig = parse_ini_file('config.ini', true);
 
         $this->host = $connectionConfig["host"] ;
@@ -30,6 +45,7 @@ class MysqlAdapter implements DatabaseInterface
         if ($this->_mysqli->connect_error) {
             return false;
         }
+
         return true;
     }
 
@@ -51,11 +67,13 @@ class MysqlAdapter implements DatabaseInterface
                 $insertValues[] = $values[$column];
         }
 
+        // as colunas createdAt e modifiedAt (presentes em todas as tabelas), caso estejam nos parametros do insert, são removidas
         foreach ($columns as $index => $column) {
             if($column == "createdAt" || $column == "modifiedAt" || $column == "deletedAt")
                 unset($columns[$index]);
         }
 
+        // as colunas createdAt e modifiedAt (presentes em todas as tabelas), são setadas no momento do insert
         $columns[] = "createdAt";
         $columns[] = "modifiedAt";
         $insertValues[] = date("Y-m-d H:i:s");
@@ -80,6 +98,7 @@ class MysqlAdapter implements DatabaseInterface
             $updateValues[] = $values[$column];
         }
 
+        // as colunas createdAt, modifiedAt e deletedAt (presentes em todas as tabelas), caso estejam nos parametros do insert, são removidas
         foreach ($columns as $index => $column) {
             if($column == "createdAt" || $column == "modifiedAt" || $column == "deletedAt") {
                 unset($columns[$index]);
@@ -89,6 +108,8 @@ class MysqlAdapter implements DatabaseInterface
                 $updateValues = array_values($updateValues);
             }
         }
+
+        // as colunas createdAt (presentes em todas as tabelas), são setadas no momento do update
         $columns[] = "modifiedAt";
         $updateValues[] = date("Y-m-d H:i:s");
 
@@ -104,10 +125,6 @@ class MysqlAdapter implements DatabaseInterface
 
     }
 
-    function getTableColuns($tableName) {
-        return $this->_mysqli->query("SELECT * FROM $tableName LIMIT 1");
-    }
-
     function select($tableName, $columns, $conditions, $limit = null, $offset = null)
     {
         $query = "SELECT $columns FROM $tableName";
@@ -121,6 +138,7 @@ class MysqlAdapter implements DatabaseInterface
         if (isset($limit) && isset($offset)) {
             $query .= "LIMIT $limit OFFSET $offset";
         }
+
         $result = $this->_mysqli->query($query);
         $response = [];
 
@@ -132,6 +150,7 @@ class MysqlAdapter implements DatabaseInterface
         return $response;
     }
 
+    // executa do soft delete
     function delete($tableName, $conditions)
     {
         $whereString = $this->generateWhereString($conditions);
@@ -143,6 +162,11 @@ class MysqlAdapter implements DatabaseInterface
             throw new Exception("falha ao exluir registro: " . $this->_mysqli->error);
     }
 
+    function getTableColuns($tableName) {
+        return $this->_mysqli->query("SELECT * FROM $tableName LIMIT 1");
+    }
+
+    // formata string a ser utilizada no UPDATE em função dos pares chave => valor
     function generateUpdateString($keys, $values)
     {
         $len = count($keys);
@@ -154,10 +178,10 @@ class MysqlAdapter implements DatabaseInterface
             }
 
         }
-
         return implode(",", $buildString);
     }
 
+    // formata string a ser utilizada no WHERE em função dos pares chave => valor
     public function generateWhereString($arrayValues)
     {
         $buildString = '';
@@ -166,6 +190,7 @@ class MysqlAdapter implements DatabaseInterface
         }
         return $buildString;
     }
+
 
     function fetchFields($queryResult)
     {

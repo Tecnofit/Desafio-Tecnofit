@@ -4,8 +4,8 @@
 
 <div data-ng-show="hasEntitySelected()">
 
+    <!-- Template da toolbar com ações de pesquisa e botão novo -->
     <div data-ng-include data-src="'templates/toolbar-list.html'"></div>
-
 
     <table class="ui basic striped selectable celled table" data-ng-show="!isGridEmpty">
         <thead>
@@ -22,6 +22,8 @@
             <td>{{row.name | uppercase}}</td>
             <td class="center aligned">
 
+                <!-- Ações: somente visíveis para entidade com as respectivas permissões -->
+
                 <i
                         class="edit blue link popup icon"
                         data-content="Editar cadastro"
@@ -31,30 +33,26 @@
 
                 </i>
                 <i
-                        class="chart line green link popup icon"
-                        data-content="Ver/Vincular treinos"
-                        data-position="top center"
-                        data-ng-show="stateEntity.permissions.trainings">
-
-                </i>
-                <i
                         class="clipboard list purple link popup icon"
-                        data-content="Ambiente do aluno"
+                        data-content="Perfil do aluno"
                         data-position="top center"
+                        data-ng-click="showStudentProfile(row.id)"
                         data-ng-show="stateEntity.permissions.dashboard">
 
                 </i>
                 <i
-                        class="thumbs up green link popup icon"
+                        class="arrow alternate circle down red link popup icon"
                         data-content="Ativar treino"
                         data-position="top center"
+                        data-ng-click="changeTrainingStatus(row, 'Active')"
                         data-ng-show="stateEntity.permissions.activate && row.status == 'Waiting'">
 
                 </i>
                 <i
-                        class="thumbs down red link popup icon"
+                        class="arrow alternate circle up green link popup icon"
                         data-content="Desativar treino"
                         data-position="top center"
+                        data-ng-click="changeTrainingStatus(row, 'Waiting')"
                         data-ng-show="stateEntity.permissions.activate && row.status == 'Active'">
 
                 </i>
@@ -73,6 +71,7 @@
         <tfoot>
         <tr>
             <td colspan="3" data-ng-if="tableState.numPages > 2">
+                <!-- Template de paginação -->
                 <div data-ng-include data-src="'templates/pagination.html'"></div>
             </td>
         </tr>
@@ -80,7 +79,7 @@
     </table>
 
     <div class="ui info message" data-ng-show="isGridEmpty">
-        Ainda não há exercícios associados a esse treino
+        Nenhum registro encontrado
     </div>
 
 </div>
