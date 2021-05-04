@@ -9,8 +9,8 @@ services:
         - .:/application
       environment:
         - MYSQL_ROOT_PASSWORD=root
-        - MYSQL_DATABASE=professor
-        - MYSQL_USER=academia_tecnofit
+        - MYSQL_DATABASE=academia_tecnofit
+        - MYSQL_USER=professor
         - MYSQL_PASSWORD=tecnofit
       ports:
         - "8082:3306"
