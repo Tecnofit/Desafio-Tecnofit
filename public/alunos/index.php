@@ -97,7 +97,8 @@ $todosAlunos = $alunos->index();
                                             </i>
                                             Editar
                                         </a>
-                                        <a class="btn btn-danger btn-sm" href="#">
+                                        <a class="btn btn-danger btn-sm"
+                                           href="<?php echo sprintf("delete.php?id=%s", $aluno['aluno_id']) ?>">
                                             <i class="fas fa-trash">
                                             </i>
                                             Deletar

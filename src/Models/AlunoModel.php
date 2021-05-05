@@ -49,4 +49,16 @@ class AlunoModel extends Database
         $this->database->query(sprintf($query, $aluno['nome'], $aluno['email'], $aluno['treino'], $id));
     }
 
+
+    protected function deletarAluno(int $id) : void
+    {
+        $query = "
+            UPDATE Aluno
+            SET ativo = 0
+            WHERE id = %s
+        ";
+
+        $this->database->query(sprintf($query, $id));
+    }
+
 }

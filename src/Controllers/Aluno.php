@@ -27,4 +27,10 @@ class Aluno extends AlunoModel
     }
 
 
+    public function delete(int $aluno_id) : void
+    {
+        $this->deletarAluno($aluno_id);
+    }
+
+
 }
