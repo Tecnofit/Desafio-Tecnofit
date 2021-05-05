@@ -1,17 +1,3 @@
-<?php
-    use Tecnofit\Models\UsuarioModel;
-
-    ini_set('display_errors',1);
-    ini_set('display_startup_erros',1);
-    error_reporting(E_ALL);
-
-    require_once __DIR__ . "/../vendor/autoload.php";
-
-    $usuario = new UsuarioModel();
-    $user = $usuario->teste();
-    exit();
-
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

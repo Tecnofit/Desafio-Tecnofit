@@ -22,7 +22,7 @@ class Database
     }
 
 
-    public function findWhere()
+    protected function findWhere()
     {
         $query = "SELECT * FROM Aluno";
         $data = $this->database->query($query);
