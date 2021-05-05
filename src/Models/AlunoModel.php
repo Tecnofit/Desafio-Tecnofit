@@ -23,7 +23,11 @@ class AlunoModel extends Database
     protected function getAlunoById(int $id) : array
     {
         $query = "
-        SELECT Aluno.nome AS aluno_nome, Aluno.email as aluno_email, Treino.nome AS treino, Aluno.id as aluno_id 
+        SELECT Aluno.nome AS aluno_nome, 
+               Aluno.email AS aluno_email,  
+               Aluno.treino_id AS treino_id, 
+               Aluno.id AS aluno_id,
+               Treino.nome AS treino
         FROM Aluno
         JOIN Treino ON Aluno.treino_id = Treino.id
         WHERE Aluno.ativo = 1
@@ -32,4 +36,17 @@ class AlunoModel extends Database
 
         return $this->database->query(sprintf($query, $id))->fetchAll();
     }
+
+
+    protected function updateAluno(array $aluno, int $id) : void
+    {
+        $query = "
+           UPDATE Aluno
+           SET nome='%s', email='%s', treino_id=%s
+           WHERE id = %s;
+        ";
+
+        $this->database->query(sprintf($query, $aluno['nome'], $aluno['email'], $aluno['treino'], $id));
+    }
+
 }

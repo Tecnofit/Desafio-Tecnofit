@@ -1,5 +1,4 @@
 <?php
-
 use Tecnofit\Controllers\Aluno;
 use Tecnofit\Controllers\Treino;
 
@@ -8,8 +7,16 @@ require_once __DIR__ . "/../../vendor/autoload.php";
 $aluno = new Aluno();
 $treino = new Treino();
 
+if (empty($_GET['id'])) { header("location:index.php"); }
+
 $alunoID = $aluno->edit($_GET['id']);
 $todosTreinos = $treino->getAllTreinos();
+
+if (!empty($_POST)) {
+    $aluno->update($_POST, $alunoID[0]['aluno_id']);
+    header("location:index.php");
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -41,20 +48,20 @@ $todosTreinos = $treino->getAllTreinos();
                             <h2>Editar<strong>Aluno</strong></h2>
                         </div>
                     </div>
-                    <div class="col-7">
+                    <form class="col-7" method="post">
                         <div class="form-group">
                             <label for="inputName">Nome</label>
-                            <input type="text" id="inputName" class="form-control"
+                            <input type="text" name="nome" id="inputName" class="form-control"
                                    value="<?php echo $alunoID[0]['aluno_nome']; ?>">
                         </div>
                         <div class="form-group">
                             <label for="inputEmail">E-Mail</label>
-                            <input type="email" id="inputEmail" class="form-control"
+                            <input type="email" name="email" id="inputEmail" class="form-control"
                                    value="<?php echo $alunoID[0]['aluno_email']; ?>">
                         </div>
                         <div class="form-group">
                             <label for="inputSubject">Treino</label>
-                            <select class="custom-select rounded-0" id="exampleSelectRounded0">
+                            <select name="treino" class="custom-select rounded-0">
                                 <option disabled>Selecione...</option>
                                 <?php if (!empty($todosTreinos)) {
                                     foreach ($todosTreinos as $treinos) { ?>
@@ -69,7 +76,7 @@ $todosTreinos = $treino->getAllTreinos();
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Enviar">
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>

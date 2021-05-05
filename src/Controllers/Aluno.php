@@ -21,4 +21,10 @@ class Aluno extends AlunoModel
     }
 
 
+    public function update(array $aluno, int $id): void
+    {
+        $this->updateAluno($aluno, $id);
+    }
+
+
 }
