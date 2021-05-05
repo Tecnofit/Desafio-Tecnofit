@@ -1,16 +1,6 @@
 <?php
 require_once __DIR__ . "/../vendor/autoload.php";
 
-$treino = new \Tecnofit\Models\UsuarioModel();
-$treinoAtual = $treino->getTreino();
-$idAtual = 0;
-
-
-if ($_GET['idExercicio']) {
-    $idAtual = $_GET['idExercicio'];
-}
-
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

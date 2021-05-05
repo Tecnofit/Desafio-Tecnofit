@@ -1,3 +1,10 @@
+<?php
+require_once __DIR__ . "/../vendor/autoload.php";
+
+$users = new \Tecnofit\Controllers\Users();
+$allUsers = $users->index();
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,7 +20,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Sistema de Gestão - Tecnofit</h1>
+                        <h1 class="m-0">Usuarios - Tecnofit</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -25,7 +32,6 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Projects</h3>
-
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>
@@ -56,41 +62,46 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                #
-                            </td>
-                            <td>
-                                <a>
-                                   Hiago Klapowsko
-                                </a>
-                            </td>
-                            <td class="project_progress">
-                                <small>
-                                    Treino Funcional
-                                </small>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-success">Ativo</span>
-                            </td>
-                            <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="#">
-                                    <i class="fas fa-folder">
-                                    </i>
-                                    View
-                                </a>
-                                <a class="btn btn-info btn-sm" href="#">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
-                                    Editar
-                                </a>
-                                <a class="btn btn-danger btn-sm" href="#">
-                                    <i class="fas fa-trash">
-                                    </i>
-                                    Deletar
-                                </a>
-                            </td>
-                        </tr>
+                        <?php if (!empty($allUsers)) {
+                            foreach ($allUsers as $users) { ?>
+                                <tr>
+                                    <td>
+                                        #
+                                    </td>
+                                    <td>
+                                        <a>
+                                            <?php echo $users['aluno']; ?>
+                                        </a>
+                                    </td>
+                                    <td class="project_progress">
+                                        <small>
+                                            <?php echo $users['treino']; ?>
+                                        </small>
+                                    </td>
+                                    <td class="project-state">
+                                        <span class="badge badge-success">Ativo</span>
+                                    </td>
+                                    <td class="project-actions text-right">
+                                        <a class="btn btn-primary btn-sm"
+                                           href="<?php echo sprintf("usuarios-view.php?idUsuario=%s", $users['aluno_id']) ?>">
+                                            <i class="fas fa-folder">
+                                            </i>
+                                            View
+                                        </a>
+                                        <a class="btn btn-info btn-sm" href="#">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Editar
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#">
+                                            <i class="fas fa-trash">
+                                            </i>
+                                            Deletar
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div>
