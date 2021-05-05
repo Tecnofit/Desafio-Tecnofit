@@ -1,11 +1,16 @@
 <?php
 
 use Tecnofit\Controllers\Aluno;
+use Tecnofit\Controllers\Treino;
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 
 $aluno = new Aluno();
-$alunoID = $aluno->index();
+$treino = new Treino();
+
+$alunoID = $aluno->edit($_GET['id']);
+$todosTreinos = $treino->getAllTreinos();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -38,23 +43,31 @@ $alunoID = $aluno->index();
                     </div>
                     <div class="col-7">
                         <div class="form-group">
-                            <label for="inputName">Name</label>
-                            <input type="text" id="inputName" class="form-control">
+                            <label for="inputName">Nome</label>
+                            <input type="text" id="inputName" class="form-control"
+                                   value="<?php echo $alunoID[0]['aluno_nome']; ?>">
                         </div>
                         <div class="form-group">
                             <label for="inputEmail">E-Mail</label>
-                            <input type="email" id="inputEmail" class="form-control">
+                            <input type="email" id="inputEmail" class="form-control"
+                                   value="<?php echo $alunoID[0]['aluno_email']; ?>">
                         </div>
                         <div class="form-group">
-                            <label for="inputSubject">Subject</label>
-                            <input type="text" id="inputSubject" class="form-control">
+                            <label for="inputSubject">Treino</label>
+                            <select class="custom-select rounded-0" id="exampleSelectRounded0">
+                                <option disabled>Selecione...</option>
+                                <?php if (!empty($todosTreinos)) {
+                                    foreach ($todosTreinos as $treinos) { ?>
+                                        <option value="<?php echo $treinos['id']; ?>"
+                                            <?= $treinos['id'] == $alunoID[0]['treino_id'] ? "selected" : ""; ?>>
+                                            <?php echo $treinos['nome'] ?>
+                                        </option>
+                                    <?php } ?>
+                                <?php } ?>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="inputMessage">Message</label>
-                            <textarea id="inputMessage" class="form-control" rows="4"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Send message">
+                            <input type="submit" class="btn btn-primary" value="Enviar">
                         </div>
                     </div>
                 </div>
