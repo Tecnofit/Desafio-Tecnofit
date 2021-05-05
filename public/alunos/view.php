@@ -1,16 +1,16 @@
 <?php
-require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php include_once __DIR__ . "/includes/head.php"; ?>
+    <?php include_once __DIR__ . "/../includes/head.php"; ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <?php include_once __DIR__ . "/includes/navbar.php"; ?>
-    <?php include_once __DIR__ . "/includes/sidebar.php"; ?>
+    <?php include_once __DIR__ . "/../includes/navbar.php"; ?>
+    <?php include_once __DIR__ . "/../includes/sidebar.php"; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="content-header">
@@ -67,8 +67,8 @@ require_once __DIR__ . "/../vendor/autoload.php";
             </div>
     </section>
 </div>
-<?php include_once __DIR__ . "/includes/footer.php"; ?>
+<?php include_once __DIR__ . "/../includes/footer.php"; ?>
 </div>
-<?php include_once __DIR__ . "/includes/scripts.php" ?>
+<?php include_once __DIR__ . "/../includes/scripts.php" ?>
 </body>
 </html>

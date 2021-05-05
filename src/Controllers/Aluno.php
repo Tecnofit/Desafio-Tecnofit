@@ -1,9 +1,9 @@
 <?php
 namespace Tecnofit\Controllers;
 
-use Tecnofit\Models\UserModel;
+use Tecnofit\Models\AlunoModel;
 
-class Users extends UserModel
+class Aluno extends AlunoModel
 {
     public function index()
     {

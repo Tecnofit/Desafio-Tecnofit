@@ -1,19 +1,22 @@
 <?php
-require_once __DIR__ . "/../vendor/autoload.php";
 
-$users = new \Tecnofit\Controllers\Users();
-$allUsers = $users->index();
+use Tecnofit\Controllers\Aluno;
+
+require_once __DIR__ . "/../../vendor/autoload.php";
+
+$alunos = new Aluno();
+$todosAlunos = $alunos->index();
 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php include_once __DIR__ . "/includes/head.php"; ?>
+    <?php include_once __DIR__ . "/../includes/head.php"; ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <?php include_once __DIR__ . "/includes/navbar.php"; ?>
-    <?php include_once __DIR__ . "/includes/sidebar.php"; ?>
+    <?php include_once __DIR__ . "/../includes/navbar.php"; ?>
+    <?php include_once __DIR__ . "/../includes/sidebar.php"; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="content-header">
@@ -62,20 +65,20 @@ $allUsers = $users->index();
                         </tr>
                         </thead>
                         <tbody>
-                        <?php if (!empty($allUsers)) {
-                            foreach ($allUsers as $users) { ?>
+                        <?php if (!empty($todosAlunos)) {
+                            foreach ($todosAlunos as $aluno) { ?>
                                 <tr>
                                     <td>
                                         #
                                     </td>
                                     <td>
                                         <a>
-                                            <?php echo $users['aluno']; ?>
+                                            <?php echo $aluno['aluno']; ?>
                                         </a>
                                     </td>
                                     <td class="project_progress">
                                         <small>
-                                            <?php echo $users['treino']; ?>
+                                            <?php echo $aluno['treino']; ?>
                                         </small>
                                     </td>
                                     <td class="project-state">
@@ -83,12 +86,13 @@ $allUsers = $users->index();
                                     </td>
                                     <td class="project-actions text-right">
                                         <a class="btn btn-primary btn-sm"
-                                           href="<?php echo sprintf("usuarios-view.php?idUsuario=%s", $users['aluno_id']) ?>">
+                                           href="<?php echo sprintf("usuarios-view.php?id=%s", $aluno['aluno_id']) ?>">
                                             <i class="fas fa-folder">
                                             </i>
                                             View
                                         </a>
-                                        <a class="btn btn-info btn-sm" href="#">
+                                        <a class="btn btn-info btn-sm"
+                                           href="<?php echo sprintf("edit.php?id=%s", $aluno['aluno_id']) ?>">
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Editar
@@ -108,8 +112,8 @@ $allUsers = $users->index();
             </div>
         </section>
     </div>
-    <?php include_once __DIR__ . "/includes/footer.php"; ?>
+    <?php include_once __DIR__ . "/../includes/footer.php"; ?>
 </div>
-<?php include_once __DIR__ . "/includes/scripts.php" ?>
+<?php include_once __DIR__ . "/../includes/scripts.php" ?>
 </body>
 </html>
