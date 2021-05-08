@@ -22,7 +22,7 @@ $todosAlunos = $alunos->index();
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Usuarios - Tecnofit</h1>
+                        <h1 class="m-0">Treinos - Tecnofit</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->

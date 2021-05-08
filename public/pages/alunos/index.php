@@ -2,7 +2,7 @@
 
 use Tecnofit\Controllers\Aluno;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
+require_once __DIR__ . "/../../../vendor/autoload.php";
 
 $alunos = new Aluno();
 $todosAlunos = $alunos->index();
@@ -10,19 +10,19 @@ $todosAlunos = $alunos->index();
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php include_once __DIR__ . "/../includes/head.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/head.php"; ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <?php include_once __DIR__ . "/../includes/navbar.php"; ?>
-    <?php include_once __DIR__ . "/../includes/sidebar.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/navbar.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/sidebar.php"; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Usuarios - Tecnofit</h1>
+                        <h1 class="m-0">Alunos - Tecnofit</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -106,8 +106,8 @@ $todosAlunos = $alunos->index();
             </div>
         </section>
     </div>
-    <?php include_once __DIR__ . "/../includes/footer.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/footer.php"; ?>
 </div>
-<?php include_once __DIR__ . "/../includes/scripts.php" ?>
+<?php include_once __DIR__ . "/../../includes/scripts.php" ?>
 </body>
 </html>
