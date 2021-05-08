@@ -86,7 +86,7 @@ $todosAlunos = $alunos->index();
                                     </td>
                                     <td class="project-actions text-right">
                                         <a class="btn btn-primary btn-sm"
-                                           href="<?php echo sprintf("usuarios-view.php?id=%s", $aluno['aluno_id']) ?>">
+                                           href="<?php echo sprintf("view.php?id=%s", $aluno['aluno_id']) ?>">
                                             <i class="fas fa-folder">
                                             </i>
                                             View

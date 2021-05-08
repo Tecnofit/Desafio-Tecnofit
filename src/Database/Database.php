@@ -26,18 +26,4 @@ class Database
             print_r("Error to connection database : ". $e->getMessage());
         }
     }
-
-
-    protected function findWhere()
-    {
-        $query = "
-            SELECT Exercicios.nome as exercicio, Treino.nome as treino, Treino_Exercicios.repeticoes as repeticoes
-            FROM Exercicios
-            JOIN Treino_Exercicios ON Treino_Exercicios.id_exercicios = Exercicios.id
-            JOIN Treino ON Treino.id = Treino_Exercicios.id_treino
-            JOIN Aluno ON Treino.id = Aluno.treino_id
-            WHERE Aluno.treino_id = 1";
-        $data = $this->database->query($query);
-        return $data->fetchAll();
-    }
 }

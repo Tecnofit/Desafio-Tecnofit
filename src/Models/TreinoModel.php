@@ -14,4 +14,21 @@ class TreinoModel extends Database
 
         return $this->database->query($query)->fetchAll();
     }
+
+    public function getTreinoByAlunoID(int $id) : array
+    {
+        $query = "
+          SELECT Exercicios.nome as exercicio, 
+                 Treino.nome as treino, 
+                 Treino_Exercicios.repeticoes as repeticoes
+            FROM Exercicios
+            JOIN Treino_Exercicios ON Treino_Exercicios.id_exercicios = Exercicios.id
+            JOIN Treino ON Treino.id = Treino_Exercicios.id_treino
+            JOIN Aluno ON Treino.id = Aluno.treino_id
+            WHERE Aluno.treino_id = %s";
+
+        return $this->database->query(sprintf($query, $id))->fetchAll();
+    }
+
+
 }
