@@ -17,9 +17,25 @@ class Exercicios extends ExerciciosModel
         return $url_retorno . sprintf("&id_exercicio=%s", $exercicioID + 1);
     }
 
+
+    public function checkExercicioAtivo(int $id) : bool
+    {
+        if (!empty($this->exercicioAtivoTreio($id))) {
+            return true;
+        }
+        return false;
+    }
+
+
     public function index() : array
     {
         return $this->todosExercicios();
+    }
+
+
+    public function add(array $exercicio) : void
+    {
+        $this->adicionarExercicio($exercicio);
     }
 
 
@@ -35,8 +51,13 @@ class Exercicios extends ExerciciosModel
     }
 
 
-    public function add(array $exercicio) : void
+    public function delete($id) : bool
     {
-        $this->adicionarExercicio($exercicio);
+        if ($this->checkExercicioAtivo($id)) {
+            return false;
+        }
+        $this->deleteExercicio($id);
+        return true;
     }
+
 }

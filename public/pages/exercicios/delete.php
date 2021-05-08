@@ -1,32 +1,30 @@
 <?php
-use Tecnofit\Controllers\Aluno;
-use Tecnofit\Controllers\Treino;
+use Tecnofit\Controllers\Exercicios;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
+require_once __DIR__ . "/../../../vendor/autoload.php";
 
-$aluno = new Aluno();
-$treino = new Treino();
+$exercicio = new Exercicios();
 
 if (empty($_GET['id'])) { header("location:index.php"); }
 
-$alunoID = $aluno->edit($_GET['id']);
+$exercicioID = $exercicio->edit($_GET['id']);
 
 if (!empty($_POST)) {
-    $aluno->delete($alunoID[0]['aluno_id']);
-    header("location:index.php");
-}
+    $retorno = $exercicio->delete($exercicioID[0]['id']);
+    if ($retorno) {
+        header("location:index.php");
+    }
+}?>
 
-
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php include_once __DIR__ . "/../includes/head.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/head.php"; ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <?php include_once __DIR__ . "/../includes/navbar.php"; ?>
-    <?php include_once __DIR__ . "/../includes/sidebar.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/navbar.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/sidebar.php"; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="content-header">
@@ -44,24 +42,31 @@ if (!empty($_POST)) {
                 <div class="card-body row">
                     <div class="col-5 text-center d-flex align-items-center justify-content-center">
                         <div class="">
-                            <h2>Deletar<strong>Aluno</strong></h2>
+                            <h2>Deletar<strong>Exercicio</strong></h2>
                         </div>
                     </div>
                     <form class="col-7" method="post">
+                       <?php if (isset($retorno) && $retorno == false) { ?>
+                           <div class="form-group">
+                               <h4>Não é possivel deletar um exercicio ativo em um treino.</h4>
+                               <a href="index.php" class="btn btn-primary">Voltar</a>
+                           </div>
+                        <?php } else { ?>
                         <div class="form-group">
-                            <h2>Deletar o Aluno : <?php echo $alunoID[0]['aluno_nome']; ?> ?</h2>
+                            <h2>Deletar o Exercicio : <?php echo $exercicioID[0]['nome']; ?> ?</h2>
                             <input type="hidden" value="deletar" name="deletar">
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Deletar">
                         </div>
+                        <?php } ?>
                     </form>
                 </div>
             </div>
         </section>
     </div>
-    <?php include_once __DIR__ . "/../includes/footer.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/footer.php"; ?>
 </div>
-<?php include_once __DIR__ . "/../includes/scripts.php" ?>
+<?php include_once __DIR__ . "/../../includes/scripts.php" ?>
 </body>
 </html>
