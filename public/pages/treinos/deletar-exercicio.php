@@ -1,31 +1,32 @@
 <?php
-use Tecnofit\Controllers\Aluno;
+
+use Tecnofit\Controllers\Exercicios;
 use Tecnofit\Controllers\Treino;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
+require_once __DIR__ . "/../../../vendor/autoload.php";
 
-$aluno = new Aluno();
 $treino = new Treino();
+$exercicios = new Exercicios();
 
-if (empty($_GET['id'])) { header("location:index.php"); }
+if (empty($_GET['id']) || empty($_GET['id_exercicio'])) { header("location:index.php"); }
 
-$alunoID = $aluno->edit($_GET['id']);
+$exercicio = $exercicios->edit($_GET['id_exercicio']);
 
 if (!empty($_POST)) {
-    $aluno->delete($alunoID[0]['aluno_id']);
-    header("location:index.php");
+    $treino->deletarExercicio($_GET['id'], $_GET['id_exercicio']);
+    header(sprintf("location:edit.php?id=%s" , $_GET['id']));
 }
 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php include_once __DIR__ . "/../includes/head.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/head.php"; ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <?php include_once __DIR__ . "/../includes/navbar.php"; ?>
-    <?php include_once __DIR__ . "/../includes/sidebar.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/navbar.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/sidebar.php"; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="content-header">
@@ -43,12 +44,12 @@ if (!empty($_POST)) {
                 <div class="card-body row">
                     <div class="col-5 text-center d-flex align-items-center justify-content-center">
                         <div class="">
-                            <h2>Deletar<strong>Aluno</strong></h2>
+                            <h2>Deletar<strong>Exercicio</strong></h2>
                         </div>
                     </div>
                     <form class="col-7" method="post">
                         <div class="form-group">
-                            <h2>Deletar o Aluno : <?php echo $alunoID[0]['aluno_nome']; ?> ?</h2>
+                            <h2>Deletar o Exercicio : <?php echo $exercicio[0]['nome']; ?> ?</h2>
                             <input type="hidden" value="deletar" name="deletar">
                         </div>
                         <div class="form-group">
@@ -59,8 +60,8 @@ if (!empty($_POST)) {
             </div>
         </section>
     </div>
-    <?php include_once __DIR__ . "/../includes/footer.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/footer.php"; ?>
 </div>
-<?php include_once __DIR__ . "/../includes/scripts.php" ?>
+<?php include_once __DIR__ . "/../../includes/scripts.php" ?>
 </body>
 </html>

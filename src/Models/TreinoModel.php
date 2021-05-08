@@ -85,4 +85,16 @@ class TreinoModel extends Database
      }
 
 
+     public function removerExercicio(int $id_treino, int $id_exercicio) : void
+     {
+         $query = "
+            DELETE FROM Treino_Exercicios
+            WHERE Treino_Exercicios.id_treino = %s
+            AND Treino_Exercicios.id_exercicios = %s
+         ";
+
+         $this->database->query(sprintf($query, $id_treino, $id_exercicio));
+     }
+
+
 }

@@ -87,7 +87,7 @@ if (!empty($_POST)) {
                                                     <td><?php echo $exercicio['exercicios_repeticoes']; ?></td>
                                                     <td>
                                                         <a class="btn btn-danger btn-sm"
-                                                           href="deletar-exercicio.php?id=<?php echo $_GET['id']; ?>">
+                                                           href="deletar-exercicio.php?id=<?php echo $_GET['id']; ?>&id_exercicio=<?php echo $exercicio['exercicios_id'] ?>">
                                                             <i class="fas fa-trash"></i>
                                                             Deletar
                                                         </a>
