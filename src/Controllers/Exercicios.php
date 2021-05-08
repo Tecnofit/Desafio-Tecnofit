@@ -31,6 +31,12 @@ class Exercicios extends ExerciciosModel
 
     public function update(array $nome, $id) : void
     {
-         $this->updateTreino($id, $nome['nome']);
+         $this->updateExercicio($id, $nome['nome']);
+    }
+
+
+    public function add(array $exercicio) : void
+    {
+        $this->adicionarExercicio($exercicio);
     }
 }

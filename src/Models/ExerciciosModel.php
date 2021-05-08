@@ -29,7 +29,18 @@ class ExerciciosModel extends Database
     }
 
 
-    protected function updateTreino(int $id, string $nome) : void
+    protected function adicionarExercicio(array $exercicio) : void
+    {
+        $query = "
+             INSERT INTO Exercicios (nome)
+             VALUES ('%s'); 
+        ";
+
+        $this->database->query(sprintf($query , $exercicio['nome']));
+    }
+
+
+    protected function updateExercicio(int $id, string $nome) : void
     {
         $query = "
             UPDATE Exercicios
