@@ -1,3 +1,20 @@
+<?php
+
+use Tecnofit\Controllers\Aluno;
+use Tecnofit\Controllers\Exercicios;
+use Tecnofit\Controllers\Treino;
+
+require_once __DIR__ . "/../vendor/autoload.php";
+
+$treino = new Treino();
+$alunos = new Aluno();
+$exercicios = new Exercicios();
+
+$todosTreinos = count($treino->index());
+$todosAlunos = count($alunos->index());
+$todosExercicios = count($exercicios->index());
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -29,8 +46,8 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>150</h3>
-                                <p>Quantidade de Treinos</p>
+                                <h3><?php echo $todosTreinos ?></h3>
+                                <p>Total de Treinos</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -42,9 +59,9 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                <h3><?php echo $todosExercicios; ?><sup style="font-size: 20px"></sup></h3>
 
-                                <p>Quantidade de Exercicios</p>
+                                <p>Total de Exercicios</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
@@ -56,9 +73,9 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>44</h3>
+                                <h3><?php echo $todosAlunos; ?></h3>
 
-                                <p>Quantidade de Alunos</p>
+                                <p>Total de Alunos</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>

@@ -9,7 +9,7 @@ if (empty($_GET['id'])) {
     header("location:index.php");
 }
 
-$treinoAtual = $treino->getTreinoByID($_GET['id']);
+$treinoAtual = $treino->edit($_GET['id']);
 $exerciciosTreino = $treino->getExerciciosByTreinoID($_GET['id']);
 
 if (!empty($_POST)) {
