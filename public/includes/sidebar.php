@@ -25,15 +25,15 @@
                 data-accordion="false">
                 <li class="nav-item">
                     <a href="/alunos/index.php" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             Alunos
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/calendar.html" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
+                    <a href="/treinos/index.php" class="nav-link">
+                        <i class="nav-icon fas fa-dumbbell"></i>
                         <p>
                             Treinos
                         </p>
@@ -41,7 +41,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="pages/calendar.html" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <i class="nav-icon fas fa-running"></i>
                         <p>
                             Exercicios
                         </p>

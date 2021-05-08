@@ -10,9 +10,10 @@ $treino = new Treino();
 if (empty($_GET['id'])) { header("location:index.php"); }
 
 $alunoID = $aluno->edit($_GET['id']);
+$todosTreinos = $treino->getAllTreinos();
 
 if (!empty($_POST)) {
-    $aluno->delete($alunoID[0]['aluno_id']);
+    $aluno->update($_POST, $alunoID[0]['aluno_id']);
     header("location:index.php");
 }
 
@@ -44,16 +45,36 @@ if (!empty($_POST)) {
                 <div class="card-body row">
                     <div class="col-5 text-center d-flex align-items-center justify-content-center">
                         <div class="">
-                            <h2>Deletar<strong>Aluno</strong></h2>
+                            <h2>Editar<strong>Aluno</strong></h2>
                         </div>
                     </div>
                     <form class="col-7" method="post">
                         <div class="form-group">
-                            <h2>Deletar o Aluno : <?php echo $alunoID[0]['aluno_nome']; ?> ?</h2>
-                            <input type="hidden" value="deletar" name="deletar">
+                            <label for="inputName">Nome</label>
+                            <input type="text" name="nome" id="inputName" class="form-control"
+                                   value="<?php echo $alunoID[0]['aluno_nome']; ?>">
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Deletar">
+                            <label for="inputEmail">E-Mail</label>
+                            <input type="email" name="email" id="inputEmail" class="form-control"
+                                   value="<?php echo $alunoID[0]['aluno_email']; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSubject">Treino</label>
+                            <select name="treino" class="custom-select rounded-0">
+                                <option disabled>Selecione...</option>
+                                <?php if (!empty($todosTreinos)) {
+                                    foreach ($todosTreinos as $treinos) { ?>
+                                        <option value="<?php echo $treinos['id']; ?>"
+                                            <?= $treinos['id'] == $alunoID[0]['treino_id'] ? "selected" : ""; ?>>
+                                            <?php echo $treinos['nome'] ?>
+                                        </option>
+                                    <?php } ?>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Enviar">
                         </div>
                     </form>
                 </div>
