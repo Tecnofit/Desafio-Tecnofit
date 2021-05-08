@@ -61,7 +61,7 @@ if (!empty($_POST)) {
                                         <h3 class="card-title">Exercicios</h3>
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-outline-success">Adicionar Exercicio</button>
+                                        <a class="btn btn-outline-success" href="add-exercicio.php?id=<?php echo $_GET['id'] ?>">Adicionar Exercicio</a>
                                     </div>
                                 </div>
                                 <!-- /.card-header -->
@@ -71,18 +71,19 @@ if (!empty($_POST)) {
                                         <tr>
                                             <th style="width: 10px">#</th>
                                             <th>Nome</th>
+                                            <th>Repetições</th>
                                             <th style="width: 40px">Ações</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td>1.</td>
-                                            <td>Update software</td>
+                                            <td>Supino Reto</td>
+                                            <td>4</td>
                                             <td>
                                                 <a class="btn btn-danger btn-sm"
-                                                   href="asdasd">
-                                                    <i class="fas fa-trash">
-                                                    </i>
+                                                   href="deletar-exercicio.php?id=<?php echo $_GET['id']; ?>">
+                                                    <i class="fas fa-trash"></i>
                                                     Deletar
                                                 </a>
                                             </td>

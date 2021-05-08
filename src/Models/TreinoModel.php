@@ -56,4 +56,15 @@ class TreinoModel extends Database
     }
 
 
+    public function cadastrarExercicio(int $id_treino , int $id_exercicio  , int $repeticoes) : void
+    {
+        $query = "
+             INSERT INTO Treino_Exercicios (id_treino, id_exercicios, repeticoes)
+             VALUES (%s, %s, %s); 
+        ";
+
+        $this->database->query(sprintf($query, $id_treino, $id_exercicio, $repeticoes));
+    }
+
+
 }

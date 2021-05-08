@@ -39,5 +39,10 @@ class Treino extends TreinoModel
     }
 
 
+    public function addExercicio(array $exercicio, int $idTreino) : void
+    {
+        $this->cadastrarExercicio($exercicio['id_exercicio'], $idTreino, $exercicio['repeticoes']);
+    }
+
 
 }
