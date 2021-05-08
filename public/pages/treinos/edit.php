@@ -1,19 +1,21 @@
 <?php
-use Tecnofit\Controllers\Aluno;
+ini_set('display_errors',1);
+ini_set('display_startup_erros',1);
+error_reporting(E_ALL);
+
 use Tecnofit\Controllers\Treino;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
-$aluno = new Aluno();
 $treino = new Treino();
 
 if (empty($_GET['id'])) { header("location:index.php"); }
 
-$alunoID = $aluno->edit($_GET['id']);
+$treinoID = $treino->edit($_GET['id']);
 $todosTreinos = $treino->getAllTreinos();
 
 if (!empty($_POST)) {
-    $aluno->update($_POST, $alunoID[0]['aluno_id']);
+    $treino->update($_POST, $treinoID[0]['aluno_id']);
     header("location:index.php");
 }
 ?>
@@ -43,33 +45,53 @@ if (!empty($_POST)) {
                 <div class="card-body row">
                     <div class="col-5 text-center d-flex align-items-center justify-content-center">
                         <div class="">
-                            <h2>Editar<strong>Aluno</strong></h2>
+                            <h2>Editar<strong>Treino</strong></h2>
                         </div>
                     </div>
                     <form class="col-7" method="post">
                         <div class="form-group">
                             <label for="inputName">Nome</label>
                             <input type="text" name="nome" id="inputName" class="form-control"
-                                   value="<?php echo $alunoID[0]['aluno_nome']; ?>">
+                                   value="<?php echo $treinoID[0]['nome']; ?>">
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail">E-Mail</label>
-                            <input type="email" name="email" id="inputEmail" class="form-control"
-                                   value="<?php echo $alunoID[0]['aluno_email']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputSubject">Treino</label>
-                            <select name="treino" class="custom-select rounded-0">
-                                <option disabled>Selecione...</option>
-                                <?php if (!empty($todosTreinos)) {
-                                    foreach ($todosTreinos as $treinos) { ?>
-                                        <option value="<?php echo $treinos['id']; ?>"
-                                            <?= $treinos['id'] == $alunoID[0]['treino_id'] ? "selected" : ""; ?>>
-                                            <?php echo $treinos['nome'] ?>
-                                        </option>
-                                    <?php } ?>
-                                <?php } ?>
-                            </select>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-center">
+                                        <h3 class="card-title">Exercicios</h3>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-outline-success">Adicionar Exercicio</button>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body p-0">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th>Nome</th>
+                                            <th style="width: 40px">Ações</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>Update software</td>
+                                            <td>
+                                                <a class="btn btn-danger btn-sm"
+                                                   href="asdasd">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Deletar
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Enviar">

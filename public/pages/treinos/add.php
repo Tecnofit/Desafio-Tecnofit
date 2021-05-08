@@ -4,13 +4,13 @@ use Tecnofit\Controllers\Treino;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
-$aluno = new Aluno();
+$treino = new Aluno();
 $treino = new Treino();
 
 $todosTreinos = $treino->getAllTreinos();
 
 if (!empty($_POST)) {
-    $aluno->add($_POST);
+    $treino->add($_POST);
     header("location:index.php");
 }
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace Tecnofit\Controllers;
 
 use Tecnofit\Models\TreinoModel;
@@ -11,6 +10,13 @@ class Treino extends TreinoModel
     {
         return $this->getAllTreinos();
     }
+
+
+    public function edit(int $id) : array
+    {
+        return $this->getTreinoByID($id);
+    }
+
 
     public function getTreinoAluno(int $id, int $exercicioAtual = 0) : array
     {
@@ -31,6 +37,7 @@ class Treino extends TreinoModel
     {
         $this->finalizarTreinoUsuario($idUsuario);
     }
+
 
 
 }

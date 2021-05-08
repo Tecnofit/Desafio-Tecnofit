@@ -44,4 +44,16 @@ class TreinoModel extends Database
     }
 
 
+    public function getTreinoByID(int $id) : array
+    {
+        $query = "
+            SELECT * FROM Treino
+            WHERE ativo = 1
+            AND id = %s;
+        ";
+
+        return $this->database->query(sprintf($query , $id))->fetchAll();
+    }
+
+
 }
