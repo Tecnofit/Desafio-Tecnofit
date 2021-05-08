@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_erros', 1);
-error_reporting(E_ALL);
 
 use Tecnofit\Controllers\Treino;
 
@@ -96,9 +93,10 @@ if (!empty($_POST)) {
                                             <?php } ?>
                                         <?php } else { ?>
                                             <tr>
-                                                <td>#</td>
+                                                <td></td>
                                                 <td>Nehum Exercicio cadastrado neste treino.</td>
-                                                <td>#</td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
                                         <?php } ?>
                                         </tbody>

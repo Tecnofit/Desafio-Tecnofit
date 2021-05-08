@@ -57,4 +57,10 @@ class Treino extends TreinoModel
     }
 
 
+    public function delete(int $id_treino) : void
+    {
+        $this->deletarTreino($id_treino);
+    }
+
+
 }

@@ -96,5 +96,21 @@ class TreinoModel extends Database
          $this->database->query(sprintf($query, $id_treino, $id_exercicio));
      }
 
+     public function deletarTreino(int $id_treino) : void
+     {
+         $query = "
+            DELETE FROM Treino_Exercicios
+            WHERE Treino_Exercicios.id_treino = %s
+         ";
+         $this->database->query(sprintf($query, $id_treino));
+
+         $query = "
+              UPDATE Treino
+              SET ativo = 0
+              WHERE id = %s;
+         ";
+         $this->database->query(sprintf($query, $id_treino));
+     }
+
 
 }
