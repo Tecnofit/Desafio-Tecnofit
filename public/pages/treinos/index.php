@@ -1,21 +1,20 @@
 <?php
+use Tecnofit\Controllers\Treino;
 
-use Tecnofit\Controllers\Aluno;
+require_once __DIR__ . "/../../../vendor/autoload.php";
 
-require_once __DIR__ . "/../../vendor/autoload.php";
-
-$alunos = new Aluno();
-$todosAlunos = $alunos->index();
+$treinos = new Treino();
+$todosTreinos = $treinos->index();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php include_once __DIR__ . "/../includes/head.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/head.php"; ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <?php include_once __DIR__ . "/../includes/navbar.php"; ?>
-    <?php include_once __DIR__ . "/../includes/sidebar.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/navbar.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/sidebar.php"; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="content-header">
@@ -56,42 +55,42 @@ $todosAlunos = $alunos->index();
                         </tr>
                         </thead>
                         <tbody>
-                        <?php if (!empty($todosAlunos)) {
-                            foreach ($todosAlunos as $aluno) { ?>
+                        <?php if (!empty($todosTreinos)) {
+                            foreach ($todosTreinos as $treino) { ?>
                                 <tr>
                                     <td>
                                         #
                                     </td>
                                     <td>
                                         <a>
-                                            <?php echo $aluno['aluno']; ?>
+                                            <?php echo $treino['aluno']; ?>
                                         </a>
                                     </td>
                                     <td class="project_progress">
                                         <small>
-                                            <?php echo $aluno['treino']; ?>
+                                            <?php echo $treino['treino']; ?>
                                         </small>
                                     </td>
                                     <td class="project-state">
                                         <span class="badge badge-success">Ativo</span>
                                     </td>
                                     <td class="project-actions text-right">
-                                       <?php if ($aluno['treino_id']) { ?>
+                                       <?php if ($treino['treino_id']) { ?>
                                             <a class="btn btn-primary btn-sm"
-                                               href="<?php echo sprintf("view.php?id=%s", $aluno['aluno_id']) ?>">
+                                               href="<?php echo sprintf("view.php?id=%s", $treino['aluno_id']) ?>">
                                                 <i class="fas fa-folder">
                                                 </i>
                                                 View
                                             </a>
                                         <?php } ?>
                                         <a class="btn btn-info btn-sm"
-                                           href="<?php echo sprintf("edit.php?id=%s", $aluno['aluno_id']) ?>">
+                                           href="<?php echo sprintf("edit.php?id=%s", $treino['aluno_id']) ?>">
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Editar
                                         </a>
                                         <a class="btn btn-danger btn-sm"
-                                           href="<?php echo sprintf("delete.php?id=%s", $aluno['aluno_id']) ?>">
+                                           href="<?php echo sprintf("delete.php?id=%s", $treino['aluno_id']) ?>">
                                             <i class="fas fa-trash">
                                             </i>
                                             Deletar
@@ -106,8 +105,8 @@ $todosAlunos = $alunos->index();
             </div>
         </section>
     </div>
-    <?php include_once __DIR__ . "/../includes/footer.php"; ?>
+    <?php include_once __DIR__ . "/../../includes/footer.php"; ?>
 </div>
-<?php include_once __DIR__ . "/../includes/scripts.php" ?>
+<?php include_once __DIR__ . "/../../includes/scripts.php" ?>
 </body>
 </html>

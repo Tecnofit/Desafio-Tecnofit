@@ -41,6 +41,17 @@ class AlunoModel extends Database
     }
 
 
+    protected function adicionarAluno(array $aluno) : void
+    {
+        $query = "
+           INSERT INTO Aluno (nome, email, treino_id)
+           VALUES ('%s', '%s', %s);
+        ";
+
+        $this->database->query(sprintf($query, $aluno['nome'], $aluno['email'], $aluno['treino']));
+    }
+
+
     protected function updateAluno(array $aluno, int $id) : void
     {
         $query = "

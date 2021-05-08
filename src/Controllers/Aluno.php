@@ -33,4 +33,10 @@ class Aluno extends AlunoModel
     }
 
 
+    public function add(array $aluno) : void
+    {
+        $this->adicionarAluno($aluno);
+    }
+
+
 }

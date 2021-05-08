@@ -1,4 +1,5 @@
 <?php
+
 use Tecnofit\Controllers\Aluno;
 use Tecnofit\Controllers\Exercicios;
 use Tecnofit\Controllers\Treino;
@@ -18,7 +19,7 @@ $exercicioID = $_GET['id_exercicio'] ?? 0;
 $alunoID = $aluno->edit($_GET['id']);
 $treinoAluno = $treino->getTreinoAluno($_GET['id'], $exercicioID);
 
-if (!empty($_POST)){
+if (!empty($_POST)) {
     $treino->finalizarTreino($alunoID[0]['aluno_id']);
     header("location:index.php");
 }
@@ -65,29 +66,35 @@ if (!empty($_POST)){
                         </div>
                     </div>
                     <!-- /.card -->
-                    <?php if (!empty($treinoAluno) && !isset($treinoAluno['mensagem'])) { ?>
+                    <?php if (!isset($treinoAluno['mensagem'])) { ?>
                         <div class="col-md-9">
                             <div class="card">
-                                <div class="card-header p-2">
-                                    <ul class="nav nav-pills">
-                                        <li class="nav-item">
-                                            <a class="nav-link active"
-                                               href="<?php echo $exercicio->proximoExercicio($exercicioID); ?>">
-                                                Proximo
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <?php if (!empty($treinoAluno)) { ?>
+                                    <div class="card-header p-2">
+                                        <ul class="nav nav-pills">
+                                            <li class="nav-item">
+                                                <a class="nav-link active"
+                                                   href="<?php echo $exercicio->proximoExercicio($exercicioID); ?>">
+                                                    Proximo
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                <?php } ?>
                                 <div class="card-body">
                                     <div class="tab-content">
                                         <div class="active tab-pane" id="activity">
                                             <!-- Post -->
                                             <div class="post">
                                                 <div class="user-block">
-                                                    <h1><?php echo $treinoAluno['exercicio']; ?></h1>
-                                                    <p>Total de repetições
-                                                        : <?php echo $treinoAluno['repeticoes']; ?>
-                                                    </p>
+                                                    <?php if (!empty($treinoAluno)) { ?>
+                                                        <h1><?php echo $treinoAluno['exercicio']; ?></h1>
+                                                        <p>Total de repetições
+                                                            : <?php echo $treinoAluno['repeticoes']; ?>
+                                                        </p>
+                                                    <?php } else { ?>
+                                                        <p>Nenhum exercicio cadastrado a este treino.</p>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>

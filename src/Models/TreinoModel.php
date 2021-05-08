@@ -26,7 +26,7 @@ class TreinoModel extends Database
             JOIN Treino_Exercicios ON Treino_Exercicios.id_exercicios = Exercicios.id
             JOIN Treino ON Treino.id = Treino_Exercicios.id_treino
             JOIN Aluno ON Treino.id = Aluno.treino_id
-            WHERE Aluno.treino_id = %s";
+            WHERE Aluno.id = %s";
 
         return $this->database->query(sprintf($query, $id))->fetchAll();
     }
