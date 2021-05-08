@@ -1,9 +1,11 @@
 <?php
 namespace Tecnofit\Controllers;
 
-class Exercicios
+use Tecnofit\Models\ExerciciosModel;
+
+class Exercicios extends ExerciciosModel
 {
-    public function proximoExercicio($exercicioID)
+    public function proximoExercicio(int $exercicioID) : string
     {
         $url_retorno = $_SERVER['REQUEST_URI'];
 
@@ -12,5 +14,11 @@ class Exercicios
             return $url_retorno[0] . sprintf("&id_exercicio=%s", $exercicioID + 1);
         }
         return $url_retorno . sprintf("&id_exercicio=%s", $exercicioID + 1);
+    }
+
+
+    public function index() : array
+    {
+        return $this->todosExercicios();
     }
 }

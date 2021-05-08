@@ -1,11 +1,11 @@
 <?php
-
-use Tecnofit\Controllers\Aluno;
+use Tecnofit\Controllers\Exercicios;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
-$alunos = new Aluno();
-$todosAlunos = $alunos->index();
+$exercicios = new Exercicios();
+$todosExercicios = $exercicios->index();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -22,7 +22,7 @@ $todosAlunos = $alunos->index();
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Usuarios - Tecnofit</h1>
+                        <h1 class="m-0">Exercicios - Tecnofit</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -31,9 +31,12 @@ $todosAlunos = $alunos->index();
 
         <!-- Main content -->
         <section class="content">
+            <div class="d-flex mb-2 mr-2 justify-content-end">
+                <a href="add.php" type="button" class="btn btn-outline-primary">Adicionar Exercicio</a>
+            </div>
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Projects</h3>
+                    <h3 class="card-title">Exercicios</h3>
                 </div>
                 <div class="card-body p-0">
                     <table class="table table-striped projects">
@@ -45,9 +48,6 @@ $todosAlunos = $alunos->index();
                             <th style="width: 20%">
                                 Nome
                             </th>
-                            <th style="width: 30%">
-                                Treino
-                            </th>
                             <th style="width: 8%" class="text-center">
                                 Status
                             </th>
@@ -56,42 +56,29 @@ $todosAlunos = $alunos->index();
                         </tr>
                         </thead>
                         <tbody>
-                        <?php if (!empty($todosAlunos)) {
-                            foreach ($todosAlunos as $aluno) { ?>
+                        <?php if (!empty($todosExercicios)) {
+                            foreach ($todosExercicios as $exercicio) { ?>
                                 <tr>
                                     <td>
                                         #
                                     </td>
                                     <td>
                                         <a>
-                                            <?php echo $aluno['aluno']; ?>
+                                            <?php echo $exercicio['nome']; ?>
                                         </a>
-                                    </td>
-                                    <td class="project_progress">
-                                        <small>
-                                            <?php echo $aluno['treino']; ?>
-                                        </small>
                                     </td>
                                     <td class="project-state">
                                         <span class="badge badge-success">Ativo</span>
                                     </td>
                                     <td class="project-actions text-right">
-                                       <?php if ($aluno['treino_id']) { ?>
-                                            <a class="btn btn-primary btn-sm"
-                                               href="<?php echo sprintf("view.php?id=%s", $aluno['aluno_id']) ?>">
-                                                <i class="fas fa-folder">
-                                                </i>
-                                                View
-                                            </a>
-                                        <?php } ?>
                                         <a class="btn btn-info btn-sm"
-                                           href="<?php echo sprintf("edit.php?id=%s", $aluno['aluno_id']) ?>">
+                                           href="<?php echo sprintf("edit.php?id=%s", $exercicio['id']) ?>">
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Editar
                                         </a>
                                         <a class="btn btn-danger btn-sm"
-                                           href="<?php echo sprintf("delete.php?id=%s", $aluno['aluno_id']) ?>">
+                                           href="<?php echo sprintf("delete.php?id=%s", $exercicio['id']) ?>">
                                             <i class="fas fa-trash">
                                             </i>
                                             Deletar
