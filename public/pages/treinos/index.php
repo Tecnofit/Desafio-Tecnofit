@@ -30,6 +30,9 @@ $todosTreinos = $treinos->index();
 
         <!-- Main content -->
         <section class="content">
+            <div class="d-flex mb-2 mr-2 justify-content-end">
+                <a href="add.php" type="button" class="btn btn-outline-primary">Adicionar Treino</a>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Treinos</h3>

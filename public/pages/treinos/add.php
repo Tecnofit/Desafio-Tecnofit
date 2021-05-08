@@ -1,16 +1,14 @@
 <?php
-use Tecnofit\Controllers\Aluno;
 use Tecnofit\Controllers\Treino;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
-$treino = new Aluno();
 $treino = new Treino();
 
 $todosTreinos = $treino->getAllTreinos();
 
 if (!empty($_POST)) {
-    $treino->add($_POST);
+    $treino->add($_POST['nome']);
     header("location:index.php");
 }
 
@@ -41,30 +39,13 @@ if (!empty($_POST)) {
                 <div class="card-body row">
                     <div class="col-5 text-center d-flex align-items-center justify-content-center">
                         <div class="">
-                            <h2>Adicionar<strong>Aluno</strong></h2>
+                            <h2>Adicionar<strong>Treino</strong></h2>
                         </div>
                     </div>
                     <form class="col-7" method="post">
                         <div class="form-group">
-                            <label for="inputName">Nome</label>
+                            <label for="inputName">Nome treino</label>
                             <input type="text" name="nome" id="inputName" class="form-control" required/>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail">E-Mail</label>
-                            <input type="email" name="email" id="inputEmail" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputSubject">Treino</label>
-                            <select name="treino" class="custom-select rounded-0" required>
-                                <option disabled>Selecione...</option>
-                                <?php if (!empty($todosTreinos)) {
-                                    foreach ($todosTreinos as $treinos) { ?>
-                                        <option value="<?php echo $treinos['id']; ?>">
-                                            <?php echo $treinos['nome'] ?>
-                                        </option>
-                                    <?php } ?>
-                                <?php } ?>
-                            </select>
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Enviar">

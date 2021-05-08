@@ -126,4 +126,15 @@ class TreinoModel extends Database
      }
 
 
+     public function adicionarTreino(string $nome) : void
+     {
+         $query = "
+            INSERT INTO Treino (nome)
+             VALUES ('%s'); 
+         ";
+
+         $this->database->query(sprintf($query, $nome));
+     }
+
+
 }

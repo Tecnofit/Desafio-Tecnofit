@@ -11,10 +11,26 @@ class Treino extends TreinoModel
         return $this->getAllTreinos();
     }
 
+    public function add(string $nome) : void
+    {
+        $this->adicionarTreino($nome);
+    }
 
     public function edit(int $id) : array
     {
         return $this->getTreinoByID($id);
+    }
+
+
+    public function update(string $nome, $aluno_id) : void
+    {
+        $this->updateTreino($nome , $aluno_id);
+    }
+
+
+    public function delete(int $id_treino) : void
+    {
+        $this->deletarTreino($id_treino);
     }
 
 
@@ -56,16 +72,6 @@ class Treino extends TreinoModel
         $this->removerExercicio($id_treino, $id_exercicio);
     }
 
-
-    public function delete(int $id_treino) : void
-    {
-        $this->deletarTreino($id_treino);
-    }
-
-    public function update(string $nome, $aluno_id)
-    {
-        $this->updateTreino($nome , $aluno_id);
-    }
 
 
 }
