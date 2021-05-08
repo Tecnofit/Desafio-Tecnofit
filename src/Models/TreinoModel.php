@@ -96,6 +96,19 @@ class TreinoModel extends Database
          $this->database->query(sprintf($query, $id_treino, $id_exercicio));
      }
 
+
+     public function updateTreino(string $nome , int $id_treino) : void
+     {
+         $query = "
+            UPDATE Treino
+            SET nome = '%s'
+            WHERE id = %s
+         ";
+
+         $this->database->query(sprintf($query, $nome, $id_treino));
+     }
+
+
      public function deletarTreino(int $id_treino) : void
      {
          $query = "

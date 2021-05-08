@@ -1,5 +1,4 @@
 <?php
-
 use Tecnofit\Controllers\Treino;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
@@ -14,7 +13,7 @@ $treinoAtual = $treino->getTreinoByID($_GET['id']);
 $exerciciosTreino = $treino->getExerciciosByTreinoID($_GET['id']);
 
 if (!empty($_POST)) {
-    //$treino->update($_POST, $treinoID[0]['aluno_id']);
+    $treino->update($_POST['nome'], $treinoAtual[0]['id']);
     header("location:index.php");
 }
 ?>
@@ -106,7 +105,7 @@ if (!empty($_POST)) {
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Enviar">
+                            <input type="submit" class="btn btn-primary" value="Salvar">
                         </div>
                     </form>
                 </div>

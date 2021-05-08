@@ -62,5 +62,10 @@ class Treino extends TreinoModel
         $this->deletarTreino($id_treino);
     }
 
+    public function update(string $nome, $aluno_id)
+    {
+        $this->updateTreino($nome , $aluno_id);
+    }
+
 
 }
