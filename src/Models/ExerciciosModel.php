@@ -34,8 +34,10 @@ class ExerciciosModel extends Database
         $query = "
             SELECT Exercicios.id as exercicio_id
             FROM Exercicios
-            JOIN Treino_Exercicios ON Exercicios.id = Treino_Exercicios.id_treino
-            WHERE Exercicios.id = %s;
+            JOIN Treino_Exercicios ON Exercicios.id = Treino_Exercicios.id_exercicios
+            JOIN Treino ON Treino_Exercicios.id_treino = Treino.id
+            WHERE Exercicios.id = %s
+            AND Treino.ativo = 1;
         ";
 
         return $this->database->query(sprintf($query, $id))->fetchAll();

@@ -45,7 +45,7 @@ if (!empty($_POST)) {
                     <form class="col-7" method="post">
                         <div class="form-group">
                             <label for="inputName">Nome</label>
-                            <input type="text" name="nome" id="inputName" class="form-control">
+                            <input type="text" name="nome" id="inputName" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Enviar">
