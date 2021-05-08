@@ -33,6 +33,12 @@ class Treino extends TreinoModel
     }
 
 
+    public function getExerciciosByTreinoID(int $id) : array
+    {
+        return $this->getExerciciosTreino($id);
+    }
+
+
     public function finalizarTreino(int $idUsuario) : void
     {
         $this->finalizarTreinoUsuario($idUsuario);

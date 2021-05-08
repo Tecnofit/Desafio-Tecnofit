@@ -1,6 +1,6 @@
 <?php
-ini_set('display_errors',1);
-ini_set('display_startup_erros',1);
+ini_set('display_errors', 1);
+ini_set('display_startup_erros', 1);
 error_reporting(E_ALL);
 
 use Tecnofit\Controllers\Treino;
@@ -9,13 +9,15 @@ require_once __DIR__ . "/../../../vendor/autoload.php";
 
 $treino = new Treino();
 
-if (empty($_GET['id'])) { header("location:index.php"); }
+if (empty($_GET['id'])) {
+    header("location:index.php");
+}
 
-$treinoID = $treino->edit($_GET['id']);
-$todosTreinos = $treino->getAllTreinos();
+$treinoAtual = $treino->getTreinoByID($_GET['id']);
+$exerciciosTreino = $treino->getExerciciosByTreinoID($_GET['id']);
 
 if (!empty($_POST)) {
-    $treino->update($_POST, $treinoID[0]['aluno_id']);
+    //$treino->update($_POST, $treinoID[0]['aluno_id']);
     header("location:index.php");
 }
 ?>
@@ -52,7 +54,7 @@ if (!empty($_POST)) {
                         <div class="form-group">
                             <label for="inputName">Nome</label>
                             <input type="text" name="nome" id="inputName" class="form-control"
-                                   value="<?php echo $treinoID[0]['nome']; ?>">
+                                   value="<?php echo $treinoAtual[0]['nome']; ?>">
                         </div>
                         <div class="form-group">
                             <div class="card">
@@ -61,7 +63,8 @@ if (!empty($_POST)) {
                                         <h3 class="card-title">Exercicios</h3>
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                        <a class="btn btn-outline-success" href="add-exercicio.php?id=<?php echo $_GET['id'] ?>">Adicionar Exercicio</a>
+                                        <a class="btn btn-outline-success"
+                                           href="add-exercicio.php?id=<?php echo $_GET['id'] ?>">Adicionar Exercicio</a>
                                     </div>
                                 </div>
                                 <!-- /.card-header -->
@@ -76,18 +79,28 @@ if (!empty($_POST)) {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>Supino Reto</td>
-                                            <td>4</td>
-                                            <td>
-                                                <a class="btn btn-danger btn-sm"
-                                                   href="deletar-exercicio.php?id=<?php echo $_GET['id']; ?>">
-                                                    <i class="fas fa-trash"></i>
-                                                    Deletar
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        <?php if (!empty($exerciciosTreino)) {
+                                            foreach ($exerciciosTreino as $exercicio) { ?>
+                                                <tr>
+                                                    <td><?php echo $exercicio['exercicios_id']; ?></td>
+                                                    <td><?php echo $exercicio['exercicios_nome']; ?></td>
+                                                    <td><?php echo $exercicio['exercicios_repeticoes']; ?></td>
+                                                    <td>
+                                                        <a class="btn btn-danger btn-sm"
+                                                           href="deletar-exercicio.php?id=<?php echo $_GET['id']; ?>">
+                                                            <i class="fas fa-trash"></i>
+                                                            Deletar
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                        <?php } else { ?>
+                                            <tr>
+                                                <td>#</td>
+                                                <td>Nehum Exercicio cadastrado neste treino.</td>
+                                                <td>#</td>
+                                            </tr>
+                                        <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
