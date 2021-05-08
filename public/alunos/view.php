@@ -18,6 +18,11 @@ $exercicioID = $_GET['id_exercicio'] ?? 0;
 $alunoID = $aluno->edit($_GET['id']);
 $treinoAluno = $treino->getTreinoAluno($_GET['id'], $exercicioID);
 
+if (!empty($_POST)){
+    $treino->finalizarTreino($alunoID[0]['aluno_id']);
+    header("location:index.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -51,6 +56,7 @@ $treinoAluno = $treino->getTreinoAluno($_GET['id'], $exercicioID);
                                     <?php echo $treinoAluno['mensagem'] ?? $alunoID[0]['aluno_nome'] ?>
                                 </h3>
                                 <p class="text-muted text-center"><?php echo $treinoAluno['observacao'] ?? $alunoID[0]['treino'] ?></p>
+                                <input type="hidden" name="finalizar_treino">
                                 <button class="btn btn-primary btn-block" type="submit">
                                     <b>Finalizar</b>
                                 </button>

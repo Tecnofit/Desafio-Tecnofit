@@ -5,6 +5,7 @@ use Tecnofit\Database\Database;
 
 class TreinoModel extends Database
 {
+
     public function getAllTreinos() : array
     {
         $query = "
@@ -28,6 +29,18 @@ class TreinoModel extends Database
             WHERE Aluno.treino_id = %s";
 
         return $this->database->query(sprintf($query, $id))->fetchAll();
+    }
+
+
+    public function finalizarTreinoUsuario(int $id) : void
+    {
+        $query = "
+            UPDATE Aluno
+            SET Aluno.treino_id = 0
+            WHERE Aluno.id = %s;
+        ";
+
+        $this->database->query(sprintf($query,$id));
     }
 
 

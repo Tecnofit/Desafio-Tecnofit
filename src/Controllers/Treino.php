@@ -26,4 +26,11 @@ class Treino extends TreinoModel
         return [];
     }
 
+
+    public function finalizarTreino(int $idUsuario) : void
+    {
+        $this->finalizarTreinoUsuario($idUsuario);
+    }
+
+
 }
