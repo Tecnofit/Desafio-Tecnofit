@@ -6,7 +6,6 @@ require_once __DIR__ . "/../../vendor/autoload.php";
 
 $alunos = new Aluno();
 $todosAlunos = $alunos->index();
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -35,14 +34,6 @@ $todosAlunos = $alunos->index();
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Projects</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
                 </div>
                 <div class="card-body p-0">
                     <table class="table table-striped projects">
@@ -85,12 +76,14 @@ $todosAlunos = $alunos->index();
                                         <span class="badge badge-success">Ativo</span>
                                     </td>
                                     <td class="project-actions text-right">
-                                        <a class="btn btn-primary btn-sm"
-                                           href="<?php echo sprintf("view.php?id=%s", $aluno['aluno_id']) ?>">
-                                            <i class="fas fa-folder">
-                                            </i>
-                                            View
-                                        </a>
+                                       <?php if ($aluno['treino_id']) { ?>
+                                            <a class="btn btn-primary btn-sm"
+                                               href="<?php echo sprintf("view.php?id=%s", $aluno['aluno_id']) ?>">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                        <?php } ?>
                                         <a class="btn btn-info btn-sm"
                                            href="<?php echo sprintf("edit.php?id=%s", $aluno['aluno_id']) ?>">
                                             <i class="fas fa-pencil-alt">

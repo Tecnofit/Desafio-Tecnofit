@@ -11,10 +11,13 @@ class AlunoModel extends Database
     protected function getAllUsers() : array
     {
         $query = "
-        SELECT Aluno.nome AS aluno, Treino.nome AS treino, Aluno.id as aluno_id 
-        FROM Aluno
-        JOIN Treino ON Aluno.treino_id = Treino.id
-        WHERE Aluno.ativo = 1";
+            SELECT Aluno.nome AS aluno,
+                   Aluno.id as aluno_id,
+                   Treino.nome AS treino, 
+                   Treino.id as treino_id
+            FROM Aluno
+            LEFT OUTER JOIN Treino ON Aluno.treino_id = Treino.id
+            WHERE Aluno.ativo = 1";
 
         return $this->database->query($query)->fetchAll();
     }
@@ -29,7 +32,7 @@ class AlunoModel extends Database
                Aluno.id AS aluno_id,
                Treino.nome AS treino
         FROM Aluno
-        JOIN Treino ON Aluno.treino_id = Treino.id
+        LEFT OUTER JOIN Treino ON Aluno.treino_id = Treino.id
         WHERE Aluno.ativo = 1
         AND Aluno.id = %s
         ";
